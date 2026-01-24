@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+     />
+    <link rel="stylesheet" href="style.css">
+    <title>Andrés Rodríguez | Portafolio</title>
+</head>
+<body>
+    <!-- ============================================ -->
+<!-- PORTAFOLIO - GRID FILTRABLE OPTIMIZADO -->
+<!-- ============================================ -->
+<section class="portfolio-modern" id="portafolio">
+    <div class="portfolio-container">
+        <!-- Header -->
+        <div class="section-header">
+            <span class="section-badge">Mis Trabajos</span>
+            <h1 class="section-title">Portafolio de Proyectos</h1>
+            <p class="section-subtitle">
+                Más de 50 proyectos entregados con éxito en diferentes industrias
+            </p>
+        </div>
+
+        <!-- Buscador y filtros -->
+        <div class="portfolio-controls">
+            <!-- Buscador -->
+            <form class="search-form" onsubmit="return false;">
+                <i class="fa-solid fa-magnifying-glass search-icon-input"></i>
+                <input 
+                    type="text" 
+                    class="searcher-input" 
+                    id="searcher-input" 
+                    placeholder="Buscar proyectos..."
+                    autocomplete="off"
+                >
+            </form>
+
+            <!-- Filtros por categoría -->
+            <div class="category-filters" id="category">
+                <button class="filter-btn active" data-filter="all">
+                    Todos
+                    <span class="filter-count">12</span>
+                </button>
+                <button class="filter-btn" data-filter="tecnología">
+                    Tecnología
+                    <span class="filter-count">4</span>
+                </button>
+                <button class="filter-btn" data-filter="e-learning">
+                    E-learning
+                    <span class="filter-count">1</span>
+                </button>
+                <button class="filter-btn" data-filter="e-commerce">
+                    E-commerce
+                    <span class="filter-count">2</span>
+                </button>
+                <button class="filter-btn" data-filter="industria">
+                    Industria
+                    <span class="filter-count">1</span>
+                </button>
+                <button class="filter-btn" data-filter="arte">
+                    Arte y Cultura
+                    <span class="filter-count">1</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Grid de proyectos (Muuri) -->
+        <div class="grid" id="grid">
+
+            <!-- Proyecto 1: CamCómputo -->
+            <div class="item" 
+                 data-category="tecnología e-commerce"
+                 data-label="camcomputo tecnologia hardware software tienda virtual ecommerce villavicencio">
+                <div class="item-content">
+                    <img 
+                        src="../images/camcomputo.png" 
+                        alt="CamCómputo - E-commerce tecnología Villavicencio"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">E-commerce</span>
+                            <h3 class="project-title">CamCómputo</h3>
+                            <p class="project-description">
+                                Tienda online de equipos de cómputo en Villavicencio
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">WordPress</span>
+                                <span class="tag">SEO</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 2: CRUD Users Data -->
+            <div class="item" 
+                 data-category="tecnología"
+                 data-label="crud javascript localstorage base datos usuarios programacion leads">
+                <div class="item-content">
+                    <img 
+                        src="../images/crud-users-data.png" 
+                        alt="CRUD - Sistema de gestión de usuarios con JavaScript"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">Desarrollo Web</span>
+                            <h3 class="project-title">CRUD Users Data</h3>
+                            <p class="project-description">
+                                Dashboard para gestión de usuarios con JavaScript vanilla
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">LocalStorage</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 3: Mi Oficina.co -->
+            <div class="item" 
+                 data-category="tecnología"
+                 data-label="mioficina cloud computing seguridad informacion datacenter colombia">
+                <div class="item-content">
+                    <img 
+                        src="../images/mioficina.png" 
+                        alt="Mi Oficina.co - Soluciones TIC empresariales"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">Web Corporativa</span>
+                            <h3 class="project-title">Mi Oficina.co</h3>
+                            <p class="project-description">
+                                Soluciones de ingeniería y TIC para empresas
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Drupal</span>
+                                <span class="tag">Corporate</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 4: Landing Page Veeam -->
+            <div class="item" 
+                 data-category="tecnología"
+                 data-label="landing page evento veeam backup cloud mioficina">
+                <div class="item-content">
+                    <img 
+                        src="../images/landingpage-mioficina.png" 
+                        alt="Landing page evento Veeam - Mi Oficina.co"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">Landing Page</span>
+                            <h3 class="project-title">Evento Veeam</h3>
+                            <p class="project-description">
+                                Landing page para evento de tecnología de backup
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Forms</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 5: Artworld -->
+            <div class="item" 
+                 data-category="arte"
+                 data-label="arte cultura artworld plasticas temperas acuarelas artesanias">
+                <div class="item-content">
+                    <img 
+                        src="../images/artworld.png" 
+                        alt="Artworld Artístico - Portafolio de arte"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">Arte y Cultura</span>
+                            <h3 class="project-title">Artworld Artístico</h3>
+                            <p class="project-description">
+                                Portafolio de trabajos artísticos y artesanías
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Wix</span>
+                                <span class="tag">Portfolio</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Proyecto 6: R2 Publicidad -->
+            <div class="item" 
+                 data-category="industria"
+                 data-label="r2 publicidad impresion gran formato serigrafía litografia">
+                <div class="item-content">
+                    <img 
+                        src="../images/r2publicidad.png" 
+                        alt="R2 Publicidad - Medios creativos"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">Web Informativa</span>
+                            <h3 class="project-title">R2 Publicidad</h3>
+                            <p class="project-description">
+                                Empresa de impresión y medios publicitarios
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">HTML/CSS</span>
+                                <span class="tag">JavaScript</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 7: Limpiamar -->
+            <div class="item" 
+                 data-category="e-commerce"
+                 data-label="limpiamar productos naturales concha nacar cuidado piel belleza">
+                <div class="item-content">
+                    <img 
+                        src="../images/limpiamar.png" 
+                        alt="Limpiamar MC - Productos naturales"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">E-commerce</span>
+                            <h3 class="project-title">Limpiamar MC</h3>
+                            <p class="project-description">
+                                Tienda de productos naturales para el cuidado de la piel
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">WordPress</span>
+                                <span class="tag">WooCommerce</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyecto 8: Petroworks -->
+            <div class="item" 
+                 data-category="e-learning tecnología"
+                 data-label="petroworks capacitaciones petrolera moodle industria">
+                <div class="item-content">
+                    <img 
+                        src="../images/petroworks.png" 
+                        alt="Petroworks - Plataforma E-learning petrolera"
+                        loading="lazy"
+                        width="400"
+                        height="300"
+                    >
+                    <div class="project-overlay">
+                        <div class="project-info">
+                            <span class="project-category">E-learning</span>
+                            <h3 class="project-title">Petroworks</h3>
+                            <p class="project-description">
+                                Plataforma de capacitación para industria petrolera
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">Moodle</span>
+                                <span class="tag">Custom Theme</span>
+                            </div>
+                            <button class="btn-view-project">
+                                <i class="fas fa-eye"></i>
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Mensaje cuando no hay resultados -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No se encontraron proyectos</h3>
+            <p>Intenta con otros términos de búsqueda o filtros</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- MODAL DE PROYECTO -->
+<!-- ============================================ -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-container">
+        <button class="close-modal" id="close-modal">
+            <i class="fa fa-times"></i>
+        </button>
+        
+        <div class="modal-content-wrapper">
+            <!-- Imagen del proyecto -->
+            <div class="modal-image">
+                <img src="" alt="Proyecto" id="modalImage">
+            </div>
+
+            <button class="btn-show-details" id="btnShowDetails">
+                Ver detalles
+            </button>            
+            
+            <!-- Información del proyecto -->
+            <div class="modal-details">
+                <span class="modal-category" id="modalCategory">Categoría</span>
+                <h2 class="modal-title" id="modalTitle">Título del Proyecto</h2>
+                <p class="modal-description" id="modalDescription">
+                    Descripción detallada del proyecto...
+                </p>
+                
+                <!-- Información técnica -->
+                <div class="modal-info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-industry"></i>
+                        <div>
+                            <strong>Industria:</strong>
+                            <span id="modalIndustry">-</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <strong>País:</strong>
+                            <span id="modalCountry">-</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-code"></i>
+                        <div>
+                            <strong>Tipo:</strong>
+                            <span id="modalType">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tecnologías -->
+                <div class="modal-technologies" id="modalTech">
+                    <h4><i class="fas fa-tools"></i> Tecnologías:</h4>
+                    <div class="tech-tags">
+                        <!-- Se llenan dinámicamente -->
+                    </div>
+                </div>
+                
+                <!-- Botón ver proyecto -->
+                <a href="#" target="_blank" class="btn-visit-site" id="modalLink">
+                    <i class="fas fa-external-link-alt"></i>
+                    Visitar Sitio Web
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js"></script>
+<script src="script-optimized.js"></script>
+</body>
+</html>

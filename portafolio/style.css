@@ -1,0 +1,666 @@
+:root {
+    --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+    font-family: var(--font-main);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, .section-title, .modal-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.section-subtitle,
+.project-description,
+.modal-description {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+button,
+.btn-view-project,
+.btn-show-details,
+.btn-visit-site {
+    font-family: var(--font-main);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* ============================================ */
+/* PORTAFOLIO MODERNO */
+/* ============================================ */
+
+.portfolio-modern {
+    padding: 6rem 2rem;
+    background: #ffffff;
+}
+
+body.dark .portfolio-modern {
+    background: #0f1419;
+}
+
+.portfolio-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Controles de portafolio */
+.portfolio-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Formulario de búsqueda */
+.search-form {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.search-icon-input {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #718096;
+    font-size: 1.25rem;
+    pointer-events: none;
+}
+
+.searcher-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3.5rem;
+    font-size: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+body.dark .searcher-input {
+    background: #1a202c;
+    border-color: #2d3748;
+    color: #ffffff;
+}
+
+.searcher-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Filtros por categoría */
+.category-filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.dark .filter-btn {
+    background: #1a202c;
+    border-color: #2d3748;
+    color: #cbd5e0;
+}
+
+.filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    color: white;
+}
+
+.filter-count {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.filter-btn.active .filter-count {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Grid de proyectos */
+.grid {
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.grid.charger-img {
+    opacity: 1;
+}
+
+.grid .item {
+    position: absolute;
+    display: block;
+    margin: 10px;
+    width: calc(33.333% - 20px);
+    z-index: 1;
+}
+
+.item-content {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+body.dark .item-content {
+    background: #1a202c;
+}
+
+.item-content:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.item-content img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.item-content:hover img {
+    transform: scale(1.05);
+}
+
+/* Overlay del proyecto */
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.7) 60%, 
+        rgba(0, 0, 0, 0.9) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.item-content:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-info {
+    width: 100%;
+    color: white;
+}
+
+.project-category {
+    display: inline-block;
+    background: rgba(102, 126, 234, 0.9);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.project-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.project-description {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.project-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.project-tags .tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.btn-view-project {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 25px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-view-project:hover {
+    background: #667eea;
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Sin resultados */
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #718096;
+}
+
+.no-results i {
+    font-size: 4rem;
+    color: #cbd5e0;
+    margin-bottom: 1rem;
+}
+
+.no-results h3 {
+    font-size: 1.5rem;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+body.dark .no-results h3 {
+    color: #cbd5e0;
+}
+
+/* ============================================ */
+/* MODAL DE PROYECTO */
+/* ============================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 2rem;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+/* ===============================
+   MODAL – ESTADO IMAGEN FULL
+=============================== */
+
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 90vh;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-container.modal--details {
+    overflow: hidden;
+}
+
+body.dark .modal-container {
+    background: #1a202c;
+}
+
+/* ===============================
+   MODAL – IMAGEN
+=============================== */
+
+.modal-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ===============================
+   MODAL – DETALLES
+=============================== */
+
+.modal-details {
+    height: 0;
+    opacity: 0;
+    overflow-y: auto;
+    padding: 0 2rem;
+    transition: height 0.5s ease, opacity 0.4s ease;
+}
+
+.modal-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-details::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+/* ===============================
+   DISEÑO BONITO DE TEXTO Y JERARQUÍA
+=============================== */
+
+.modal-category {
+    display: inline-block;
+    background: rgba(102, 126, 234, 0.15);
+    color: #667eea;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+body.dark .modal-title {
+    color: #ffffff;
+}
+
+.modal-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 2rem;
+}
+
+body.dark .modal-description {
+    color: #cbd5e0;
+}
+
+/* ===============================
+   BLOQUE DE INFO (ESTILO CARD MODERNO)
+=============================== */
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    display: flex;
+    gap: 0.75rem;
+    background: #f7fafc;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+body.dark .info-item {
+    background: #2d3748;
+}
+
+.info-item i {
+    color: #667eea;
+    font-size: 1.2rem;
+}
+
+/* ===============================
+   TECNOLOGÍAS COMO TAGS PRO
+=============================== */
+
+.modal-technologies h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tech-tags span {
+    background: #edf2f7;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+body.dark .tech-tags span {
+    background: #4a5568;
+    color: white;
+}
+
+/* ===============================
+   CTA FINAL (EL TOQUE PREMIUM)
+=============================== */
+
+.btn-visit-site {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-visit-site:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* ===============================
+   MODAL – ESTADO DETALLES
+=============================== */
+
+.modal-container.modal--details .modal-image {
+    padding: 1.5rem;
+    background: #f7fafc;
+}
+
+body.dark .modal-container.modal--details .modal-image {
+    background: #0f1419;
+}
+
+.modal-container.modal--details .modal-image img {
+    border-radius: 12px;
+}
+
+.modal-container.modal--details .modal-details {
+    height: 45vh;
+    opacity: 1;
+    padding: 2rem;
+}
+
+/* Ocultar botón flotante */
+.modal-container.modal--details .btn-show-details {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* ===============================
+   RESPONSIVE MODAL
+=============================== */
+
+@media (max-width: 768px) {
+    .modal-image {
+        height: 35vh;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-details {
+        padding: 1.5rem;
+    }
+}
+
+/* ===============================
+   BOTÓN FLOTANTE VER DETALLES
+=============================== */
+
+.btn-show-details {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.btn-show-details:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body.dark .modal-container::-webkit-scrollbar-track {
+    background: #2d3748;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 5px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header de sección */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+body.dark .section-title {
+    color: #ffffff;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: #718096;
+    max-width: 600px;
+    margin: 0 auto;
+}
