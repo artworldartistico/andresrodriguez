@@ -412,7 +412,7 @@ body.dark .floating-badge strong {
     }
 
     .hero-stats {
-        flex-direction: column;
+        /*flex-direction: column;*/
         gap: 1.5rem;
     }
 
@@ -670,6 +670,12 @@ body.dark .section-subtitle{
                         .service-card {
                             padding: 2rem 1.5rem;
                         }
+
+                        .service-icon{
+                            display: flex;
+                            justify-content: center;
+                            margin: auto;
+                        }
                         
                         .services-cta h3 {
                             font-size: 1.5rem;
@@ -868,3 +874,300 @@ body.dark .work-style li {
     }
   }
   
+
+  /* ===== SLIDER HITOS ===== */
+.milestones-slider {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    margin: 80px 0;
+}
+
+/* Slides */
+.milestone-slide {
+    position: absolute;
+    inset: 0;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: all 0.8s ease-in-out;
+}
+
+/* Activo */
+.milestone-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
+}
+
+.milestone-slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.milestone-slide::before {
+    content: '';
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    filter: blur(80px);
+    top: -80px;
+    right: -80px;
+}
+
+.milestone-slide .bg-icon {
+    position: absolute;
+    font-size: 12rem;
+    opacity: 0.06;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Fondos por hito */
+.milestone-slide:nth-child(1) {
+    background: linear-gradient(135deg, #6a7cff, #7f6adf);
+}
+
+.milestone-slide:nth-child(2) {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.milestone-slide:nth-child(3) {
+    background: linear-gradient(135deg, #7f7cff, #9f7aea);
+}
+
+.milestone-slide:nth-child(4) {
+    background: linear-gradient(135deg, #5f72ff, #8a7bff);
+}
+
+.milestone-slide:nth-child(5) {
+    background: linear-gradient(135deg, #6b73ff, #a084dc);
+}
+
+/* Texto */
+.milestone-slide h3 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.milestone-slide p {
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    max-width: 720px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Flechas */
+.milestone-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateY(-1px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;              /* ← BLANCO */
+    font-size: 2.4rem;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.3s ease;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Hover más blanco (como pediste) */
+.milestone-nav:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.milestone-nav.prev {
+    left: 20px;
+}
+
+.milestone-nav.next {
+    right: 20px;
+}
+
+/* Dots */
+.milestone-dots {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 4;
+}
+
+.milestone-dots span {
+    width: 34px;
+    height: 5px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.milestone-dots span.active {
+    background: #ffffff;
+}
+
+/* Textos del slider */
+.milestone-slide,
+.milestone-slide h3,
+.milestone-slide p,
+.milestone-slide span {
+    color: #ffffff;
+}
+
+.milestone-arrow {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Hover elegante */
+.milestone-arrow:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
+}
+
+.milestone-slide h3,
+.milestone-slide p {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .milestones-slider {
+        min-height: 280px;
+    }
+    .milestone-nav {
+        font-size: 1.6rem;   /* más pequeñas */
+        opacity: 0.8;
+    }
+
+    .milestone-nav.prev {
+        left: 10px;
+    }
+
+    .milestone-nav.next {
+        right: 10px;
+    }
+
+    .milestone-arrow {
+        font-size: 1.4rem;
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* ===============================
+   CONTADOR DE ESTADÍSTICAS
+=============================== */
+
+.stat-number {
+    transition: transform 0.2s ease;
+}
+
+.stat-item:hover .stat-number {
+    transform: scale(1.05);
+}
+
+/* ===== PROBLEMAS / HITOS ===== */
+.problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 60px 0;
+    justify-content: center;
+    margin: auto;
+}
+
+/* Card */
+.problem-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.problem-card:hover .problem-icon {
+    box-shadow: 0 0 0 8px rgba(102,126,234,0.15);
+}
+
+/* Icono centrado */
+.problem-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icono */
+.problem-icon i {
+    font-size: 22px;              /* más pequeño */
+    color: #ffffff;
+}
+
+/* Texto */
+.problem-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2d3748;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Dark mode */
+body.dark .problem-card {
+    background: #1a202c;
+}
+
+body.dark .problem-card p {
+    color: #e2e8f0;
+}
+
+/* ===== AJUSTE MOBILE: TEXTO CENTRADO ===== */
+@media (max-width: 768px) {
+    .problem-card {
+        text-align: center;
+    }
+
+    .problem-card p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
