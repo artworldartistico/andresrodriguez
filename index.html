@@ -1,544 +1,2032 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- ============================================ -->
-    <!-- META TAGS BÁSICOS -->
-    <!-- ============================================ -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ============================================ -->
-    <!-- SEO PRIMARIO -->
-    <!-- Título: 50-60 caracteres, con palabra clave principal -->
-    <!-- Description: 150-160 caracteres, describe el servicio -->
-    <!-- ============================================ -->
-    <title>Andrés Rodríguez | Diseño y Desarrollo Web Profesional en Bogotá, Colombia</title>
-    <meta name="description" content="Especialista en diseño web WordPress, Moodle, E-commerce y soluciones digitales. +50 proyectos. Hosting, SEO y automatización. Bogotá, Colombia.">
-    <meta name="keywords" content="diseño web colombia, desarrollo web bogotá, wordpress profesional, moodle lms, ecommerce colombia, andrés rodríguez diseñador">
-    <meta name="author" content="Andrés Felipe Rodríguez Barbosa">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    
-    <!-- URL canónica: evita contenido duplicado -->
-    <link rel="canonical" href="https://tuusuario.github.io/andiweb/">
-    
-    <!-- ============================================ -->
-    <!-- OPEN GRAPH - REDES SOCIALES (Facebook, LinkedIn) -->
-    <!-- Mejora cómo se comparte tu sitio en redes -->
-    <!-- ============================================ -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tuusuario.github.io/andiweb/">
-    <meta property="og:site_name" content="Andrés Rodríguez">
-    <meta property="og:title" content="Andrés Rodríguez - Diseño Web Profesional y Soluciones Digitales">
-    <meta property="og:description" content="Transformo ideas en sitios web profesionales. WordPress, E-learning, E-commerce y más. +50 proyectos entregados.">
-    <meta property="og:image" content="https://tuusuario.github.io/andiweb/images/og-image.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="es_CO">
-    
-    <!-- ============================================ -->
-    <!-- TWITTER CARD -->
-    <!-- Optimiza visualización en Twitter/X -->
-    <!-- ============================================ -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://tuusuario.github.io/andiweb/">
-    <meta name="twitter:title" content="Andrés Rodríguez - Diseño Web Profesional">
-    <meta name="twitter:description" content="Especialista en WordPress, Moodle y soluciones digitales en Colombia">
-    <meta name="twitter:image" content="https://tuusuario.github.io/andiweb/images/og-image.jpg">
-    
-    <!-- ============================================ -->
-    <!-- SCHEMA.ORG - DATOS ESTRUCTURADOS -->
-    <!-- Ayuda a Google a entender tu negocio -->
-    <!-- Aparece en búsquedas con información enriquecida -->
-    <!-- ============================================ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Andrés Rodríguez",
-      "alternateName": "Andrés Rodríguez - Diseño Web",
-      "url": "https://tuusuario.github.io/andiweb",
-      "logo": "https://tuusuario.github.io/andiweb/images/andiweb-logo.png",
-      "description": "Servicios profesionales de diseño y desarrollo web, WordPress, Moodle, E-commerce, hosting y soluciones digitales en Colombia",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Bogotá",
-        "addressRegion": "Bogotá D.C.",
-        "addressCountry": "CO"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 4.7110,
-        "longitude": -74.0721
-      },
-      "telephone": "+573213900071",
-      "email": "anfelirod86@hotmail.com",
-      "priceRange": "$$",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:00",
-          "closes": "18:00"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link Fontawsome -->
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- SEO -->
+  <title>Estratega Digital | ROI y Escalabilidad Empresarial</title>
+  <meta name="description" content="Diagnóstico y estrategia digital para empresas que buscan reducir riesgo, escalar con tecnología rentable y mejorar su ROI.">
+  <meta name="keywords" content="Consultoría estratégica digital empresarial, Estratega digital para empresas, Transformación digital con ROI">
+  <meta name="author" content="Estratega Digital">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Estratega Digital | ROI y Escalabilidad Empresarial">
+  <meta property="og:description" content="Diagnóstico estratégico y arquitectura digital para empresas que buscan dirección y control.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --azul-oscuro: #0B1F3A;
+      --negro: #0A0A0A;
+      --gris: #E5E7EB;
+      --gris-oscuro: #1F2937;
+      --verde-acento: #1DB954;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--gris);
+      color: var(--gris-oscuro);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 80px 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;   /* centra vertical */
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--azul-oscuro);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(rgba(11,31,58,0.85), rgba(10,10,10,0.9)),
+                  url('https://images.unsplash.com/photo-1507679799987-c73779587ccf') center/cover fixed;
+      color: white;
+      text-align: center;
+      padding: 120px 10%;
+      align-items: center;
+      margin: auto;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      max-width: 900px;
+      text-transform: uppercase;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .button-cta {
+      display: flex;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin: 10px;
+      background-color: var(--verde-acento);
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+      transform: translateY(-3px);
+    }
+
+    .platforms-block {
+      margin-top: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      opacity: 0.9;
+    }
+
+    .platforms-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .platforms-text {
+      font-size: 0.9rem;
+      max-width: 600px;
+      text-align: center;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+    }
+
+    .logos {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      opacity: 0.8;
+    }
+
+    .logo-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Punto automático */
+    .logo-item:not(:last-child)::after {
+      content: "•";
+      margin-left: 20px;
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .logos img {
+      max-width: 80px;
+      height: auto;
+      filter: grayscale(100%) brightness(0) invert(1);
+      transition: all 0.4s ease;
+    }
+
+    .logos img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+      opacity: 1;
+    }
+
+    /* DOLOR */
+    .dark-section {
+      background-color: var(--azul-oscuro);
+      color: white;
+    }
+
+    .dark-section h2 {
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .dark-section > p {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+
+    .dark-section ul {
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .dark-section li {
+      margin-bottom: 10px;
+    }
+
+    /* ===== PROBLEMAS / HITOS ===== */
+    .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        /*grid-template-columns: repeat(3, 1fr);*/
+        gap: 32px;
+        list-style: none;
+        padding: 0;
+        margin: 60px 0;
+        justify-content: center;
+        margin: auto;
+        max-width: 800px;
+    }
+
+    /* Card */
+     .problem-card {
+        transform: translateY(20px);
+        animation: fadeUp 0.8s ease forwards;
+    }
+
+    .problems-grid li {
+        background: rgba(102,126,234,0.08);
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+    }
+
+    /* Icono centrado */
+    .problem-icon {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 22px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0B1F3A, #1DB954);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Icono */
+    .problem-icon i {
+        font-size: 22px;              /* más pequeño */
+        color: #ffffff;
+    }
+
+    /* Texto */
+    .problem-card p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    @media (max-width: 640px) {
+        .problems-grid {
+            grid-template-columns: 1fr;
         }
-      ],
-      "sameAs": [
-        "https://www.facebook.com/people/Andrés-Rodríguez/100008156191939/",
-        "https://www.instagram.com/andres_rb1991/",
-        "https://www.linkedin.com/in/andrés-felipe-rodríguez-barbosa-53b4a915a/",
-        "https://www.behance.net/anfelirod8b973"
-      ],
-      "areaServed": {
-        "@type": "Country",
-        "name": "Colombia"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Servicios de Diseño Web",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Diseño Web WordPress"
+    }
+
+    /*Lo que soluciono*/
+    /* Grid de servicios */
+    .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+    }
+
+    /* Cards de servicio */
+.service-card {
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0B1F3A, #1DB954);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+        }
+        .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .service-card:hover::before {
+        transform: scaleX(1);
+        }
+
+        /* Card destacada */
+.service-card.featured {
+    border: 2px solid #667eea;
+    background: linear-gradient(135deg, #667eea05, #764ba205);
+    }
+    .featured-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #0B1F3A, #1DB954);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    }
+
+    /* Icono del servicio */
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #0B1F3A15, #1DB95415);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    }
+    .service-card:hover .service-icon {
+      background: linear-gradient(135deg, #0B1F3A, #1DB954);
+    transform: scale(1.1);
+    }
+    .service-icon i {
+    font-size: 2rem;
+    color: #667eea;
+    transition: color 0.3s ease;
+    }
+
+    .service-card:hover .service-icon i {
+        color: white;
+        }
+        /* Título del servicio */
+        .service-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 1rem;
+        }
+        body.dark .service-title {
+        color: #ffffff;
+        }
+        /* Descripción */
+        .service-description {
+        color: #718096;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        }
+
+  /* Lista de características */
+  .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
             }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "E-learning Moodle"
+            .service-features li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Tiendas Online E-commerce"
+            body.dark .service-features li {
+            color: #a0aec0;
             }
-          }
-        ]
+
+            .service-features i {
+                color: #48bb78;
+                font-size: 0.875rem;
+                }
+                /* Link del servicio */
+                .service-link {
+                color: #667eea;
+                font-weight: 600;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+                }
+                .service-link:hover {
+                gap: 1rem;
+                }
+                .service-link i {
+                transition: transform 0.3s ease;
+                }
+
+                .service-link:hover i {
+                    transform: translateX(5px);
+                    }
+                    /* CTA final */
+                    .services-cta {
+                    text-align: center;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    border-radius: 20px;
+                    padding: 3rem 2rem;
+                    color: white;
+                    }
+                    .services-cta h3 {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    }
+                    .services-cta p {
+                    font-size: 1.125rem;
+                    margin-bottom: 2rem;
+                    opacity: 0.95;
+                    }
+
+                    .services-cta .btn-primary {
+                        background: white;
+                        color: #667eea;
+                        }
+                        .services-cta .btn-primary:hover {
+                        background: #f7fafc;
+                        transform: translateY(-3px);
+                        }
+                        /* Responsive */
+                        @media (max-width: 640px) {
+                        .services-modern {
+                        padding: 4rem 1rem;
+                        }
+
+                        .section-title {
+                            font-size: 2rem;
+                        }
+                        
+                        .section-subtitle {
+                            font-size: 1rem;
+                        }
+                        
+                        .services-grid {
+                            grid-template-columns: 1fr;
+                        }
+                        
+                        .service-card {
+                            padding: 2rem 1.5rem;
+                        }
+
+                        .service-icon{
+                            display: flex;
+                            justify-content: center;
+                            margin: auto;
+                        }
+                        
+                        .services-cta h3 {
+                            font-size: 1.5rem;
+                        }
+                    }
+
+    /* ===== FRASE ESTRATÉGICA ===== */
+    .strategic-quote {
+      margin: 100px auto 0;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .strategic-quote p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.5px;
+    }
+
+    .strategic-quote span {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 1.6rem;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    /* ===== SLIDER HITOS ===== */
+    .slider-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: #1DB954;
+        width: 0%;
+        transition: width 6s linear;
+        box-shadow: 0 0 10px rgba(79,140,255,0.6);
+        z-index: 10;
+    }
+
+    .milestones-slider {
+        position: relative;
+        width: 100%;
+        min-height: 420px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        margin: 100px 0;
+    }
+
+    /* Slides */
+    .milestone-slide {
+        position: absolute;
+        inset: 0;
+        padding: 80px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        background: linear-gradient(145deg, #0B1F3A, #111827);
+        border-radius: 20px;
+
+        box-shadow: 
+            0 20px 60px rgba(0,0,0,0.4),
+            inset 0 0 0 1px rgba(255,255,255,0.05);
+
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+        transition: all 0.7s ease;
+    }
+
+    /* Activo */
+    .milestone-slide.active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        z-index: 2;
+    }
+
+    .phase-label {
+        font-size: 0.8rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #1DB954;
+        margin-bottom: 18px;
+        font-weight: 600;
+    }
+
+    .milestone-slide::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+    }
+
+    .milestone-slide::before {
+        content: '';
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+        filter: blur(80px);
+        top: -80px;
+        right: -80px;
+    }
+
+    .milestone-slide .bg-icon {
+        position: absolute;
+        font-size: 12rem;
+        opacity: 0.06;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .milestone-slide h3 {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
+    }
+
+    .milestone-slide p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        opacity: 0.85;
+    }
+
+    .milestone-slide ul {
+        list-style: none;
+        margin-top: 20px;
+        padding: 0;
+        justify-content: left;
+    }
+
+    .milestone-slide li {
+        margin: 5px 0;
+        font-size: 1rem;
+        opacity: 0.9;
+        display: flex;
+        justify-content: flex-start;  /* ← clave */
+        align-items: center;
+        gap: 10px;
+        line-height: 1.2; /* prueba entre 1.1 y 1.4 */
+    }
+
+    .milestone-slide li i {
+        color: #1DB954;
+    }
+
+    .milestones-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 12px 40px;
+      justify-content: center;   /* mantiene el bloque centrado */
+      text-align: left;          /* texto alineado a la izquierda */
+      list-style: none;
+      padding: 0;
+      margin: 30px auto 0;
+      max-width: 600px;
+    }
+
+    @media (max-width: 768px) {
+        .milestones-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Fondos por hito */
+    .milestone-slide:nth-child(1) {
+        background: linear-gradient(135deg, #6a7cff, #0B1F3B);
+    }
+
+    .milestone-slide:nth-child(2) {
+        background: linear-gradient(135deg, #0B1F3B, #764ba2);
+    }
+
+    .milestone-slide:nth-child(3) {
+        background: linear-gradient(135deg, #7f7cff, #0B1F3B);
+    }
+
+    .milestone-slide:nth-child(4) {
+        background: linear-gradient(135deg, #5f72ff, #0B1F3B);
+    }
+
+    .milestone-slide:nth-child(5) {
+        background: linear-gradient(135deg, #6b73ff, #a084dc);
+    }
+
+    /* Texto */
+    .milestone-slide h3 {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .milestone-slide p {
+        font-size: clamp(1rem, 2.2vw, 1.15rem);
+        max-width: 720px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+
+    /* Flechas */
+    .milestone-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateY(-1px);
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        color: #ffffff;              /* ← BLANCO */
+        font-size: 2.4rem;
+        cursor: pointer;
+        z-index: 3;
+        transition: all 0.3s ease;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+
+    /* Hover más blanco (como pediste) */
+    .milestone-nav:hover {
+        background: rgba(255, 255, 255, 0.35);
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .milestone-nav.prev {
+        left: 20px;
+    }
+
+    .milestone-nav.next {
+        right: 20px;
+    }
+
+    /* Dots */
+    .milestone-dots {
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 4;
+    }
+
+    .milestone-dots span {
+        width: 34px;
+        height: 5px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .milestone-dots span.active {
+        background: #ffffff;
+    }
+
+    /* Textos del slider */
+    .milestone-slide,
+    .milestone-slide h3,
+    .milestone-slide p,
+    .milestone-slide span {
+        color: #ffffff;
+    }
+
+    .milestone-arrow {
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Hover elegante */
+    .milestone-arrow:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #ffffff;
+    }
+
+    .milestone-slide h3,
+    .milestone-slide p {
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .milestones-slider {
+            max-height: 280px;
+        }
+        .milestone-nav {
+            font-size: 1.6rem;   /* más pequeñas */
+            opacity: 0.8;
+        }
+
+        .milestone-nav.prev {
+            left: 10px;
+        }
+
+        .milestone-nav.next {
+            right: 10px;
+        }
+
+        .milestone-arrow {
+            font-size: 1.4rem;
+            width: 38px;
+            height: 38px;
+        }
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .executive-table {
+      min-width: 900px; /* o el ancho real de tu tabla */
+      border-collapse: collapse;
+    }
+
+    .table-wrapper::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+
+    /* CENTRAR TITULOS SECCION SOLUCION */
+    #soluciones {
+      margin-top: 40px;
+    }
+
+    section.fade-in h2 {
+      text-align: center;
+    }
+
+
+    /* BENEFICIOS */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .grid-2 { 
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
       }
     }
-    </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- ============================================ -->
-    <!-- PERFORMANCE - PRECONNECT -->
-    <!-- Conecta anticipadamente con recursos externos -->
-    <!-- Mejora velocidad de carga -->
-    <!-- ============================================ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    
-    <!-- ============================================ -->
-    <!-- FAVICON - MÚLTIPLES TAMAÑOS -->
-    <!-- ============================================ -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://artworldartistico.github.io/andresrodriguez/andresrodriguez-logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://artworldartistico.github.io/andresrodriguez/andresrodriguez-logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://artworldartistico.github.io/andresrodriguez/andresrodriguez-logo.png">
-    
-    <!-- ============================================ -->
-    <!-- ESTILOS CSS -->
-    <!-- Orden: Externos primero, luego custom -->
-    <!-- ============================================ -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- ============================================ -->
-    <!-- THEME COLOR - Color del navegador móvil -->
-    <!-- ============================================ -->
-    <meta name="theme-color" content="#252526">
-    <meta name="msapplication-TileColor" content="#252526">
+
+    .impact-section {
+      padding: 160px 0;
+      background: #0e1117;
+      text-align: center;
+      color: #fff;
+    }
+
+    .impact-container {
+      display: flex;
+      justify-content: center;
+      gap: 120px;
+      flex-wrap: wrap;
+    }
+
+    .impact-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .impact-title {
+      margin-bottom: 50px;
+      font-size: 20px;
+      letter-spacing: 2px;
+      font-weight: 500;
+      color: #8fa3c4;
+    }
+
+    .impact-metrics {
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .impact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 180px;
+    }
+
+    .circle {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin-bottom: 25px;
+    }
+
+    .circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .circle circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+
+    .circle .bg {
+      stroke: #1c2230;
+    }
+
+    .circle .progress {
+      stroke: #4f8cff;
+      stroke-dasharray: 377;
+      stroke-dashoffset: 377;
+      transition: stroke-dashoffset 1.8s ease-out;
+    }
+
+    .number {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .impact-label {
+      font-size: 14px;
+      color: #b4c2d6;
+      text-align: center;
+    }
+
+    .impact-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .impact-main-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #4f8cff;
+    }
+
+    .impact-subtitle {
+      font-size: 16px;
+      opacity: 0.7;
+    }
+
+
+    /* TABLA */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      padding: 15px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: var(--azul-oscuro);
+      color: white;
+    }
+
+    /* FAQ Section */
+    .faq {
+      background: linear-gradient(135deg, #0B1F3A, #111827);
+      padding: 100px 10%;
+      color: #ffffff;
+    }
+
+    .faq-list {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: rgb(255, 255, 255);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .faq-item:hover {
+      border-color: rgba(133, 182, 150, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .faq-item.active {
+      background: rgb(255, 255, 255);
+      border-color: #1DB954;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 22px 28px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #1F2937;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      color: #1DB954;
+      padding-left: 32px;
+    }
+
+    .faq-item.active .faq-question{
+      font-weight: 600;
+      color: #1DB954;
+    }
+
+    .faq-icon {
+      font-size: 1rem;
+      color: #1F2937;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-item:hover .faq-icon {
+      color: #1DB954;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding: 0 28px;
+      transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.6s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      opacity: 1;
+      padding: 10px 28px 25px;
+    }
+
+    .faq-answer p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #1F2937;
+    }
+
+    .faq-item.active .faq-answer p {  /* ⬅️ CAMBIO: Selector correcto */
+      transform: translateY(0);
+    }
+
+    /* Animaciones */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      .hero {
+        height: 100%;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .logos img {
+        max-width: 50px;
+      }
+
+      .logo-item:not(:last-child)::after {
+        margin-left: 10px;
+        margin-right: -10px;
+      }
+
+      .button-cta {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 320px;
+        margin: 8px 0;
+        text-align: center;
+      }
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      font-size: 28px;
+      color: white;
+      animation: float 2.2s ease-in-out infinite;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .scroll-down:hover {
+      opacity: 1;
+    }
+
+    @keyframes float {
+      0%   { transform: translate(-50%, 0); }
+      50%  { transform: translate(-50%, 10px); }
+      100% { transform: translate(-50%, 0); }
+    }
+
+    /*ESTILO TECH HERO SCHEMA*/
+    .hero-ecosistema {
+      position: relative;
+      padding: 120px 20px;
+      background: #0b0f1a;
+      color: white;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Parallax background */
+    .parallax-bg {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: 130%;
+      background: radial-gradient(circle at 30% 30%, #1e2a47 0%, transparent 60%),
+                  radial-gradient(circle at 70% 70%, #14213d 0%, transparent 60%);
+      z-index: 1;
+      transform: translateY(0);
+      transition: transform 0.2s ease-out;
+    }
+
+    .hero-ecosistema h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 30px;
+      color: #4da3ff;
+    }
+
+    .sub-text {
+      font-size: 1.2rem;
+      color: #8fa1c7;
+      margin-bottom: 60px;
+    }
+
+    /* Grid */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-bottom: 80px;
+    }
+
+    .tech-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 20px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-8px);
+      border-color: #4da3ff;
+      box-shadow: 0 20px 40px rgba(77,163,255,0.15);
+    }
+
+    .icon {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .tech-card h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .tech-card span {
+      display: block;
+      font-size: 0.8rem;
+      opacity: 0.6;
+      margin-top: 6px;
+    }
+
+    .closing-text p {
+      font-size: 1.2rem;
+      max-width: 750px;
+      margin: 0 auto;
+      color: #c7d3f5;
+      line-height: 1.6;
+    }
+
+    /* Animación */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-up.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-ecosistema {
+        padding: 80px 20px;
+      }
+
+      .hero-ecosistema h2 {
+        font-size: 1.6rem;
+      }
+
+      .tech-card {
+        padding: 30px 15px;
+      }
+    }
+
+    /*CTA BUTTON*/
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.08);
+      
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -100%;
+      left: -100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
+      transition: all 0.6s ease;
+    }
+
+    .cta-button:hover::before {
+      top: -50%;
+      left: -50%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    }
+
+    .cta-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover .cta-icon {
+      transform: translateX(6px);
+    }
+  </style>
 </head>
+<body>
 
-<!-- ============================================ -->
-<!-- HERO SECTION - OPTIMIZADO PARA CONVERSIÓN -->
-<!-- Propuesta de valor clara + CTA visible -->
-<!-- ============================================ -->
-<section class="home-hero">
-    <div class="hero-container">
-        <!-- Columna Izquierda: Contenido -->
-        <div class="hero-content">
-            <!-- Badge de credibilidad -->
-            <span class="trust-badge">
-                <i class="fas fa-check-circle"></i>
-                +50 Proyectos Entregados
-            </span>
-            
-            <!-- Título principal con propuesta de valor -->
-            <h1 class="hero-title">
-                Andrés Rodríguez<br>
-                <span class="highlight hero-role">Especialista en Módulos Web, Automatización y IA</span>
-            </h1>
-            
-            <p class="hero-subtitle">
-                Implemento módulos de e-commerce, pagos locales, formularios inteligentes,
-                automatización y chatbots con IA sobre sitios web existentes.
-            </p>            
+<!-- HERO -->
+<section class="hero">
+  <h1>
+    Dirección estratégica<br>
+    antes que inversión tecnológica.
+  </h1>  
+  <p>Transformo incertidumbre digital en estructura, control y crecimiento sostenible.</p>
+  <div class="button-cta">
+    <a href="#contacto" class="btn">Diagnóstico Estratégico</a>
+    <a href="#contacto" class="btn">Evaluación Ejecutiva</a>
+  </div>
 
-            <!-- Estadísticas clave -->
-            <div class="hero-stats">
-              <div class="stat-item">
-                  <span class="stat-number" data-target="50" data-suffix="+">0+</span>
-                  <span class="stat-label">Proyectos</span>
-              </div>
-              <div class="stat-item">
-                  <span class="stat-number" data-target="100" data-suffix="%">0%</span>
-                  <span class="stat-label">Satisfacción</span>
-              </div>
-              <div class="stat-item">
-                  <span class="stat-number" data-target="5" data-suffix="+">0+</span>
-                  <span class="stat-label">Años</span>
-              </div>
-            </div>
-
-            <!-- CTAs principales -->
-            <div class="hero-ctas">
-                <a href="#contacto" class="btn-primary">
-                    <i class="fas fa-calendar-check"></i>
-                    Agenda revisión gratis
-                </a>
-            
-                <a href="#soluciones" class="btn-secondary">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Soluciones
-                </a>
-            
-                <a href="portafolio" class="btn-secondary">
-                    <i class="fas fa-folder-open"></i>
-                    Portafolio
-                </a>
-            </div>            
-
-            <!-- Indicadores de confianza -->
-            <div class="trust-indicators">
-                <p class="trust-text">
-                    <i class="fas fa-shield-alt"></i>
-                    Clientes que confían en mi trabajo:
-                </p>
-                <div class="trust-logos">
-                    <span>ArtTricolor</span>
-                    <span>•</span>
-                    <span>Mi Oficina.co</span>
-                    <span>•</span>
-                    <span>Digiticol</span>
-                    <span>•</span>
-                    <span>Petroworks</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Columna Derecha: Visual -->
-        <div class="hero-visual">
-            <img 
-                src="https://andisystem.github.io/andiweb/images/cover-pricing-institute.png" 
-                alt="Ejemplo de diseño web profesional - Proyecto Pricing Institute"
-                class="hero-image"
-                loading="eager"
-                width="600"
-                height="450"
-            >
-            <!-- Badge flotante -->
-            <div class="floating-badge">
-                <i class="fas fa-award"></i>
-                <div>
-                    <strong>Diseño Premium</strong>
-                    <span>Personalizado</span>
-                </div>
-            </div>
-        </div>
+  <div class="platforms-block">
+    <span class="platforms-label">Ecosistema tecnológico</span>
+    <span class="platforms-text">
+      Infraestructura sobre la que estructuro decisiones estratégicas.
+    </span>
+  
+    <div class="logos">
+      <div class="logo-item">
+        <img src="images/Amazon_Web_Services-Logo.wine.svg" alt="Amazon Web Services Logo">
+      </div>
+    
+      <div class="logo-item">
+        <img src="images/google-logo.png" alt="Google Logo">
+      </div>
+    
+      <div class="logo-item">
+        <img src="images/Microsoft_logo.svg.png" alt="Microsoft Logo">
+      </div>
+    
+      <div class="logo-item">
+        <img src="images/Meta-Logo.png" alt="Meta Platforms Logo">
+      </div>
     </div>
+  </div>
+  <a href="#about" class="scroll-down">
+    <i class="fa-solid fa-angle-down"></i>
+  </a>  
 </section>
 
-<!-- ============================================ -->
-<!-- SERVICIOS - CON ICONOS Y HOVER MEJORADO -->
-<!-- ============================================ -->
-<section class="services-modern" id="servicios">
-    <div class="services-container">
-        <!-- Header de sección -->
-        <div class="section-header">
-            <span class="section-badge">🎯 PROBLEMAS QUE RESUELVO</span>
-            <h2 class="section-title">Tu web existe, pero no genera resultados</h2>
-            <p class="section-subtitle">
-                Si algo de esto te suena familiar, estás en el lugar correcto.
-            </p>
-        </div>
-        
-        <ul class="problems-grid">
-          <li class="problem-card">
-              <div class="problem-icon">
-                  <i class="fa-solid fa-chart-line"></i>
-              </div>
-              <p>Página informativa que no vende</p>
-          </li>
-      
-          <li class="problem-card">
-              <div class="problem-icon">
-                  <i class="fa-solid fa-paper-plane"></i>
-              </div>
-              <p>Formularios que no llegan</p>
-          </li>
-      
-          <li class="problem-card">
-              <div class="problem-icon">
-                  <i class="fa-solid fa-credit-card"></i>
-              </div>
-              <p>Pagos locales que no funcionan</p>
-          </li>
-      
-          <li class="problem-card">
-              <div class="problem-icon">
-                  <i class="fa-solid fa-plug"></i>
-              </div>
-              <p>Plugins que no se integran</p>
-          </li>
-      
-          <li class="problem-card">
-              <div class="problem-icon">
-                  <i class="fa-solid fa-clock"></i>
-              </div>
-              <p>Atención manual que te quita tiempo</p>
-          </li>
-          <li class="problem-card">
-            <div class="problem-icon">
-                <i class="fa-solid fa-chart-pie"></i>
-            </div>
-            <p>Datos sin medición ni decisiones claras</p>
-        </li>        
-      </ul>      
-        
-        <h2 class="section-title" style="text-align:center;">
-            👉 Ahí entro yo
-        </h2>                
+<!-- HERO 2 - Ecosistema Digital -->
+<section id="about" class="hero-ecosistema">
+  
+  <div class="parallax-bg"></div>
 
-        <!-- Grid de servicios -->
-        <div class="services-grid" id="soluciones">
-            <!-- Servicio 1 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
-                <h3 class="service-title">Módulos E-commerce y Pagos</h3>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Tiendas sobre sitios existentes</li>
-                    <li><i class="fas fa-check"></i> Nequi, Daviplata y pasarelas locales</li>
-                    <li><i class="fas fa-check"></i> Checkout y flujos reales</li>
-                </ul>
-            </div>            
+  <div class="container">
+    
+    <div class="ecosistema-header fade-up">
+      <h2>
+        Ayudo a empresas a ordenar su ecosistema digital,
+        reducir riesgos y escalar con tecnología rentable.
+      </h2>
 
-            <!-- Servicio 2 -->
-            <div class="service-card featured">
-                <div class="featured-badge">Clave</div>
-                <div class="service-icon"><i class="fas fa-envelope-open-text"></i></div>
-                <h3 class="service-title">Formularios Inteligentes</h3>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> SMTP confiable</li>
-                    <li><i class="fas fa-check"></i> Google Sheets automático</li>
-                    <li><i class="fas fa-check"></i> Flujos y respuestas</li>
-                    <li><i class="fas fa-check"></i> Integraciones a medida</li>
-                </ul>
-            </div>            
-
-            <!-- Servicio 3 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-robot"></i></div>
-                <h3 class="service-title">Chatbots y Agentes con IA</h3>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Chatbots corporativos</li>
-                    <li><i class="fas fa-check"></i> Captación de leads</li>
-                    <li><i class="fas fa-check"></i> n8n + flujos internos</li>
-                </ul>
-            </div>            
-
-            <!-- Servicio 4 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-cogs"></i></div>
-                <h3 class="service-title">Integraciones Técnicas</h3>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Conflictos PHP / plugins</li>
-                    <li><i class="fas fa-check"></i> WordPress & Drupal</li>
-                    <li><i class="fas fa-check"></i> Automatización repetitiva</li>
-                </ul>
-            </div>
-            
-            <!-- Servicio 5 -->
-            <div class="service-card featured">
-              <div class="featured-badge">Más Popular</div>
-              <div class="service-icon">
-                  <i class="fab fa-wordpress"></i>
-              </div>
-              <h3 class="service-title">WordPress Profesional</h3>
-              <p class="service-description">
-                  Desarrollo y administración de sitios WordPress con diseño personalizado y funcionalidades avanzadas.
-              </p>
-              <ul class="service-features">
-                  <li><i class="fas fa-check"></i> Temas personalizados</li>
-                  <li><i class="fas fa-check"></i> Plugins optimizados</li>
-                  <li><i class="fas fa-check"></i> Capacitación incluida</li>
-              </ul>
-          </div>
-
-            <!-- Servicio 6 -->
-            <div class="service-card">
-              <div class="service-icon">
-                  <i class="fas fa-graduation-cap"></i>
-              </div>
-              <h3 class="service-title">Plataformas E-learning</h3>
-              <p class="service-description">
-                  Implementación y personalización de Moodle para capacitación online profesional.
-              </p>
-              <ul class="service-features">
-                  <li><i class="fas fa-check"></i> Instalación Moodle</li>
-                  <li><i class="fas fa-check"></i> Diseño personalizado</li>
-                  <li><i class="fas fa-check"></i> Gestión de cursos</li>
-              </ul>
-          </div>
-        </div>
-
-        <section id="casos" class="services-modern">
-            <div class="section-header">
-                <span class="section-badge">🧪 CASOS REALES</span>
-                <h2 class="section-title">Resultados, no promesas</h2>
-            </div>
-        
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>ArtTricolor</h3>
-                    <p><strong>Problema:</strong> Sitio sin ventas</p>
-                    <p><strong>Solución:</strong> Tienda online + pagos locales</p>
-                    <p><strong>Resultado:</strong> Venta directa desde la web</p>
-                    <a target="_blank" href="https://artworldartistico.github.io/tienda-arttricolor/" class="service-link">Ver proyecto →</a>
-                </div>
-        
-                <div class="service-card">
-                    <h3>Digiticol – Chatbot Web</h3>
-                    <p><strong>Problema:</strong> Atención manual</p>
-                    <p><strong>Solución:</strong> Chatbot corporativo</p>
-                    <p><strong>Resultado:</strong> Leads automáticos</p>
-                    <a target="_blank" href="https://digiticol.com/chat/" class="service-link">Ver demo →</a>
-                </div>
-            </div>
-        </section>
-        
-        <section class="milestones-slider">
-
-          <div class="milestone-slide active">
-              <h3>Analizo antes de proponer</h3>
-              <p>No ejecuto sin entender tu negocio, objetivos y contexto real.</p>
-          </div>
-      
-          <div class="milestone-slide">
-              <h3>Soluciones funcionales</h3>
-              <p>Diseños y desarrollos pensados para convertir, no solo verse bien.</p>
-          </div>
-      
-          <div class="milestone-slide">
-              <h3>IA solo si aporta valor</h3>
-              <p>Uso inteligencia artificial solo cuando optimiza procesos o resultados.</p>
-          </div>
-      
-          <div class="milestone-slide">
-              <h3>Comunicación clara</h3>
-              <p>Lenguaje simple, procesos transparentes y acompañamiento constante.</p>
-          </div>
-      
-          <div class="milestone-slide">
-              <h3>Entregables escalables</h3>
-              <p>Todo lo que construyo está pensado para crecer contigo.</p>
-          </div>
-      
-          <!-- Flechas -->
-          <button class="milestone-nav prev">&#10094;</button>
-          <button class="milestone-nav next">&#10095;</button>
-      
-          <!-- Dots -->
-          <div class="milestone-dots"></div>
-      
-      </section>      
-        
-        <!-- Tecnologías -->
-        <section id="tecnologias" class="tech-section">
-            <div class="section-header">
-              <span class="section-badge">🧰 TECNOLOGÍAS</span>
-              <h2 class="section-title">Stack técnico aplicado a resultados reales</h2>
-            </div>
-          
-            <div class="tech-list">
-              <div class="tech-item" data-percent="95">
-                <div class="tech-info">
-                  <span>HTML / CSS / JavaScript</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-          
-              <div class="tech-item" data-percent="90">
-                <div class="tech-info">
-                  <span>WordPress</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-          
-              <div class="tech-item" data-percent="85">
-                <div class="tech-info">
-                  <span>PHP</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-          
-              <div class="tech-item" data-percent="90">
-                <div class="tech-info">
-                  <span>SMTP · EmailJS</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-          
-              <div class="tech-item" data-percent="88">
-                <div class="tech-info">
-                  <span>Google Apps Script</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-          
-              <div class="tech-item" data-percent="80">
-                <div class="tech-info">
-                  <span>n8n · Automatización</span>
-                  <span class="tech-percent">0%</span>
-                </div>
-                <div class="tech-bar">
-                  <div class="tech-progress"></div>
-                </div>
-              </div>
-            </div>
-          </section>                      
-
-        <!-- CTA final -->
-        <section class="services-cta" id="contacto">
-            <h3>¿Tu web no está dando resultados?</h3>
-            <p>No vendo humo. Implemento soluciones.</p>
-            <a href="mailto:anfelirod86@hotmail.com" class="btn-primary">Contactar</a>
-        </section>            
+      <p class="sub-text">
+        Implementamos tecnologías estratégicas como:
+      </p>
     </div>
+
+    <div class="tech-grid fade-up">
+      
+      <div class="tech-card">
+        <div class="icon">🧠</div>
+        <h3>Estrategia digital</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">🎯</div>
+        <h3>Branding</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">☁️</div>
+        <h3>Arquitectura e Infraestructura Digital</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">💻</div>
+        <h3>Desarrollo a la medida</h3>
+      </div>
+      
+      <div class="tech-card">
+        <div class="icon">⚙️</div>
+        <h3>Automatización</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">🔗</div>
+        <h3>CRM</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">🛒</div>
+        <h3>E-commerce</h3>
+      </div>
+
+      <div class="tech-card">
+        <div class="icon">🎓</div>
+        <h3>E-learning</h3>
+      </div>
+
+    </div>
+
+    <div class="closing-text fade-up">
+      <p>
+        No se trata de implementar herramientas.
+        Se trata de elegir la tecnología correcta,
+        en el momento correcto del negocio.
+      </p>
+    </div>
+
+  </div>
 </section>
-<script src="script.js" defer></script>
+
+<!-- DOLOR -->
+<section class="dark-section fade-in">
+  <h2>Los costos silenciosos que están afectando su empresa</h2>
+  <ul class="problems-grid">
+    <li class="problem-card">
+        <div class="problem-icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+        </div>
+        <p>Inversiones digitales sin retorno claro</p>
+    </li>
+
+    <li class="problem-card">
+        <div class="problem-icon">
+          <i class="fa-solid fa-diagram-project"></i>
+        </div>
+        <p>Sistemas que no se comunican entre sí</p>
+    </li>
+
+    <li class="problem-card">
+        <div class="problem-icon">
+          <i class="fa-solid fa-user-lock"></i>
+        </div>
+        <p>Dependencia excesiva de proveedores técnicos</p>
+    </li>
+
+    <li class="problem-card">
+        <div class="problem-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <p>Deuda técnica acumulada</p>
+    </li>
+
+    <li class="problem-card">
+        <div class="problem-icon">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+        <p>Procesos manuales que elevan costos operativos</p>
+    </li>
+    <li class="problem-card">
+      <div class="problem-icon">
+        <i class="fa-solid fa-eye-slash"></i>
+      </div>
+      <p>Datos sin medición ni decisiones claras</p>
+  </li>        
+</ul>
+<div class="strategic-quote">
+  <p>
+    La mayoría de empresas no falla por falta de tecnología.
+    <span>Falla por falta de dirección.</span>
+  </p>
+</div>
+</section>
+
+<!-- SOLUCIÓN -->
+<section class="fade-in">
+  <h2>No vendo herramientas</h2>
+  <h2 class="service-title">Ordeno decisiones digitales con impacto financiero.</h2>
+  <!-- Grid de servicios -->
+  <div class="services-grid grid-2" id="soluciones">
+    <!-- Servicio 1 -->
+    <div class="service-card">
+        <div class="service-icon"><i class="fa-solid fa-coins"></i></div>
+        <h3 class="service-title">Para CFO</h3>
+        <p class="service-description">
+            Optimización de TCO, reducción de costos y ROI validado.
+        </p>
+        <ul class="service-features">
+            <li><i class="fas fa-check"></i> Optimización de TCO (Total Cost of Ownership)</li>
+            <li><i class="fas fa-check"></i> Eliminación de herramientas redundantes</li>
+            <li><i class="fas fa-check"></i> Priorización de inversiones con ROI validado</li>
+            <li><i class="fas fa-check"></i> Reducción de costos operativos mediante automatización estratégica</li>
+        </ul>
+        <a href="#contacto" class="service-link">
+            Más información <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>            
+
+    <!-- Servicio 2 -->
+    <div class="service-card featured">
+        <div class="featured-badge">Clave</div>
+        <div class="service-icon"><i class="fa-solid fa-server"></i></div>
+        <h3 class="service-title">Para CTO</h3>
+        <p class="service-description">
+            Arquitectura escalable, integración eficiente y gobierno tecnológico.
+        </p>
+        <ul class="service-features">
+            <li><i class="fas fa-check"></i> Arquitectura escalable y sostenible</li>
+            <li><i class="fas fa-check"></i> Reducción de deuda técnica</li>
+            <li><i class="fas fa-check"></i> Integración eficiente entre sistemas</li>
+            <li><i class="fas fa-check"></i> Gobierno tecnológico estructurado</li>
+        </ul>
+        <a href="#contacto" class="service-link">
+            Más información <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>            
+
+    <!-- Servicio 3 -->
+    <div class="service-card">
+        <div class="service-icon"><i class="fa-solid fa-chess-king"></i></div>
+        <h3 class="service-title">Para CEO</h3>
+        <p class="service-description">
+            Escalabilidad sin aumentar nómina y mitigación de riesgo.
+        </p>
+        <ul class="service-features">
+            <li><i class="fas fa-check"></i> Claridad en decisiones digitales críticas</li>
+            <li><i class="fas fa-check"></i> Escalabilidad sin aumentar nómina</li>
+            <li><i class="fas fa-check"></i> Ventaja competitiva basada en eficiencia</li>
+            <li><i class="fas fa-check"></i> Continuidad operativa y mitigación de riesgo</li>
+        </ul>
+        <a href="#contacto" class="service-link">
+            Más información <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>    
+    
+    <!-- Servicio 4 -->
+    <div class="service-card featured">
+      <div class="featured-badge">Revenue</div>
+      <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+      <h3 class="service-title">Para CMO</h3>
+      <p class="service-description">
+          Escalabilidad de revenue mediante automatización inteligente y arquitectura de datos.
+      </p>
+      <ul class="service-features">
+          <li><i class="fas fa-check"></i> Automatización estratégica de leads</li>
+          <li><i class="fas fa-check"></i> Integración CRM + Data Layer</li>
+          <li><i class="fas fa-check"></i> Respuestas automatizadas con IA</li>
+          <li><i class="fas fa-check"></i> Arquitectura de conversión medible</li>
+      </ul>
+      <a href="#contacto" class="service-link">
+          Más información <i class="fas fa-arrow-right"></i>
+      </a>
+  </div>
+</div>
+</section>
+
+<!-- METODOLOGÍA -->
+<section class="dark-section fade-in">
+  <h2>Strategic Growth Architecture™ (SGA-360)</h2>
+  <p>Un proceso diseñado para convertir incertidumbre digital en estructura rentable.</p>
+
+  <div class="milestones-slider">
+
+    <div class="slider-progress"></div>
+
+      <div class="milestone-slide active">
+        <span class="phase-label">Fase 1</span>
+          <h3>Diagnóstico Ejecutivo</h3>
+          <p>Evaluación integral de:</p>
+          <ul class="milestones-list">
+              <li><i class="fas fa-check"></i> Riesgo tecnológico</li>
+              <li><i class="fas fa-check"></i> Estructura digital</li>
+              <li><i class="fas fa-check"></i> Procesos operativos</li>
+              <li><i class="fas fa-check"></i> Rentabilidad digital actual</li>
+          </ul>
+        <span>Entrega: Informe estratégico con mapa de riesgos y oportunidades.</span>
+      </div>
+
+      <div class="milestone-slide">
+        <span class="phase-label">Fase 2</span>
+          <h3>Arquitectura Estratégica</h3>
+          <p>Diseño del modelo ideal:</p>
+          <ul class="milestones-list">
+              <li><i class="fas fa-check"></i> Prioridades de inversión</li>
+              <li><i class="fas fa-check"></i> Roadmap tecnológico</li>
+              <li><i class="fas fa-check"></i> Modelo de automatización</li>
+              <li><i class="fas fa-check"></i> KPIs financieros y operativos</li>
+          </ul>
+      </div>
+
+      <div class="milestone-slide">
+        <span class="phase-label">Fase 3</span>
+          <h3>Ejecución con Aliados</h3>
+          <p>Implementación con equipos técnicos certificados y control estratégico continuo.</p>
+          <span>Usted no gestiona proveedores.<br />
+            Gestiona resultados.</span>
+      </div>
+
+      <div class="milestone-slide">
+        <span class="phase-label">Fase 4</span>
+          <h3>Optimización y Validación de ROI</h3>
+          <ul class="milestones-list">
+              <li><i class="fas fa-check"></i> Medición de impacto</li>
+              <li><i class="fas fa-check"></i> Ajustes estratégicos</li>
+              <li><i class="fas fa-check"></i> Escalabilidad progresiva</li>
+              <li><i class="fas fa-check"></i> Reporte ejecutivo trimestral</li>
+          </ul>
+      </div>
+
+      <!-- Flechas -->
+      <button class="milestone-nav prev">&#10094;</button>
+      <button class="milestone-nav next">&#10095;</button>
+
+      <!-- Dots -->
+      <div class="milestone-dots"></div>
+
+    </div> 
+    <a href="#contacto" class="cta-button">
+      <span class="cta-text">Agendar diagnóstico estratégico</span>
+      <span class="cta-icon">→</span>
+    </a>    
+</section>
+
+<!-- CASOS -->
+<section class="impact-section" id="impact">
+  <!-- Título principal -->
+  <div class="impact-header">
+    <h2 class="impact-main-title">Impacto real</h2>
+    <p class="impact-subtitle">Resultados medibles en diferentes industrias</p>
+  </div>
+
+  <div class="impact-container">
+
+    <!-- B2B -->
+    <div class="impact-group">
+      <h3 class="impact-title">B2B</h3>
+
+      <div class="impact-metrics">
+
+        <div class="impact-item">
+          <div class="circle" data-value="32" data-suffix="%">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0%</div>
+          </div>
+          <p class="impact-label">Reducción costos</p>
+        </div>
+
+        <div class="impact-item">
+          <div class="circle" data-value="2.4" data-suffix="x">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0x</div>
+          </div>
+          <p class="impact-label">Conversión</p>
+        </div>
+
+      </div>
+    </div>
 
 
+    <!-- Startup -->
+    <div class="impact-group">
+      <h3 class="impact-title">Startup</h3>
 
+      <div class="impact-metrics">
+
+        <div class="impact-item">
+          <div class="circle" data-value="45" data-suffix="%">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0%</div>
+          </div>
+          <p class="impact-label">Eficiencia</p>
+        </div>
+
+        <div class="impact-item">
+          <div class="circle" data-value="99.9" data-suffix="%">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0%</div>
+          </div>
+          <p class="impact-label">Disponibilidad</p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Retail -->
+    <div class="impact-group">
+      <h3 class="impact-title">Retail</h3>
+
+      <div class="impact-metrics">
+
+        <div class="impact-item">
+          <div class="circle" data-value="38" data-suffix="%">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0%</div>
+          </div>
+          <p class="impact-label">Mejora ROAS</p>
+        </div>
+
+        <div class="impact-item">
+          <div class="circle" data-value="27" data-suffix="%">
+            <svg width="140" height="140">
+              <circle class="bg" cx="70" cy="70" r="60"></circle>
+              <circle class="progress" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="number">0%</div>
+          </div>
+          <p class="impact-label">Aumento margen</p>
+        </div>
+
+      </div>
+    </div>
+
+    <a href="#contacto" class="cta-button">
+      <span class="cta-text">Agendar diagnóstico estratégico</span>
+      <span class="cta-icon">→</span>
+    </a> 
+  </div>
+</section>
+
+<!-- TABLA -->
+<section class="fade-in table-wrapper">
+  <h2>Executive Board View</h2>
+  <table class="executive-table">
+    <tr>
+      <th>Factor</th>
+      <th>Mi Servicio</th>
+      <th>Proveedor</th>
+      <th>In-House</th>
+    </tr>
+    <tr>
+      <td>Enfoque</td>
+      <td>Estratégico + ROI</td>
+      <td>Técnico</td>
+      <td>Operativo</td>
+    </tr>
+    <tr>
+      <td>Visión Financiera</td>
+      <td style="color: green">✔</td>
+      <td style="color: red">✖</td>
+      <td>Parcial</td>
+    </tr>
+    <tr>
+      <td>Reducción Riesgo</td>
+      <td style="color: green">✔</td>
+      <td>Limitada</td>
+      <td>Dependiente</td>
+    </tr>
+    <tr>
+      <td>Escalabilidad</td>
+      <td>Arquitectura estructurada</td>
+      <td>Improvisada</td>
+      <td>Lenta</td>
+    </tr>
+    <tr>
+      <td>Gobierno Tecnológico</td>
+      <td>Si</td>
+      <td>No</td>
+      <td>Parcial</td>
+    </tr>
+    <tr>
+      <td>Acompañamiento Ejecutivo</td>
+      <td>Directo</td>
+      <td>No</td>
+      <td>No Estratégico</td>
+    </tr>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section id="contacto" class="fade-in">
+  <div class="container">
+    <h2>¿Aún tienes preguntas? ¡Vamos a Resolverlas!</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>1. ¿Cuánto tiempo toma el diagnóstico?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Entre 2 y 4 semanas dependiendo de la complejidad operativa.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>2. ¿Reemplaza a mi equipo técnico?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 No. Lo potencia y le da dirección estratégica.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>3. ¿Es solo para grandes empresas?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Trabajo con empresas en punto de inflexión que requieren estructura y visión de crecimiento sostenible.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>4. ¿Garantiza resultados?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Garantizo estructura, claridad y decisiones basadas en datos. La ejecución se mide bajo indicadores definidos desde la fase estratégica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a target="_blank" href="mailto:anfelirod86@hotmail.com" class="btn">Agendar Diagnóstico Ejecutivo</a>
+</section>
+
+<script>
+  // Animación scroll
+  const animatedElements = document.querySelectorAll('.fade-in, .fade-up');
+
+  const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible', 'active');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+
+  animatedElements.forEach(el => appearOnScroll.observe(el));
+
+  // FAQ Accordion
+  function initFAQ() {
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+      const question = item.querySelector(".faq-question");
+
+      question.addEventListener("click", () => {
+        faqItems.forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.classList.remove("active");
+          }
+        });
+
+        item.classList.toggle("active");
+      });
+    });
+  }
+
+  initFAQ();
+
+  // Scroll del arrow down del header
+  document.querySelector('.scroll-down').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('#about').scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+
+  // SLIDER SUAVE Y ESTABLE PARA LOS HITOS
+  const slides = document.querySelectorAll('.milestone-slide');
+  const prevBtn = document.querySelector('.milestone-nav.prev');
+  const nextBtn = document.querySelector('.milestone-nav.next');
+  const dotsContainer = document.querySelector('.milestone-dots');
+
+  let current = 0;
+  let autoPlayInterval;
+  let autoPlayDelay = 6000;
+  let resumeTimeout;
+  const resumeDelay = 10000; // 10 segundos
+
+  /* Crear dots */
+  slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+          goToSlide(i);
+          pauseAutoplay();
+      });
+      dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.milestone-dots span');
+
+  function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+
+      resetProgressBar(); // 🔥 reinicia barra cada vez que cambia
+  }
+
+  function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+  }
+
+  function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+  }
+
+  function goToSlide(index) {
+      current = index;
+      showSlide(current);
+  }
+
+  /* Autoplay */
+  function startAutoplay() {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
+  }
+
+  function pauseAutoplay() {
+      clearInterval(autoPlayInterval);
+      clearTimeout(resumeTimeout);
+
+      resumeTimeout = setTimeout(() => {
+          startAutoplay();
+      }, resumeDelay);
+  }
+
+  /* Eventos */
+  nextBtn.addEventListener('click', () => {
+      nextSlide();
+      pauseAutoplay();
+  });
+
+  prevBtn.addEventListener('click', () => {
+      prevSlide();
+      pauseAutoplay();
+  });
+
+
+  // SLIDER PROGRESS
+  const progressBar = document.querySelector('.slider-progress');
+
+  /* Iniciar auto */
+  startAutoplay();
+  resetProgressBar();
+
+  function resetProgressBar() {
+      progressBar.style.transition = "none";
+      progressBar.style.width = "0%";
+
+      // Forzar reflow para reiniciar animación
+      void progressBar.offsetWidth;
+
+      progressBar.style.transition = `width ${autoPlayDelay}ms linear`;
+      progressBar.style.width = "100%";
+  }
+
+  // SCROLL IMPACTO RESULTADOS
+  const circles = document.querySelectorAll('.circle');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCircle(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  circles.forEach(circle => observer.observe(circle));
+
+  function animateCircle(circle) {
+    const value = parseFloat(circle.getAttribute('data-value'));
+    const suffix = circle.getAttribute('data-suffix') || '%';
+    const progress = circle.querySelector('.progress');
+    const number = circle.querySelector('.number');
+
+    const radius = 60;
+    const circumference = 2 * Math.PI * radius;
+
+    progress.style.strokeDasharray = circumference;
+
+    const duration = 2000;
+    const startTime = performance.now();
+
+    function animate(time) {
+      const elapsed = time - startTime;
+      const progressTime = Math.min(elapsed / duration, 1);
+
+      let currentValue = value * progressTime;
+
+      // Si es decimal como 2.4x
+      if (suffix === 'x') {
+        currentValue = currentValue.toFixed(1);
+      } else {
+        currentValue = Math.floor(currentValue);
+      }
+
+      number.innerHTML = currentValue + suffix;
+
+      // Siempre calculamos el círculo sobre base 100
+      const percentage = suffix === 'x' 
+        ? (value / 3) * 100 // Ajuste visual para escala x (puedes cambiar 3 por el máximo esperado)
+        : value;
+
+      const offset = circumference - (percentage / 100) * circumference;
+      progress.style.strokeDashoffset = offset;
+
+      if (progressTime < 1) {
+        requestAnimationFrame(animate);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  const scrollArrow = document.querySelector('.scroll-down');
+
+  if (scrollArrow) {
+    scrollArrow.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector('#about').scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  //PARALLAX
+  window.addEventListener("scroll", function(){
+    const parallax = document.querySelector(".parallax-bg");
+    if (!parallax) return;
+    let scrollPosition = window.pageYOffset;
+    parallax.style.transform = "translateY(" + scrollPosition * 0.2 + "px)";
+  });
+</script>  
+
+</body>
+</html>
