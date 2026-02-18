@@ -75,6 +75,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     /* HERO */
     .hero {
+      min-height: 100dvh; /* 👈 clave moderna */
       display: flex;
       flex-direction: column;
       background: linear-gradient(rgba(11,31,58,0.85), rgba(10,10,10,0.9)),
@@ -754,7 +755,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     /* Responsive */
     @media (max-width: 768px) {
         .milestones-slider {
-            max-height: 280px;
+            height: 580px;
         }
         .milestone-nav {
             font-size: 1.6rem;   /* más pequeñas */
@@ -1060,11 +1061,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     /* Responsive */
     @media(max-width: 768px) {
       .hero {
-        height: 100%;
+        padding: 80px 20px;
+        min-height: 100dvh;
       }
 
       .hero h1 {
-        font-size: 2rem;
+        font-size: 1.9rem;
+        line-height: 1.2;
+      }
+
+      .platforms-block {
+        margin-top: 40px;
       }
 
       .logos img {
