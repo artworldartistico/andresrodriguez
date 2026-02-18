@@ -308,6 +308,45 @@ body.dark .no-results h3 {
     color: #cbd5e0;
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+    .grid .item {
+        width: calc(50% - 20px);
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .grid .item {
+        width: calc(100% - 20px);
+    }
+
+    .item-content img {
+        height: 200px;
+    }
+
+    .search-form {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .searcher-input {
+        width: 100%;
+    }
+
+    .category-filters {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        justify-items: stretch;
+    }
+
+    .filter-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* ============================================ */
 /* MODAL DE PROYECTO */
 /* ============================================ */
@@ -570,6 +609,22 @@ body.dark .modal-container.modal--details .modal-image {
 
     .modal-container.modal--details .modal-details {
         height: 45vh;
+    }
+
+    .searcher-input {
+        width: 100%;
+        max-width: 83%;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-overlay {
+        opacity: 1;
+        background: linear-gradient(
+            180deg,
+            transparent 30%,
+            rgba(0,0,0,0.85) 100%
+        );
     }
 }
 
