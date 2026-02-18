@@ -90,28 +90,52 @@ document.addEventListener('DOMContentLoaded', () => {
     =============================== */
     function openModalFromItem(item, showDetails = false) {
         modalContainer.classList.remove('modal--details');
-
+    
+        /* ===============================
+           CONTENIDO VISUAL
+        =============================== */
         document.getElementById('modalImage').src =
-            item.querySelector('img').src;
-
+            item.querySelector('img')?.src || '';
+    
         document.getElementById('modalTitle').textContent =
             item.querySelector('.project-title')?.textContent || '';
-
+    
         document.getElementById('modalCategory').textContent =
             item.querySelector('.project-category')?.textContent || '';
-
+    
         document.getElementById('modalDescription').textContent =
             item.querySelector('.project-description')?.textContent || '';
-
+    
+        /* ===============================
+           DATA ATTRIBUTES → MODAL
+        =============================== */
+        const industry = item.dataset.industry || '-';
+        const country  = item.dataset.country || '-';
+        const type     = item.dataset.type || '-';
+        const link     = item.dataset.src || '#';
+    
+        document.getElementById('modalIndustry').textContent = industry;
+        document.getElementById('modalCountry').textContent  = country;
+        document.getElementById('modalType').textContent     = type;
+    
+        const modalLink = document.getElementById('modalLink');
+        modalLink.href = link;
+    
+        /* Si no hay link, ocultamos CTA (UX pro) */
+        modalLink.style.display = link && link !== '#' ? 'inline-flex' : 'none';
+    
+        /* ===============================
+           MOSTRAR MODAL
+        =============================== */
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-
+    
         if (showDetails) {
             requestAnimationFrame(() => {
                 modalContainer.classList.add('modal--details');
             });
         }
-    }
+    }    
 
     /* ===============================
     CLICK EN CARD / IMAGEN → SOLO IMAGEN
