@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Optimizado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-label .required {
+            color: #e53e3e;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-input.error, .form-textarea.error {
+            border-color: #e53e3e;
+        }
+
+        .form-input.success, .form-textarea.success {
+            border-color: #48bb78;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            color: #48bb78;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        .submit-button.loading .spinner {
+            display: block;
+        }
+
+        .submit-button.loading .button-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .privacy-notice {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #edf2f7;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: #4a5568;
+        }
+
+        .privacy-notice a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .success-alert {
+            display: none;
+            padding: 1rem;
+            background: #c6f6d5;
+            border: 2px solid #48bb78;
+            border-radius: 10px;
+            color: #22543d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .success-alert.show {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .contact-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="form-header">
+            <h2 class="form-title">¿Listo para tu proyecto?</h2>
+            <p class="form-subtitle">Te responderé en menos de 24 horas</p>
+        </div>
+
+        <div class="success-alert" id="successAlert">
+            ✅ ¡Mensaje enviado exitosamente! Te contactaré pronto.
+        </div>
+
+        <form id="contactForm" novalidate>
+            <div class="form-group">
+                <label class="form-label" for="name">
+                    Nombre completo <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        class="form-input" 
+                        placeholder="Ej: Juan Pérez"
+                        required
+                    >
+                </div>
+                <span class="error-message" id="nameError">Por favor ingresa tu nombre completo</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">
+                    Correo electrónico <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="tu@email.com"
+                        required
+                    >
+                </div>
+                <span class="error-message" id="emailError">Ingresa un correo válido</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="phone">
+                    Teléfono / WhatsApp <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        class="form-input" 
+                        placeholder="+57 300 123 4567"
+                        required
+                    >
+                </div>
+                <span class="error-message" id="phoneError">Ingresa un teléfono válido</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="service">
+                    Tipo de proyecto <span class="required">*</span>
+                </label>
+                <select id="service" name="service" class="form-input" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="web-corporativa">Sitio Web Corporativo</option>
+                    <option value="ecommerce">Tienda Online (E-commerce)</option>
+                    <option value="landing-page">Landing Page</option>
+                    <option value="wordpress">WordPress Personalizado</option>
+                    <option value="moodle">Plataforma E-learning (Moodle)</option>
+                    <option value="mantenimiento">Mantenimiento Web</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <span class="error-message" id="serviceError">Selecciona el tipo de proyecto</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="message">
+                    Cuéntame sobre tu proyecto <span class="required">*</span>
+                </label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    class="form-textarea" 
+                    placeholder="Describe tu proyecto, objetivos y cualquier detalle importante..."
+                    required
+                ></textarea>
+                <span class="error-message" id="messageError">Por favor describe tu proyecto</span>
+            </div>
+
+            <button type="submit" class="submit-button" id="submitButton">
+                <span class="spinner"></span>
+                <span class="button-text">Enviar Solicitud</span>
+            </button>
+
+            <div class="privacy-notice">
+                🔒 Tus datos están seguros. Al enviar este formulario aceptas nuestra 
+                <a href="#privacidad">política de privacidad</a>.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Validación y envío del formulario
+        const form = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+        const successAlert = document.getElementById('successAlert');
+
+        // Expresiones regulares para validación
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[\d\s\+\-\(\)]{10,}$/;
+
+        // Función de validación en tiempo real
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldName = field.id;
+            let isValid = true;
+
+            if (fieldName === 'email') {
+                isValid = emailRegex.test(value);
+            } else if (fieldName === 'phone') {
+                isValid = phoneRegex.test(value);
+            } else if (fieldName === 'service') {
+                isValid = value !== '';
+            } else {
+                isValid = value.length >= 2;
+            }
+
+            // Actualizar UI
+            const errorMsg = document.getElementById(`${fieldName}Error`);
+            
+            if (!isValid && value !== '') {
+                field.classList.add('error');
+                field.classList.remove('success');
+                errorMsg.classList.add('show');
+            } else if (isValid) {
+                field.classList.remove('error');
+                field.classList.add('success');
+                errorMsg.classList.remove('show');
+            } else {
+                field.classList.remove('error', 'success');
+                errorMsg.classList.remove('show');
+            }
+
+            return isValid;
+        }
+
+        // Agregar listeners a todos los campos
+        ['name', 'email', 'phone', 'service', 'message'].forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            field.addEventListener('blur', () => validateField(field));
+            field.addEventListener('input', () => {
+                if (field.classList.contains('error')) {
+                    validateField(field);
+                }
+            });
+        });
+
+        // Manejo del envío
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validar todos los campos
+            const fields = ['name', 'email', 'phone', 'service', 'message'];
+            let isFormValid = true;
+
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!validateField(field)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                return;
+            }
+
+            // Mostrar loading
+            submitButton.classList.add('loading');
+            submitButton.disabled = true;
+
+            // Simular envío (aquí conectarías con Google Forms o tu backend)
+            try {
+                // Aquí va tu lógica de envío real
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Mostrar éxito
+                successAlert.classList.add('show');
+                form.reset();
+                
+                // Limpiar clases de validación
+                fields.forEach(fieldId => {
+                    document.getElementById(fieldId).classList.remove('success', 'error');
+                });
+
+                // Ocultar mensaje después de 5 segundos
+                setTimeout(() => {
+                    successAlert.classList.remove('show');
+                }, 5000);
+
+            } catch (error) {
+                alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
+            } finally {
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
