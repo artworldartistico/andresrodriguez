@@ -222,11 +222,7 @@
             <p class="form-subtitle">Te responderé en menos de 24 horas</p>
         </div>
 
-        <div class="success-alert" id="successAlert">
-            ✅ ¡Mensaje enviado exitosamente! Te contactaré pronto.
-        </div>
-
-        <form id="contactForm" novalidate>
+        <form id="mG61Hd" onsubmit="return submitUserForm();" novalidate method="post">
             <div class="form-group">
                 <label class="form-label" for="name">
                     Nombre completo <span class="required">*</span>
@@ -235,10 +231,10 @@
                     <input 
                         type="text" 
                         id="name" 
-                        name="name" 
+                        name="entry.986028393" 
                         class="form-input" 
                         placeholder="Ej: Juan Pérez"
-                        required
+                        required="required"
                     >
                 </div>
                 <span class="error-message" id="nameError">Por favor ingresa tu nombre completo</span>
@@ -252,7 +248,7 @@
                     <input 
                         type="email" 
                         id="email" 
-                        name="email" 
+                        name="entry.1240404565" 
                         class="form-input" 
                         placeholder="tu@email.com"
                         required
@@ -269,7 +265,7 @@
                     <input 
                         type="tel" 
                         id="phone" 
-                        name="phone" 
+                        name="entry.558641381" 
                         class="form-input" 
                         placeholder="+57 300 123 4567"
                         required
@@ -279,10 +275,27 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label" for="city">
+                    Ciudad <span class="required">*</span>
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="city" 
+                        name="entry.650908303" 
+                        class="form-input" 
+                        placeholder="Bogotá D.C."
+                        required
+                    >
+                </div>
+                <span class="error-message" id="cityError">Por Favor ingresa tu ciudad a la que vives</span>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label" for="service">
                     Tipo de proyecto <span class="required">*</span>
                 </label>
-                <select id="service" name="service" class="form-input" required>
+                <select id="service" name="entry.594277303" class="form-input" required>
                     <option value="">Selecciona una opción</option>
                     <option value="web-corporativa">Sitio Web Corporativo</option>
                     <option value="ecommerce">Tienda Online (E-commerce)</option>
@@ -290,6 +303,9 @@
                     <option value="wordpress">WordPress Personalizado</option>
                     <option value="moodle">Plataforma E-learning (Moodle)</option>
                     <option value="mantenimiento">Mantenimiento Web</option>
+                    <option value="mantenimiento">Automatización de respuestas con IA</option>
+                    <option value="mantenimiento">Gestión de datos alineados a tu negocio</option>
+                    <option value="mantenimiento">Desarrollo web y software a la medida</option>
                     <option value="otro">Otro</option>
                 </select>
                 <span class="error-message" id="serviceError">Selecciona el tipo de proyecto</span>
@@ -301,7 +317,7 @@
                 </label>
                 <textarea 
                     id="message" 
-                    name="message" 
+                    name="entry.1470397911" 
                     class="form-textarea" 
                     placeholder="Describe tu proyecto, objetivos y cualquier detalle importante..."
                     required
@@ -319,113 +335,91 @@
                 <a href="#privacidad">política de privacidad</a>.
             </div>
         </form>
+
+        <div class="success-alert" id="successAlert">
+            ✅ ¡Mensaje enviado exitosamente! Te contactaré pronto.
+        </div>
     </div>
 
     <script>
-        // Validación y envío del formulario
-        const form = document.getElementById('contactForm');
-        const submitButton = document.getElementById('submitButton');
-        const successAlert = document.getElementById('successAlert');
-
-        // Expresiones regulares para validación
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[\d\s\+\-\(\)]{10,}$/;
-
-        // Función de validación en tiempo real
-        function validateField(field) {
-            const value = field.value.trim();
-            const fieldName = field.id;
+        document.getElementById("mG61Hd").addEventListener("submit", function(e) {
+            e.preventDefault(); // 🚫 evita redirección
+        
             let isValid = true;
-
-            if (fieldName === 'email') {
-                isValid = emailRegex.test(value);
-            } else if (fieldName === 'phone') {
-                isValid = phoneRegex.test(value);
-            } else if (fieldName === 'service') {
-                isValid = value !== '';
-            } else {
-                isValid = value.length >= 2;
+        
+            // Obtener campos
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const phone = document.getElementById("phone");
+            const city = document.getElementById("city");
+            const service = document.getElementById("service");
+            const message = document.getElementById("message");
+        
+            // Reset errores
+            document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
+        
+            // Validaciones
+            if (name.value.trim() === "") {
+                document.getElementById("nameError").style.display = "block";
+                isValid = false;
             }
-
-            // Actualizar UI
-            const errorMsg = document.getElementById(`${fieldName}Error`);
-            
-            if (!isValid && value !== '') {
-                field.classList.add('error');
-                field.classList.remove('success');
-                errorMsg.classList.add('show');
-            } else if (isValid) {
-                field.classList.remove('error');
-                field.classList.add('success');
-                errorMsg.classList.remove('show');
-            } else {
-                field.classList.remove('error', 'success');
-                errorMsg.classList.remove('show');
+        
+            if (!email.value.includes("@")) {
+                document.getElementById("emailError").style.display = "block";
+                isValid = false;
             }
-
-            return isValid;
-        }
-
-        // Agregar listeners a todos los campos
-        ['name', 'email', 'phone', 'service', 'message'].forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            field.addEventListener('blur', () => validateField(field));
-            field.addEventListener('input', () => {
-                if (field.classList.contains('error')) {
-                    validateField(field);
-                }
+        
+            if (phone.value.trim() === "") {
+                document.getElementById("phoneError").style.display = "block";
+                isValid = false;
+            }
+        
+            if (city.value.trim() === "") {
+                document.getElementById("cityError").style.display = "block";
+                isValid = false;
+            }
+        
+            if (service.value === "") {
+                document.getElementById("serviceError").style.display = "block";
+                isValid = false;
+            }
+        
+            if (message.value.trim() === "") {
+                document.getElementById("messageError").style.display = "block";
+                isValid = false;
+            }
+        
+            if (!isValid) return;
+        
+            // Spinner
+            const button = document.getElementById("submitButton");
+            button.disabled = true;
+        
+            // Datos para Google Forms
+            const formData = new FormData();
+            formData.append("entry.986028393", name.value);
+            formData.append("entry.1240404565", email.value);
+            formData.append("entry.558641381", phone.value);
+            formData.append("entry.650908303", city.value);
+            formData.append("entry.594277303", service.value);
+            formData.append("entry.1470397911", message.value);
+        
+            fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLScEfhaPnenzk8FLizBL3cVPJNaYnn0WA8umPaeAzWukOIbNBQ/formResponse", {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            })
+            .then(() => {
+                document.getElementById("successAlert").style.display = "block";
+                document.getElementById("mG61Hd").reset();
+            })
+            .catch(() => {
+                alert("Hubo un error al enviar el formulario.");
+            })
+            .finally(() => {
+                button.disabled = false;
             });
         });
-
-        // Manejo del envío
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            // Validar todos los campos
-            const fields = ['name', 'email', 'phone', 'service', 'message'];
-            let isFormValid = true;
-
-            fields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!validateField(field)) {
-                    isFormValid = false;
-                }
-            });
-
-            if (!isFormValid) {
-                return;
-            }
-
-            // Mostrar loading
-            submitButton.classList.add('loading');
-            submitButton.disabled = true;
-
-            // Simular envío (aquí conectarías con Google Forms o tu backend)
-            try {
-                // Aquí va tu lógica de envío real
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                // Mostrar éxito
-                successAlert.classList.add('show');
-                form.reset();
-                
-                // Limpiar clases de validación
-                fields.forEach(fieldId => {
-                    document.getElementById(fieldId).classList.remove('success', 'error');
-                });
-
-                // Ocultar mensaje después de 5 segundos
-                setTimeout(() => {
-                    successAlert.classList.remove('show');
-                }, 5000);
-
-            } catch (error) {
-                alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');
-            } finally {
-                submitButton.classList.remove('loading');
-                submitButton.disabled = false;
-            }
-        });
-    </script>
+        </script>
 </body>
 </html>
