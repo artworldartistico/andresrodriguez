@@ -1,4 +1,4 @@
-# AndiWeb - Portfolio Profesional
+# Andrés Rodríguez - Portfolio Profesional
 
 [![Website Status](https://img.shields.io/website?url=https%3A%2F%2Ftudominio.github.io)](https://tudominio.github.io)
 [![GitHub last commit](https://img.shields.io/github/last-commit/tuusuario/andiweb)](https://github.com/tuusuario/andiweb)
@@ -6,7 +6,7 @@
 
 > Portfolio profesional de diseño y desarrollo web. Especializado en WordPress, Moodle, E-commerce y soluciones digitales a medida.
 
-🌐 **[Ver sitio en vivo](https://tudominio.github.io)**
+🌐 **[Ver sitio en vivo](https://artworldartistico.github.io/andresrodriguez/)**
 
 ---
 
@@ -37,10 +37,10 @@
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/tuusuario/andiweb.git
+git clone https://github.com/tuusuario/andresrodriguez.git
 
 # Navegar al directorio
-cd andiweb
+cd andresrodriguez
 
 # Abrir con Live Server (VSCode) o cualquier servidor local
 # No requiere instalación de dependencias
@@ -178,11 +178,262 @@ Este proyecto está bajo la Licencia MIT - ver [LICENSE](LICENSE) para más deta
 
 **Andrés Rodríguez**
 
-- 🌐 Website: [tudominio.github.io](https://tudominio.github.io)
+- 🌐 Website: [https://artworldartistico.github.io/andresrodriguez/](https://artworldartistico.github.io/andresrodriguez/)
 - 📧 Email: anfelirod86@hotmail.com
-- 💼 LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
-- 🎨 Behance: [Tu Portfolio](https://behance.net/tu-usuario)
+- 💼 LinkedIn: [Andrés Felipe Rodríguez Barbosa](https://www.linkedin.com/in/andr%C3%A9s-felipe-rodr%C3%ADguez-barbosa-53b4a915a/)
+- 🎨 Behance: [Portfolio Behance](https://www.behance.net/anfelirod8b973)
 
 ---
 
 ⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub!
+
+
+--------
+
+
+# 🚀 Formulario de contacto con Google Sheets + Apps Script + Email automático
+
+Este proyecto implementa un formulario de contacto en HTML que envía los datos a Google Sheets y dispara notificaciones automáticas por correo usando Google Apps Script.
+
+---
+
+## 🧩 Arquitectura del sistema
+
+Flujo de datos:
+
+Formulario HTML
+↓
+Google Forms (opcional)
+↓
+Google Sheets
+↓
+Google Apps Script (trigger)
+↓
+Correo automático (Gmail)
+
+
+---
+
+## 📌 Tecnologías usadas
+
+- HTML / JavaScript (Frontend)
+- Google Forms (receptor de datos)
+- Google Sheets (base de datos)
+- Google Apps Script (automatización)
+- Gmail (envío de correos)
+
+---
+
+## ⚙️ Configuración paso a paso
+
+### 1. Crear Google Form
+
+1. Ir a https://forms.google.com
+2. Crear un formulario con los campos necesarios:
+   - Nombre
+   - Correo
+   - Teléfono
+   - Ciudad
+   - Servicio
+   - Mensaje
+
+---
+
+### 2. Vincular con Google Sheets
+
+1. En Google Forms
+2. Ir a **Respuestas**
+3. Click en el ícono de Sheets (📊)
+4. Crear nueva hoja de cálculo
+
+---
+
+### 3. Integrar formulario HTML
+
+Enviar datos usando `fetch` a Google Forms:
+
+```javascript
+const formData = new FormData();
+
+formData.append("entry.XXXXXXXX", nombre);
+formData.append("entry.XXXXXXXX", correo);
+formData.append("entry.XXXXXXXX", telefono);
+formData.append("entry.XXXXXXXX", ciudad);
+formData.append("entry.XXXXXXXX", servicio);
+formData.append("entry.XXXXXXXX", mensaje);
+
+fetch("https://docs.google.com/forms/d/e/FORM_ID/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+});
+
+
+---
+
+## 📌 Tecnologías usadas
+
+- HTML / JavaScript (Frontend)
+- Google Forms (receptor de datos)
+- Google Sheets (base de datos)
+- Google Apps Script (automatización)
+- Gmail (envío de correos)
+
+---
+
+## ⚙️ Configuración paso a paso
+
+### 1. Crear Google Form
+
+1. Ir a https://forms.google.com
+2. Crear un formulario con los campos necesarios:
+   - Nombre
+   - Correo
+   - Teléfono
+   - Ciudad
+   - Servicio
+   - Mensaje
+
+---
+
+### 2. Vincular con Google Sheets
+
+1. En Google Forms
+2. Ir a **Respuestas**
+3. Click en el ícono de Sheets (📊)
+4. Crear nueva hoja de cálculo
+
+---
+
+### 3. Integrar formulario HTML
+
+Enviar datos usando `fetch` a Google Forms:
+
+```javascript
+const formData = new FormData();
+
+formData.append("entry.XXXXXXXX", nombre);
+formData.append("entry.XXXXXXXX", correo);
+formData.append("entry.XXXXXXXX", telefono);
+formData.append("entry.XXXXXXXX", ciudad);
+formData.append("entry.XXXXXXXX", servicio);
+formData.append("entry.XXXXXXXX", mensaje);
+
+fetch("https://docs.google.com/forms/d/e/FORM_ID/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+});
+
+
+---
+
+## 📌 Tecnologías usadas
+
+- HTML / JavaScript (Frontend)
+- Google Forms (receptor de datos)
+- Google Sheets (base de datos)
+- Google Apps Script (automatización)
+- Gmail (envío de correos)
+
+---
+
+## ⚙️ Configuración paso a paso
+
+### 1. Crear Google Form
+
+1. Ir a https://forms.google.com
+2. Crear un formulario con los campos necesarios:
+   - Nombre
+   - Correo
+   - Teléfono
+   - Ciudad
+   - Servicio
+   - Mensaje
+
+---
+
+### 2. Vincular con Google Sheets
+
+1. En Google Forms
+2. Ir a **Respuestas**
+3. Click en el ícono de Sheets (📊)
+4. Crear nueva hoja de cálculo
+
+---
+
+### 3. Integrar formulario HTML
+
+Enviar datos usando `fetch` a Google Forms:
+
+```javascript
+const formData = new FormData();
+
+formData.append("entry.XXXXXXXX", nombre);
+formData.append("entry.XXXXXXXX", correo);
+formData.append("entry.XXXXXXXX", telefono);
+formData.append("entry.XXXXXXXX", ciudad);
+formData.append("entry.XXXXXXXX", servicio);
+formData.append("entry.XXXXXXXX", mensaje);
+
+fetch("https://docs.google.com/forms/d/e/FORM_ID/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+});
+
+
+⚡ 4. Automatización con Apps Script
+
+Ir a:
+
+Google Sheets → Extensiones → Apps Script
+
+Pegar el siguiente código:
+
+function onFormSubmit(e) {
+
+  var datos = e.values;
+
+  var nombre = datos[1];
+  var correo = datos[2];
+  var telefono = datos[3];
+  var ciudad = datos[4];
+  var servicio = datos[5];
+  var mensaje = datos[6];
+
+  MailApp.sendEmail({
+    to: "tucorreo@negocio.com",
+    subject: "🚀 Nuevo cliente desde formulario web",
+    body: `
+Nuevo contacto recibido:
+
+Nombre: ${nombre}
+Correo: ${correo}
+Teléfono: ${telefono}
+Ciudad: ${ciudad}
+Servicio: ${servicio}
+
+Mensaje:
+${mensaje}
+    `
+  });
+}
+
+
+⏰ 5. Configurar Trigger (IMPORTANTE)
+Ir a Apps Script
+Abrir panel Triggers (⏰)
+Click en + Add Trigger
+Configurar:
+Function: onFormSubmit
+Event source: From spreadsheet
+Event type: On form submit
+Guardar y autorizar permisos
+📬 Resultado final
+
+Cuando un usuario envía el formulario:
+
+✔ Los datos se guardan en Google Sheets
+✔ Se envía correo automático al negocio
+✔ El usuario recibe confirmación (si está configurado en Forms)
