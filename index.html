@@ -1290,6 +1290,307 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     .cta-button:hover .cta-icon {
       transform: translateX(6px);
     }
+
+    /*******************CALENDARIO Y FORMULARIO**************************************/
+    /* CONTENEDOR PRINCIPAL */
+    .contact-section-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+        background: #0b1220;
+    }
+
+    /* GRID DOS COLUMNAS CENTRADO */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1100px;
+        width: 100%;
+        align-items: start;
+    }
+
+    .contact-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    /* INPUTS MÁS PRO */
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-label {
+        font-size: 13px;
+        color: #cbd5f5;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    /* CONTENEDOR GENERAL */
+    .contact-app {
+        padding: 80px 20px;
+        background: #0b1220;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* WRAPPER */
+    .contact-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* COLUMNAS */
+    .contact-left,
+    .contact-right {
+        background: #111827;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    /* FORM HEADER (ajuste visual) */
+    .form-title {
+        font-size: 26px;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .form-subtitle {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 25px;
+    }
+
+    /* INPUTS */
+    .form-input,
+    .form-textarea,
+    select {
+        width: 100%;
+        padding: 14px 16px; /* 👈 más cómodo */
+        border-radius: 12px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: #fff;
+        font-size: 14px;
+        transition: all 0.25s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        border-color: #8b5cf6;
+        outline: none;
+    }
+
+    /* INPUT ESTILO APP */
+    .form-input,
+    .form-textarea,
+    select {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.02);
+        color: #fff;
+        font-size: 14px;
+        transition: all 0.25s ease;
+    }
+
+    /* FOCUS BONITO */
+    .form-input:focus,
+    .form-textarea:focus,
+    select:focus {
+        outline: none;
+        border: 1px solid #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+        background: rgba(255,255,255,0.04);
+    }
+
+    /* PLACEHOLDER */
+    ::placeholder {
+        color: #64748b;
+    }
+
+    /* TEXTAREA */
+    .form-textarea {
+        min-height: 100px;
+        resize: none;
+    }
+
+    /* BOTÓN */
+    .submit-button {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, #7c3aed, #6366f1);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+    }
+
+    /* CALENDARIO WRAPPER */
+    .calendar-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* CALENDARIO */
+    .calendar-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .calendar-title {
+        color: #fff;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .calendar-subtitle {
+        color: #9ca3af;
+        margin-bottom: 20px;
+    }
+
+    /* EMBED */
+    .calendar-embed {
+        flex: 1;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .calendar-embed iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 650px; /* 👈 más presencia */
+        border: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .contact-wrapper {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    .error-message {
+        display: none;
+        color: #f87171;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .success-alert {
+        display: none;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(34,197,94,0.15);
+        color: #22c55e;
+        font-size: 14px;
+    }
+
+    /* SELECT FIX (IMPORTANTE) */
+    /* SELECT ESTILO APP CON FLECHA */
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        width: 100%;
+        padding: 12px 40px 12px 14px; /* espacio para la flecha */
+
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+
+        background-color: rgba(255,255,255,0.02);
+        color: #fff;
+        font-size: 14px;
+
+        cursor: pointer;
+
+        /* 🔽 FLECHA CUSTOM */
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23a78bfa' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+    }
+
+    /* OPCIONES */
+    select option {
+        background: #1f2937;
+        color: #fff;
+    }
+
+    /* FOCUS */
+    select:focus {
+        outline: none;
+        border: 1px solid #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+    }
+
+    /* OPCIÓN HOVER / SELECCIONADA (algunos navegadores) */
+    select option:checked {
+        background: #7c3aed;
+        color: #fff;
+    }
+
+    /* WRAPPER PARA CONTROLAR EL ICONO */
+    .select-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    /* SELECT */
+    .select-wrapper select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        width: 100%;
+        padding: 12px 40px 12px 14px; /* espacio para el icono */
+
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.02);
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    /* ICONO */
+    .select-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a78bfa;
+        font-size: 14px;
+        pointer-events: none; /* evita que bloquee el click */
+    }
   </style>
 </head>
 <body>
@@ -1698,7 +1999,163 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </div>
   </div>
 
-  <a target="_blank" href="contacto" class="btn">Agendar Diagnóstico Ejecutivo</a>
+  <a href="#contacto" class="btn">Agendar Diagnóstico Ejecutivo</a>
+</section>
+
+<section id="contacto" class="contact-app">
+  <div class="contact-wrapper">
+    <div class="contact-section-wrapper">
+      <div class="contact-grid">
+  
+          <!-- FORMULARIO -->
+          <div class="contact-card">
+            <div class="form-header">
+              <h2 class="form-title">¿Listo para tu proyecto?</h2>
+              <p class="form-subtitle">Te responderé en menos de 24 horas</p>
+              </div>
+      
+              <form id="mG61Hd" onsubmit="return submitUserForm();" novalidate method="post">
+                  <div class="form-group">
+                      <label class="form-label" for="name">
+                          Nombre completo <span class="required">*</span>
+                      </label>
+                      <div class="input-wrapper">
+                          <input 
+                              type="text" 
+                              id="name" 
+                              name="entry.986028393" 
+                              class="form-input" 
+                              placeholder="Ej: Juan Pérez"
+                              required="required"
+                          >
+                      </div>
+                      <span class="error-message" id="nameError">Por favor ingresa tu nombre completo</span>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="form-label" for="email">
+                          Correo electrónico <span class="required">*</span>
+                      </label>
+                      <div class="input-wrapper">
+                          <input 
+                              type="email" 
+                              id="email" 
+                              name="entry.1240404565" 
+                              class="form-input" 
+                              placeholder="tu@email.com"
+                              required
+                          >
+                      </div>
+                      <span class="error-message" id="emailError">Ingresa un correo válido</span>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="form-label" for="phone">
+                          Teléfono / WhatsApp <span class="required">*</span>
+                      </label>
+                      <div class="input-wrapper">
+                          <input 
+                              type="tel" 
+                              id="phone" 
+                              name="entry.558641381" 
+                              class="form-input" 
+                              placeholder="+57 300 123 4567"
+                              required
+                          >
+                      </div>
+                      <span class="error-message" id="phoneError">Ingresa un teléfono válido</span>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="form-label" for="city">
+                          Ciudad <span class="required">*</span>
+                      </label>
+                      <div class="input-wrapper">
+                          <input 
+                              type="text" 
+                              id="city" 
+                              name="entry.650908303" 
+                              class="form-input" 
+                              placeholder="Bogotá D.C."
+                              required
+                          >
+                      </div>
+                      <span class="error-message" id="cityError">Por Favor ingresa tu ciudad a la que vives</span>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="form-label" for="service">
+                          Tipo de proyecto <span class="required">*</span>
+                      </label>
+                      <div class="select-wrapper">
+                          <select id="service" name="entry.594277303" class="form-input" required>
+                              <option value="">Selecciona una opción</option>
+                              <option value="web-corporativa">Sitio Web Corporativo</option>
+                              <option value="ecommerce">Tienda Online (E-commerce)</option>
+                              <option value="landing-page">Landing Page</option>
+                              <option value="wordpress">WordPress Personalizado</option>
+                              <option value="moodle">Plataforma E-learning (Moodle)</option>
+                              <option value="mantenimiento">Mantenimiento Web</option>
+                              <option value="mantenimiento">Automatización de respuestas con IA</option>
+                              <option value="mantenimiento">Gestión de datos alineados a tu negocio</option>
+                              <option value="mantenimiento">Desarrollo web y software a la medida</option>
+                              <option value="otro">Otro</option>
+                          </select>
+                      
+                          <!-- ICONO -->
+                          <i class="fa-solid fa-chevron-down select-icon"></i>
+                      </div>
+                      <span class="error-message" id="serviceError">Selecciona el tipo de proyecto</span>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="form-label" for="message">
+                          Cuéntame sobre tu proyecto <span class="required">*</span>
+                      </label>
+                      <textarea 
+                          id="message" 
+                          name="entry.1470397911" 
+                          class="form-textarea" 
+                          placeholder="Describe tu proyecto, objetivos y cualquier detalle importante..."
+                          required
+                      ></textarea>
+                      <span class="error-message" id="messageError">Por favor describe tu proyecto</span>
+                  </div>
+      
+                  <button type="submit" class="submit-button" id="submitButton">
+                      <span class="spinner"></span>
+                      <span class="button-text">Enviar Solicitud</span>
+                  </button>
+      
+                  <div class="privacy-notice">
+                      🔒 Tus datos están seguros. Al enviar este formulario aceptas nuestra 
+                      <a href="#privacidad">política de privacidad</a>.
+                  </div>
+              </form>
+      
+              <div class="success-alert" id="successAlert">
+                  ✅ ¡Mensaje enviado exitosamente! Te contactaré pronto.
+              </div>
+          </div>
+  
+          <!-- CALENDARIO -->
+          <div class="contact-card">
+              <h3 class="form-title">Agenda una reunión</h3>
+              <p class="form-subtitle">Elige el horario que mejor te funcione</p>
+  
+              <div class="calendar-wrapper">
+                  <!-- TU EMBED DE CALENDLY -->
+                  <iframe 
+                      src="https://calendly.com/anfelirod86/30min"
+                      width="100%" 
+                      height="600" 
+                      frameborder="0">
+                  </iframe>
+              </div>
+          </div>
+  
+      </div>
+  </div>
 </section>
 
 <script>
@@ -1915,6 +2372,121 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     if (!parallax) return;
     let scrollPosition = window.pageYOffset;
     parallax.style.transform = "translateY(" + scrollPosition * 0.2 + "px)";
+  });
+
+  //WEBFORM
+  document.getElementById("mG61Hd").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      const name = document.getElementById("name");
+      const email = document.getElementById("email");
+      const phone = document.getElementById("phone");
+      const city = document.getElementById("city");
+      const service = document.getElementById("service");
+      const message = document.getElementById("message");
+
+      const successAlert = document.getElementById("successAlert");
+
+      // Reset errores
+      document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
+      successAlert.style.display = "none";
+
+      // Función helper para errores
+      function showError(input, errorId) {
+          document.getElementById(errorId).style.display = "block";
+          input.style.borderColor = "#ef4444";
+          isValid = false;
+      }
+
+      function clearError(input) {
+          input.style.borderColor = "rgba(255,255,255,0.08)";
+      }
+
+      // Validaciones
+      if (name.value.trim() === "") {
+          showError(name, "nameError");
+      } else {
+          clearError(name);
+      }
+
+      if (!email.value.includes("@")) {
+          showError(email, "emailError");
+      } else {
+          clearError(email);
+      }
+
+      if (phone.value.trim() === "") {
+          showError(phone, "phoneError");
+      } else {
+          clearError(phone);
+      }
+
+      if (city.value.trim() === "") {
+          showError(city, "cityError");
+      } else {
+          clearError(city);
+      }
+
+      if (service.value === "") {
+          showError(service, "serviceError");
+      } else {
+          clearError(service);
+      }
+
+      if (message.value.trim() === "") {
+          showError(message, "messageError");
+      } else {
+          clearError(message);
+      }
+
+      if (!isValid) return;
+
+      // Estado botón
+      const button = document.getElementById("submitButton");
+      const buttonText = button.querySelector(".button-text");
+
+      button.disabled = true;
+      buttonText.textContent = "Enviando...";
+
+      // Datos
+      const formData = new FormData();
+      formData.append("entry.986028393", name.value);
+      formData.append("entry.1240404565", email.value);
+      formData.append("entry.558641381", phone.value);
+      formData.append("entry.650908303", city.value);
+      formData.append("entry.594277303", service.value);
+      formData.append("entry.1470397911", message.value);
+
+      fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLScEfhaPnenzk8FLizBL3cVPJNaYnn0WA8umPaeAzWukOIbNBQ/formResponse", {
+          method: "POST",
+          mode: "no-cors",
+          body: formData
+      })
+      .then(() => {
+          // Mostrar éxito
+          successAlert.style.display = "block";
+
+          // Reset form
+          document.getElementById("mG61Hd").reset();
+
+          // Scroll suave al mensaje
+          successAlert.scrollIntoView({ behavior: "smooth", block: "center" });
+      })
+      .catch(() => {
+          alert("Hubo un error al enviar el formulario.");
+      })
+      .finally(() => {
+          button.disabled = false;
+          buttonText.textContent = "Enviar Solicitud";
+      });
+  });
+
+  document.querySelectorAll(".form-input, .form-textarea, select").forEach(input => {
+      input.addEventListener("input", () => {
+          input.style.borderColor = "rgba(255,255,255,0.08)";
+      });
   });
 </script>  
 
