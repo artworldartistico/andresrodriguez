@@ -1591,9 +1591,499 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         font-size: 14px;
         pointer-events: none; /* evita que bloquee el click */
     }
+
+    /*WHATSAPP1*/
+
+    .float{
+      position:fixed;
+      width:60px;
+      height:60px;
+      bottom: 15px;
+        right: 15px;
+      background-color:#4cc370;
+      color:#FFF;
+      border-radius:50px;
+      text-align:center;
+      font-size:30px;
+      box-shadow: 2px 2px 3px #999;
+      z-index:200;
+    }
+    .float:hover {
+      text-decoration: none;
+      color: #fff;
+      background-color:#3d9e5a;
+    }
+
+    .my-float{
+      margin-top:16px;
+    }
+
+    /*WHATSAPP2*/
+
+    .pulse {
+      -webkit-animation-name: pulse;
+      animation-name: pulse;
+    }
+
+    .nav-bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: flex-end;
+      width: auto;
+      height: auto;
+      position: fixed;
+      z-index: 198;
+      bottom: 0px;
+      right: 0px;
+      padding: 5px;
+      margin: 0px;
+    }
+    @media (max-width: 360px) {
+      .nav-bottom {
+        width: 320px;
+      }
+    }
+
+    .whatsapp-button {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      width: 60px;
+      height: 60px;
+      z-index: 8;
+      transition: .3s;
+      margin: 10px;
+      padding: 7px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: white;
+      /* offset-x > | offset-y ^| blur-radius | spread-radius | color */
+      -webkit-box-shadow: 1px 1px 6px 0px rgba(68, 68, 68, 0.705);
+      -moz-box-shadow: 1px 1px 6px 0px rgba(68, 68, 68, 0.705);
+      box-shadow: 1px 1px 6px 0px rgba(68, 68, 68, 0.705);
+    }
+
+    .circle-anime {
+      display: flex;
+      position: absolute;
+      justify-content: center;
+      align-content: center;
+      width: 60px;
+      height: 60px;
+      top: 15px;
+      right: 15px;
+      border-radius: 50%;
+      transition: .3s;
+      background-color: #77bb4a;
+      animation: pulse 1.2s 4.0s ease 4;
+    }
+
+    .popup-whatsapp {
+      display: none;
+      position: absolute;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: auto;
+      height: auto;
+      padding: 10px;
+      bottom: 85px;
+      right: 6px;
+      transition: .5s;
+      border-radius: 10px;
+      background-color: white;
+      /* offset-x > | offset-y ^| blur-radius | spread-radius | color */
+      -webkit-box-shadow: 2px 1px 6px 0px rgba(68, 68, 68, 0.705);
+      -moz-box-shadow: 2px 1px 6px 0px rgba(68, 68, 68, 0.705);
+      box-shadow: 2px 1px 6px 0px rgba(68, 68, 68, 0.705);
+      animation: slideInRight .6s 0.0s both;
+    }
+    .popup-whatsapp > div {
+      margin: 5px;
+    }
+    @media (max-width: 680px) {
+      .popup-whatsapp p {
+        font-size: 0.9em;
+      }
+    }
+    .content-whatsapp p{
+      display: flex;
+      align-items: center;
+      margin: auto;
+    }
+
+    .popup-whatsapp > .content-whatsapp.-top {
+      display: flex;
+      flex-direction: column;
+    }
+    .popup-whatsapp > .content-whatsapp.-top p {
+      color: #585858;
+      font-family: 'Inter';
+      font-weight: 400;
+      font-size: 1.0em;
+    }
+    .popup-whatsapp > .content-whatsapp.-bottom {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .closePopup {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 38px;
+      height: 38px;
+      margin: 0px 0px 15px 0px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background-color: #4cc370;
+      -webkit-box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+      -moz-box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+      box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+    }
+    .closePopup:hover {
+      background-color: #3d9e5a;
+      transition: .3s;
+    }
+
+    .send-msPopup {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      margin: 0px 0px 0px 5px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      -webkit-box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+      -moz-box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+      box-shadow: 1px 1px 2px 0px rgba(68, 68, 68, 0.705);
+    }
+    .send-msPopup:hover {
+      background-color: #f8f8f8;
+      transition: .3s;
+    }
+
+    .is-active-whatsapp-popup {
+      display: flex;
+      animation: slideInRight .6s 0.0s both;
+      background-color: #fafafa;
+    }
+
+    input.whats-input[type=text] {
+      width: 250px;
+      height: 40px;
+      box-sizing: border-box;
+      border: 0px solid #ffffff;
+      border-radius: 20px;
+      font-size: 1em;
+      background-color: #ffffff;
+      padding: 0px 0px 0px 10px;
+      -webkit-transition: width 0.3s ease-in-out;
+      transition: width 0.3s ease-in-out;
+      outline: none;
+      transition: .3s;
+    }
+    @media (max-width: 420px) {
+      input.whats-input[type=text] {
+        width: 225px;
+      }
+      
+      .float{
+        right: 15px;
+        }
+        
+        .nav-bottom {
+          right: 0px;
+        }
+    }
+    input.whats-input::placeholder {
+      /* Most modern browsers support this now. */
+      color: rgba(68, 68, 68, 0.705);
+      opacity: 1;
+    }
+    input.whats-input[type=text]:focus {
+      background-color: #f8f8f8;
+      -webkit-transition: width 0.3s ease-in-out;
+      transition: width 0.3s ease-in-out;
+      transition: .3s;
+    }
+
+    .icon-whatsapp-small {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon-whatsapp {
+      width: 45px;
+      height: 45px;
+    }
+
+    .icon-font-color {
+      color: #ffffff;
+    }
+
+    .icon-font-color--black {
+      color: #333333;
+    }
+
+    /***********************SECCIÓN SOBRE MI***********************/
+    /* SECTION */
+    .about-section {
+        padding: 100px 20px;
+        background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+        display: flex;
+        justify-content: center;
+    }
+
+    /* CONTAINER */
+    .about-container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto; /* 🔥 CENTRADO REAL */
+        display: flex;
+        justify-content: center;
+    }
+
+    /* CARD */
+    .about-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.03);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.05);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    /* IMAGE */
+    .about-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* CONTENT */
+    .about-content {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* TEXT */
+    .about-name {
+        font-size: 32px;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .about-role {
+        color: #a78bfa;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .about-info p {
+        color: #cbd5f5;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .about-description {
+        color: #94a3b8;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 20px 0;
+        text-align: justify;
+    }
+
+    /* BUTTONS */
+    .about-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .about-btn {
+        background: linear-gradient(135deg, #7c3aed, #6366f1);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .about-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(124,58,237,0.4);
+    }
+
+    .about-linkedin {
+        position: relative;
+        color: #fff;
+        padding: 12px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        overflow: hidden;
+
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.15);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: all 0.3s ease;
+    }
+
+    .about-linkedin::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(124, 58, 237, 0.6),
+            transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .about-linkedin:hover::before {
+        opacity: 1;
+    }
+
+    .about-linkedin::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.4),
+            transparent
+        );
+        transition: all 0.6s ease;
+    }
+
+    .about-linkedin:hover::after {
+        left: 120%;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .about-card {
+            grid-template-columns: 1fr;
+        }
+
+        .about-image {
+            height: 350px;
+        }
+
+        .about-content {
+            padding: 30px;
+        }
+    }
+
+
+
+    /* CONTENEDOR VER MÁS ACERCA DE MI*/
+    .about-more {
+        margin-top: 10px;
+    }
+
+    /* BOTÓN */
+    .about-toggle {
+        background: transparent;
+        border: none;
+        color: #a78bfa;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px 0;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .about-toggle:hover {
+        color: #c4b5fd;
+    }
+
+    /* CONTENIDO OCULTO */
+    .about-hidden {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: 
+            max-height 0.5s ease,
+            opacity 0.4s ease;
+    }
+
+    /* ESTADO ACTIVO */
+    .about-hidden.active {
+        max-height: 500px; /* suficiente para el contenido */
+        opacity: 1;
+        margin-top: 15px;
+    }
+
+    /* TEXTO */
+    .about-hidden p {
+        color: #94a3b8;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        text-align: justify;
+    }
   </style>
 </head>
 <body>
+
+  <!--Contacto por WhatsApp-->
+
+  <div class="nav-bottom">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+      <div class="popup-whatsapp fadeIn">
+          <div class="content-whatsapp -top"><button type="button" class="closePopup">
+                <i class="material-icons icon-font-color">close</i>
+              </button> 
+            
+              <p>  <img style="border-radius: 50px; margin-right: 15px;" src="images/andres_rodriguez.png" width="50">  Hola, ¿en que puedo ayudarte? </p>
+              
+          </div>
+          <div class="content-whatsapp -bottom">
+            <input class="whats-input" id="whats-in" type="text" Placeholder="Enviar mensaje..." />
+              
+              
+            
+    
+              <button class="send-msPopup" id="send-btn" type="button">
+                  <i class="material-icons icon-font-color--black">send</i>
+              </button>
+
+          </div>
+      </div>
+      <button type="button" id="whats-openPopup" class="whatsapp-button">
+          <div class="float" >
+              <i class="fa-brands fa-whatsapp my-float"></i></div>
+      </button>
+      <div class="circle-anime"></div>
+  </div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1684,6 +2174,70 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         Se trata de elegir la tecnología correcta,
         en el momento correcto del negocio.
       </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-container">
+
+    <div class="about-card">
+
+      <!-- IMAGEN -->
+      <div class="about-image">
+        <img src="images/andres_rodriguez_barbosa.png" alt="Sobre mí">
+      </div>
+
+      <!-- CONTENIDO -->
+      <div class="about-content">
+        <h2 class="about-name">Andrés Rodríguez</h2>
+        <p class="about-role">Dirección Estratégica & Automatización con IA</p>
+
+        <div class="about-info">
+          <p>📞 +57 321 390 0071</p>
+          <p>✉️ anfelirod86@hotmail.com.com</p>
+        </div>
+
+        <p class="about-description">
+          Ayudo a CEOs, CMOs y equipos digitales a reducir la fricción operativa 
+          mediante automatización, integración de sistemas y arquitectura digital 
+          basada en IA.
+        </p>
+
+        <div class="about-more">
+
+          <button class="about-toggle" id="aboutToggle">
+            Ver más ↓
+          </button>
+        
+          <div class="about-hidden" id="aboutHidden">
+            <p>
+              Durante los últimos años he trabajado en la intersección entre estrategia digital,
+              automatización y arquitectura de sistemas, ayudando a empresas a escalar sin aumentar
+              su carga operativa.
+            </p>
+        
+            <p>
+              Mi enfoque no es solo ejecutar, sino diseñar sistemas que funcionen de forma autónoma,
+              integrando tecnología, procesos y visión estratégica.
+            </p>
+        
+            <p>
+              Si buscas crecimiento real, necesitas algo más que marketing: necesitas estructura.
+            </p>
+          </div>
+        
+        </div>
+
+        <br />
+
+        <div class="about-actions">
+          <a href="#contacto" class="about-btn">Reúnete conmigo</a>
+          <a target="_blank" href="https://www.linkedin.com/in/andr%C3%A9s-felipe-rodr%C3%ADguez-barbosa-53b4a915a/" class="about-linkedin">in</a>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -2487,6 +3041,76 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       input.addEventListener("input", () => {
           input.style.borderColor = "rgba(255,255,255,0.08)";
       });
+  });
+
+  //Contact by WhatsApp
+
+  popupWhatsApp = () => {
+    
+    let btnClosePopup = document.querySelector('.closePopup');
+    let btnOpenPopup = document.querySelector('.whatsapp-button');
+    let popup = document.querySelector('.popup-whatsapp');
+    let sendBtn = document.getElementById('send-btn');
+
+    // Recuperar el estado guardado en localStorage
+    let isPopupActive = localStorage.getItem('isPopupActive') === 'true';
+    let hasSeenPopup = localStorage.getItem('hasSeenPopup') === 'true';
+
+    // Establecer el estado inicial del popup
+    if (isPopupActive) {
+        popup.classList.add('is-active-whatsapp-popup');
+    } else {
+        popup.classList.remove('is-active-whatsapp-popup');
+    }
+
+    // Mostrar el popup automáticamente después de 3 segundos, solo si no se ha visto antes
+    if (!hasSeenPopup) {
+        setTimeout(() => {
+            popup.classList.add('is-active-whatsapp-popup');
+            localStorage.setItem('isPopupActive', 'true'); // Guardar estado abierto
+            localStorage.setItem('hasSeenPopup', 'true'); // Marcar que ya se mostró una vez
+        }, 3000);
+    }
+
+    btnClosePopup.addEventListener("click",  () => {
+      popup.classList.toggle('is-active-whatsapp-popup');
+      localStorage.setItem('isPopupActive', 'false'); // Guardar estado cerrado
+    })
+    
+    btnOpenPopup.addEventListener("click",  () => {
+      popup.classList.toggle('is-active-whatsapp-popup');
+      popup.style.animation = "fadeIn .6s 0.0s both";
+      // Guardar estado abierto/cerrado
+      if (popup.classList.contains('is-active-whatsapp-popup')) {
+        localStorage.setItem('isPopupActive', 'true');
+        } else {
+            localStorage.setItem('isPopupActive', 'false');
+        }
+    });
+    
+    sendBtn.addEventListener("click", () => {
+    let msg = document.getElementById('whats-in').value;
+    let relmsg = msg.replace(/ /g,"%20");
+      
+    window.open('https://wa.me/573213900071?text='+relmsg, '_blank'); 
+    
+    });
+  }
+
+  popupWhatsApp();
+
+  // show more abaout me
+  document.getElementById("aboutToggle").addEventListener("click", function() {
+      const content = document.getElementById("aboutHidden");
+      const button = this;
+
+      content.classList.toggle("active");
+
+      if (content.classList.contains("active")) {
+          button.innerHTML = "Ver menos ↑";
+      } else {
+          button.innerHTML = "Ver más ↓";
+      }
   });
 </script>  
 
