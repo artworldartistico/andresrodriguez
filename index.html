@@ -465,6 +465,82 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         }
                     }
 
+      /* CTA FAQ */
+  .faq-cta{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:50px;
+  }
+
+  .faq-button{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+
+      padding:14px 28px;
+
+      font-size:15px;
+      font-weight:600;
+      text-decoration:none;
+
+      color:#fff;
+
+      background:linear-gradient(
+          135deg,
+          #7c3aed,
+          #6366f1
+      );
+
+      border-radius:999px;
+
+      box-shadow:
+          0 10px 30px rgba(124,58,237,.25);
+
+      transition:all .35s ease;
+
+      position:relative;
+      overflow:hidden;
+  }
+
+  /* Destello */
+  .faq-button::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:-120%;
+
+      width:70%;
+      height:100%;
+
+      background:linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.35),
+          transparent
+      );
+
+      transition:left .8s ease;
+  }
+
+  .faq-button:hover{
+      transform:translateY(-3px);
+      box-shadow:
+          0 15px 40px rgba(124,58,237,.45);
+  }
+
+  .faq-button:hover::before{
+      left:150%;
+  }
+
+  .faq-button i{
+      transition:transform .3s ease;
+  }
+
+  .faq-button:hover i{
+      transform:translateX(4px);
+  }
+
     /* ===== FRASE ESTRATÉGICA ===== */
     .strategic-quote {
       margin: 100px auto 0;
@@ -1340,6 +1416,37 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         justify-content: center;
     }
 
+    /* MOBILE */
+    @media (max-width: 768px) {
+
+      .contact-app {
+          padding: 30px 15px;
+      }
+
+      .contact-section-wrapper {
+          padding: 20px 0;
+      }
+
+      .contact-card {
+          padding: 25px 20px;
+      }
+
+      .contact-grid {
+          gap: 25px;
+      }
+
+      .form-title {
+          font-size: 42px;
+          line-height: 1.05;
+          margin-bottom: 12px;
+      }
+
+      .form-subtitle {
+          margin-bottom: 20px;
+      }
+
+    }
+
     /* WRAPPER */
     .contact-wrapper {
         width: 100%;
@@ -1440,6 +1547,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     .submit-button:hover {
         transform: translateY(-1px);
         box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+    }
+
+    /* CAPTCHA QUESTION */
+
+    .captcha-box{
+        display:flex;
+        align-items:center;
+        gap:14px;
+    }
+
+    #captchaQuestion{
+        min-width:90px;
+        height:54px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:12px;
+        background:rgba(255,255,255,.04);
+        color:#fff;
+        font-size:18px;
+        font-weight:600;
+        line-height:1;
+        white-space: nowrap;
+    }
+
+    /* Chrome, Edge, Safari */
+    #captchaAnswer::-webkit-outer-spin-button,
+    #captchaAnswer::-webkit-inner-spin-button{
+        -webkit-appearance:none;
+        margin:0;
+    }
+
+    /* Firefox */
+    #captchaAnswer{
+        -moz-appearance:textfield;
+        appearance:textfield;
+        flex:1;
     }
 
     /* CALENDARIO WRAPPER */
@@ -2516,44 +2660,116 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-question">
-          <span>1. ¿Cuánto tiempo toma el diagnóstico?</span>
+          <span>1. ¿Esto me ayudará a conseguir más clientes?</span>
           <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
         </button>
         <div class="faq-answer">
-          <p>👉 Entre 2 y 4 semanas dependiendo de la complejidad operativa.</p>
+          <p>👉 El objetivo no es instalar herramientas, sino construir un ecosistema digital que facilite la captación, seguimiento y conversión de oportunidades comerciales. Los resultados dependen del mercado, la oferta y la ejecución, pero todo el sistema se diseña para generar crecimiento medible.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>2. ¿Reemplaza a mi equipo técnico?</span>
+          <span>2. ¿Tengo que cambiar las plataformas que ya utilizo?</span>
           <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
         </button>
         <div class="faq-answer">
-          <p>👉 No. Lo potencia y le da dirección estratégica.</p>
+          <p>👉 No necesariamente. Primero analizo las herramientas que ya tienes y evalúo si pueden aprovecharse antes de recomendar nuevas soluciones. La prioridad es optimizar la inversión existente.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>3. ¿Es solo para grandes empresas?</span>
+          <span>3. ¿Esto aplica para cualquier tipo de negocio?</span>
           <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
         </button>
         <div class="faq-answer">
-          <p>👉 Trabajo con empresas en punto de inflexión que requieren estructura y visión de crecimiento sostenible.</p>
+          <p>👉 Sí. La metodología se adapta a la realidad de cada negocio, independientemente del sector o nivel de madurez digital. El enfoque puede implementarse en agencias, startups, empresas de tecnología, consultoras, firmas jurídicas, instituciones educativas, hospitales, hoteles, industrias y organizaciones que buscan crecer mediante una mejor integración de sus procesos, herramientas y canales digitales.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>4. ¿Garantiza resultados?</span>
+          <span>4. ¿Qué pasa si mi negocio crece más adelante?</span>
           <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
         </button>
         <div class="faq-answer">
-          <p>👉 Garantizo estructura, claridad y decisiones basadas en datos. La ejecución se mide bajo indicadores definidos desde la fase estratégica.</p>
+          <p>👉 El ecosistema se diseña pensando en escalabilidad. La idea es que los procesos, automatizaciones y herramientas puedan crecer junto con la empresa sin tener que reconstruir todo desde cero.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>5. ¿Voy a depender de una sola plataforma o proveedor?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 No. Se priorizan soluciones flexibles y conectables entre sí para evitar dependencias innecesarias. Si en el futuro decides cambiar una herramienta, el ecosistema puede adaptarse.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>6. ¿Necesito contratar personal adicional?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 En muchos casos ocurre lo contrario. Las automatizaciones ayudan a reducir tareas repetitivas para que el equipo actual pueda enfocarse en actividades de mayor valor.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>7. ¿La IA y las automatizaciones reemplazan a mi equipo?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 No. El objetivo no es reemplazar personas, sino eliminar tareas repetitivas y mejorar la productividad del equipo.
+            <br />
+            Los comerciales pueden dedicar más tiempo a vender, marketing puede enfocarse en estrategia y contenido, y la dirección puede tomar decisiones con información más clara y organizada.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>8. ¿Cuánto cuesta implementar una estrategia como esta?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Cada negocio tiene necesidades diferentes. Después del diagnóstico se define una hoja de ruta con prioridades, alcance e inversión recomendada para evitar gastos innecesarios.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>9. ¿Garantizas resultados?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Garantizo una metodología basada en análisis, estrategia y medición. Los resultados dependen de múltiples factores del negocio, pero cada acción se implementa con indicadores claros para evaluar su impacto.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>10. ¿Qué pasa si ya tengo página web, CRM o campañas funcionando?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Perfecto. El objetivo no es empezar de cero, sino identificar oportunidades de mejora, eliminar cuellos de botella y conectar mejor los sistemas existentes para obtener más valor de lo que ya tienes.</p>
+        </div>
+      </div>      
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>11. ¿Por qué necesito un Director de Ecosistema Digital y no solo una agencia o un desarrollador?</span>
+          <span class="faq-icon"><i class="fa-solid fa-angle-down"></i></span>
+        </button>
+        <div class="faq-answer">
+          <p>👉 Porque una página web, una campaña publicitaria o una automatización aislada no garantizan resultados por sí solas.
+            <br />
+            Mi trabajo consiste en conectar estrategia, marketing, tecnología, datos y procesos para que todas las piezas trabajen juntas hacia los objetivos del negocio.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <a href="#contacto" class="btn">Agendar Diagnóstico Ejecutivo</a>
+  <div class="faq-cta">
+      <a href="#contacto" class="faq-button">
+          Agendar Sesión Estratégica
+          <i class="fa-solid fa-arrow-right"></i>
+      </a>
+  </div>
 </section>
 
 <section id="contacto" class="contact-app">
@@ -2639,21 +2855,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       
                   <div class="form-group">
                       <label class="form-label" for="service">
-                          Tipo de proyecto <span class="required">*</span>
+                          ¿Qué te gustaría mejorar en tu negocio? <span class="required">*</span>
                       </label>
                       <div class="select-wrapper">
                           <select id="service" name="entry.594277303" class="form-input" required>
                               <option value="">Selecciona una opción</option>
-                              <option value="web-corporativa">Sitio Web Corporativo</option>
-                              <option value="ecommerce">Tienda Online (E-commerce)</option>
-                              <option value="landing-page">Landing Page</option>
-                              <option value="wordpress">WordPress Personalizado</option>
-                              <option value="moodle">Plataforma E-learning (Moodle)</option>
-                              <option value="mantenimiento">Mantenimiento Web</option>
-                              <option value="mantenimiento">Automatización de respuestas con IA</option>
-                              <option value="mantenimiento">Gestión de datos alineados a tu negocio</option>
-                              <option value="mantenimiento">Desarrollo web y software a la medida</option>
-                              <option value="otro">Otro</option>
+                              <option value="ecosistema-digital">Estrategia y ecosistema digital</option>
+                              <option value="automatizacion">Automatización de procesos y tareas</option>
+                              <option value="ia-clientes">Atención de clientes con IA</option>
+                              <option value="captacion-leads">Captación y seguimiento de clientes</option>
+                              <option value="datos-indicadores">Organización de datos e indicadores</option>
+                              <option value="integracion-sistemas">Integración entre herramientas y sistemas</option>
+                              <option value="transformacion-digital">Transformación digital de la operación</option>
+                              <option value="desarrollo-medida">Soluciones digitales a medida</option>
+                              <option value="no-se">Necesito orientación para definir el camino</option>
                           </select>
                       
                           <!-- ICONO -->
@@ -2675,6 +2890,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                       ></textarea>
                       <span class="error-message" id="messageError">Por favor describe tu proyecto</span>
                   </div>
+
+                  <div class="form-group">
+                      <label class="form-label">
+                          Verificación de seguridad <span class="required">*</span>
+                      </label>
+                  
+                      <div class="captcha-box">
+                          <span id="captchaQuestion"></span>
+                  
+                          <input
+                              type="number"
+                              id="captchaAnswer"
+                              class="form-input"
+                              placeholder="Tu respuesta"
+                              required
+                          >
+                      </div>
+                  
+                      <span class="error-message" id="captchaError">
+                          La respuesta no coincide. Inténtalo nuevamente.
+                      </span>
+                  </div>
       
                   <button type="submit" class="submit-button" id="submitButton">
                       <span class="spinner"></span>
@@ -2683,7 +2920,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       
                   <div class="privacy-notice">
                       🔒 Tus datos están seguros. Al enviar este formulario aceptas nuestra 
-                      <a href="#privacidad">política de privacidad</a>.
+                      <a href="/politica-privacidad.html" target="_blank">
+                          política de privacidad
+                      </a>.
                   </div>
               </form>
       
@@ -2929,10 +3168,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   });
 
   //WEBFORM
+  let captchaResult;
+
+  function generateCaptcha() {
+
+      const num1 = Math.floor(Math.random() * 10) + 1;
+      const num2 = Math.floor(Math.random() * 10) + 1;
+
+      captchaResult = num1 + num2;
+
+      document.getElementById("captchaQuestion").textContent =
+          `${num1} + ${num2} = ?`;
+  }
+
+  generateCaptcha(); 
+
+
   document.getElementById("mG61Hd").addEventListener("submit", function(e) {
       e.preventDefault();
 
       let isValid = true;
+
+      const successAlert = document.getElementById("successAlert");
+
+      // Reset errores
+      document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
+      successAlert.style.display = "none";
 
       const name = document.getElementById("name");
       const email = document.getElementById("email");
@@ -2941,11 +3202,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       const service = document.getElementById("service");
       const message = document.getElementById("message");
 
-      const successAlert = document.getElementById("successAlert");
+      const captchaAnswer =
+      document.getElementById("captchaAnswer").value;
 
-      // Reset errores
-      document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
-      successAlert.style.display = "none";
+      if (parseInt(captchaAnswer) !== captchaResult) {
+
+          document.getElementById("captchaError").style.display = "block";
+
+          document.getElementById("captchaAnswer").value = "";
+          generateCaptcha();
+
+          isValid = false;
+      }
 
       // Función helper para errores
       function showError(input, errorId) {
@@ -3024,6 +3292,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
           // Reset form
           document.getElementById("mG61Hd").reset();
+
+          generateCaptcha();
 
           // Scroll suave al mensaje
           successAlert.scrollIntoView({ behavior: "smooth", block: "center" });
