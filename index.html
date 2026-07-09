@@ -2194,6 +2194,207 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         text-align: justify;
     }
 
+    /*=========================================================
+    CLIENTES
+    =========================================================*/
+
+    .clients{
+
+    padding:70px 0;
+
+    overflow:hidden;
+
+    position:relative;
+
+    }
+
+    .clients__container{
+
+    width:100%;
+
+    }
+
+    .clients__subtitle{
+
+    display:block;
+
+    text-align:center;
+
+    font-size:14px;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    color:#B7BFD6;
+
+    margin-bottom:45px;
+
+    }
+
+    .clients__slider{
+
+    width:100%;
+
+    overflow:hidden;
+
+    position:relative;
+
+    }
+
+    /* degradado izquierdo */
+
+    .clients__slider::before,
+    .clients__slider::after{
+
+        backdrop-filter: blur(3px);
+
+        -webkit-backdrop-filter: blur(3px);
+
+    }
+
+
+    .clients__slider::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:120px;
+
+    height:100%;
+
+    z-index:5;
+
+    background:linear-gradient(
+        to right,
+        rgba(59,130,246,.40) 0%,
+        rgba(99,102,241,.28) 28%,
+        rgba(168,85,247,.16) 55%,
+        transparent 100%
+    );
+
+    }
+
+    /* degradado derecho */
+
+    .clients__slider::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:0;
+
+    width:120px;
+
+    height:100%;
+
+    z-index:5;
+
+    background:linear-gradient(
+        to left,
+        rgba(59,130,246,.40) 0%,
+        rgba(99,102,241,.28) 28%,
+        rgba(168,85,247,.16) 55%,
+        transparent 100%
+    );
+
+    }
+
+    .clients__track{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:90px;
+
+    width:max-content;
+
+    animation:clientsScroll 35s linear infinite;
+
+    height: 100px;
+
+    }
+
+    .clients__track img{
+
+    height:58px;
+
+    width:auto;
+
+    opacity:.55;
+
+    filter:grayscale(100%);
+
+    transition:.35s;
+
+    }
+
+    .clients__track img:hover{
+
+    opacity:1;
+
+    filter:none;
+
+    transform:scale(1.08);
+
+    }
+
+    @keyframes clientsScroll{
+
+    from{
+
+        transform:translateX(0);
+
+    }
+
+    to{
+
+        transform:translateX(-50%);
+
+    }
+
+    }
+
+    @media(max-width:768px){
+
+    .clients{
+
+        padding:55px 0;
+
+    }
+
+    .clients__track{
+
+        gap:50px;
+
+        animation-duration:25s;
+
+    }
+
+    .clients__track img{
+
+        height:42px;
+
+    }
+
+    .clients__slider::before,
+    .clients__slider::after{
+
+        width:50px;
+
+    }
+
+    }
+
     /* =========================
       AJUSTES MOBILE
     ========================= */
@@ -2675,6 +2876,40 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </a> 
   </div>
 </section>
+
+<article class="clients">
+  <div class="clients__container">
+
+      <span class="clients__subtitle">
+          Algunas empresas que han confiado en mi
+      </span>
+
+      <div class="clients__slider">
+
+          <div class="clients__track">
+
+              <!-- Primera vuelta -->
+
+              <img src="https://almabonita.co/cdn/shop/files/logo_Alma_Bonita_nuevo.png?height=72&v=1782667906" alt="Alma Bonita">
+              <img src="https://gintic.com.co/wp-content/uploads/2016/07/LOGO-WEB-F1.png" alt="Gintic">
+              <img src="https://postresdulcemagia.com/logo-dulce-magia.png" alt="Postres Dulce Magia">
+              <img src="images/logo-Art-Tricolor.png" alt="ArtTricolor">
+              <img src="images/logo-limpiamar.png" alt="Limpiamar MC">
+              
+              <!-- Duplicados para infinito -->
+
+              <img src="https://almabonita.co/cdn/shop/files/logo_Alma_Bonita_nuevo.png?height=72&v=1782667906" alt="Alma Bonita">
+              <img src="https://gintic.com.co/wp-content/uploads/2016/07/LOGO-WEB-F1.png" alt="Gintic">
+              <img src="https://postresdulcemagia.com/logo-dulce-magia.png" alt="Postres Dulce Magia">
+              <img src="images/logo-Art-Tricolor.png" alt="ArtTricolor">
+              <img src="images/logo-limpiamar.png" alt="Limpiamar MC">
+              
+          </div>
+
+      </div>
+
+  </div>
+</article>
 
 <!-- TABLA -->
 <section class="fade-in table-wrapper">
