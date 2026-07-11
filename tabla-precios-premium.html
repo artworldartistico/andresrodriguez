@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<title>Tarifa de precios y planes — Ecosistema Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;650;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body {{ margin:0; background:#04060d; }}
+/* ============================================================
+   ECOSISTEMA DIGITAL — Tabla de precios premium
+   Sistema de diseño: fondo profundo, glass, glow tecnológico
+   ============================================================ */
+
+.eco-pricing {
+  --bg-deep: #060914;
+  --bg-panel: rgba(148, 163, 255, 0.045);
+  --bg-panel-strong: rgba(148, 163, 255, 0.075);
+  --border-soft: rgba(148, 163, 255, 0.14);
+  --border-strong: rgba(148, 163, 255, 0.26);
+  --text-primary: #eef1fb;
+  --text-secondary: #98a2c3;
+  --text-muted: #6b7494;
+
+  --violet: #8b5cf6;
+  --violet-deep: #5b21b6;
+  --cyan: #22d3ee;
+  --cyan-deep: #0e7490;
+  --blue: #3b82f6;
+  --blue-deep: #1e40af;
+  --green: #2dd4bf;
+  --green-deep: #0f766e;
+  --indigo: #818cf8;
+  --indigo-deep: #4338ca;
+  --duo-a: #22d3ee;
+  --duo-b: #a78bfa;
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  position: relative;
+  background:
+    radial-gradient(ellipse 900px 500px at 12% -10%, rgba(139, 92, 246, 0.16), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 90% 10%, rgba(34, 211, 238, 0.12), transparent 55%),
+    var(--bg-deep);
+  color: var(--text-primary);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 64px 28px 80px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.eco-pricing *,
+.eco-pricing *::before,
+.eco-pricing *::after {
+  box-sizing: border-box;
+}
+
+.eco-pricing .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.eco-pricing .eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.8);
+}
+
+.eco-pricing h2 {
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  background: linear-gradient(120deg, #ffffff 30%, #b9c2ff 65%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.eco-pricing .subtitle {
+  color: var(--text-secondary);
+  font-size: 15.5px;
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0 0 40px;
+}
+
+/* ---------- shared bits ---------- */
+
+.eco-pricing .category-icon {
+  font-size: 20px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+}
+
+.eco-pricing .category-name {
+  font-family: "Sora", "Inter", sans-serif;
+  font-weight: 650;
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.eco-pricing .feat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.eco-pricing .feat-item {
+  font-size: 13.6px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  padding: 3px 0;
+}
+
+.eco-pricing .feat-header {
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  padding: 12px 0 4px;
+  position: relative;
+}
+
+.eco-pricing .feat-header::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  margin-bottom: 7px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+  opacity: 0.85;
+}
+
+.eco-pricing .feat-header:first-child {
+  padding-top: 0;
+}
+
+.eco-pricing .feat-gap {
+  height: 8px;
+}
+
+.eco-pricing .service-title {
+  font-family: "Sora", "Inter", sans-serif;
+  font-weight: 620;
+  font-size: 15px;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.eco-pricing .service-multi .feat-item {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.eco-pricing .price-chip {
+  display: inline-block;
+  font-family: "Sora", "Inter", sans-serif;
+  font-weight: 650;
+  font-size: 14.5px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  color: #eafcff;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(139, 92, 246, 0.18));
+  border: 1px solid rgba(148, 163, 255, 0.28);
+  white-space: nowrap;
+}
+
+.eco-pricing .tag-empty {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.eco-pricing .tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.eco-pricing .tag-pill {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: rgba(148, 163, 255, 0.07);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+/* ---------- accent color mapping ---------- */
+
+.eco-pricing .accent-violet { --acc-1: var(--violet); --acc-2: var(--violet-deep); }
+.eco-pricing .accent-cyan   { --acc-1: var(--cyan);   --acc-2: var(--cyan-deep); }
+.eco-pricing .accent-blue   { --acc-1: var(--blue);   --acc-2: var(--blue-deep); }
+.eco-pricing .accent-green  { --acc-1: var(--green);  --acc-2: var(--green-deep); }
+.eco-pricing .accent-indigo { --acc-1: var(--indigo); --acc-2: var(--indigo-deep); }
+.eco-pricing .accent-duo    { --acc-1: var(--duo-a);  --acc-2: var(--duo-b); }
+
+/* ============================================================
+   DESKTOP TABLE
+   ============================================================ */
+
+.eco-pricing .table-scroll {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-panel);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 30px 80px -30px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: auto;
+}
+
+.eco-pricing .premium-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 980px;
+}
+
+.eco-pricing .premium-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: rgba(9, 12, 24, 0.92);
+  backdrop-filter: blur(10px);
+  color: var(--text-secondary);
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+}
+
+.eco-pricing .premium-table thead th:first-child { border-top-left-radius: var(--radius-lg); }
+.eco-pricing .premium-table thead th:last-child { border-top-right-radius: var(--radius-lg); }
+
+.eco-pricing .premium-table td {
+  vertical-align: top;
+  padding: 22px;
+  border-bottom: 1px solid rgba(148, 163, 255, 0.07);
+}
+
+.eco-pricing .data-row {
+  transition: background 0.25s ease;
+}
+
+.eco-pricing .data-row:hover {
+  background: rgba(148, 163, 255, 0.045);
+}
+
+.eco-pricing .data-row.group-last td {
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.eco-pricing .cell-servicio { min-width: 200px; }
+.eco-pricing .cell-caract { min-width: 340px; }
+.eco-pricing .cell-precio { min-width: 150px; white-space: nowrap; }
+.eco-pricing .cell-dirigido { min-width: 170px; }
+
+/* category cell — the "rowspan" grand vertical block */
+
+.eco-pricing .category-cell {
+  position: relative;
+  padding: 0 !important;
+  border-right: 1px solid var(--border-soft);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--acc-1) 16%, transparent), color-mix(in srgb, var(--acc-2) 10%, transparent) 60%, transparent);
+}
+
+.eco-pricing .category-cell::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acc-1), var(--acc-2));
+  box-shadow: 0 0 18px 1px color-mix(in srgb, var(--acc-1) 70%, transparent);
+}
+
+.eco-pricing .category-inner {
+  position: sticky;
+  top: 64px;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px 22px;
+}
+
+.eco-pricing .category-inner .category-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--acc-1) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--acc-1) 45%, transparent);
+}
+
+.eco-pricing .category-inner .category-name {
+  color: var(--text-primary);
+  writing-mode: horizontal-tb;
+}
+
+/* ============================================================
+   MOBILE CARDS
+   ============================================================ */
+
+.eco-pricing .mobile-view { display: none; }
+
+.eco-pricing .mobile-group {
+  margin-bottom: 30px;
+}
+
+.eco-pricing .mobile-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 6px 16px;
+}
+
+.eco-pricing .mobile-group-header .category-icon {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--acc-1) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--acc-1) 45%, transparent);
+}
+
+.eco-pricing .mobile-group-header .category-name {
+  color: var(--text-primary);
+}
+
+.eco-pricing .mobile-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eco-pricing .service-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-soft);
+  background: var(--bg-panel-strong);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 20px 20px 20px 22px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.eco-pricing .service-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acc-1), var(--acc-2));
+  box-shadow: 0 0 16px 1px color-mix(in srgb, var(--acc-1) 65%, transparent);
+}
+
+.eco-pricing .service-card:active {
+  transform: scale(0.99);
+}
+
+.eco-pricing .card-service {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.eco-pricing .card-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.eco-pricing .card-block {
+  margin-bottom: 16px;
+}
+
+.eco-pricing .card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 880px) {
+  .eco-pricing { padding: 44px 16px 56px; border-radius: 20px; }
+  .eco-pricing .table-scroll { display: none; }
+  .eco-pricing .mobile-view { display: block; }
+  .eco-pricing h2 { font-size: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-pricing .data-row,
+  .eco-pricing .service-card {
+    transition: none;
+  }
+}
+
+@media (min-width: 881px) {
+  .eco-pricing .service-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--acc-1) 45%, transparent);
+  }
+}
+
+/* ============================================================
+   LOGIN GATE — Acceso privado, mismo sistema de diseño
+   ============================================================ */
+
+#login-screen {
+  --violet: #8b5cf6;
+  --cyan: #22d3ee;
+  --bg-deep: #05070f;
+  --text-primary: #eef1fb;
+  --text-secondary: #98a2c3;
+  --border-soft: rgba(148, 163, 255, 0.16);
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse 900px 600px at 15% 10%, rgba(139, 92, 246, 0.20), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 88% 90%, rgba(34, 211, 238, 0.16), transparent 55%),
+    var(--bg-deep);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.logout-btn {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 255, 0.22);
+  background: rgba(10, 13, 26, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: #cfd5ec;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.logout-btn i {
+  font-size: 13.5px;
+  color: #f472a0;
+}
+
+.logout-btn:hover {
+  color: #ffffff;
+  border-color: rgba(244, 114, 160, 0.45);
+  background: rgba(244, 114, 160, 0.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .logout-btn span { display: none; }
+  .logout-btn {
+    padding: 10px;
+    top: 16px;
+    right: 16px;
+  }
+}
+
+#login-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#login-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 255, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  background: rgba(148, 163, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 44px 38px 36px;
+  animation: login-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes login-rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.login-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(34, 211, 238, 0.22));
+  border: 1px solid rgba(148, 163, 255, 0.3);
+  box-shadow: 0 0 30px -6px rgba(139, 92, 246, 0.5);
+}
+
+.login-badge i {
+  font-size: 20px;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.login-card h1 {
+  font-family: "Sora", "Inter", sans-serif;
+  font-size: 21px;
+  font-weight: 650;
+  text-align: center;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.login-card .login-sub {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+  margin: 0 0 30px;
+  line-height: 1.55;
+}
+
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.login-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.login-input-wrap i.field-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.login-input-wrap input {
+  width: 100%;
+  padding: 13px 44px 13px 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+  background: rgba(6, 9, 20, 0.55);
+  color: var(--text-primary);
+  font-size: 14.5px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-input-wrap input::placeholder {
+  color: #566;
+  color: rgba(152, 162, 195, 0.5);
+}
+
+.login-input-wrap input:focus {
+  border-color: rgba(139, 92, 246, 0.55);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.toggle-password.is-visible {
+  display: flex;
+}
+
+.toggle-password:hover {
+  color: var(--text-primary);
+  background: rgba(148, 163, 255, 0.1);
+}
+
+.toggle-password i {
+  font-size: 14.5px;
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 12px;
+  font-family: "Sora", "Inter", sans-serif;
+  font-weight: 650;
+  font-size: 14.5px;
+  color: #051019;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  cursor: pointer;
+  box-shadow: 0 14px 34px -14px rgba(139, 92, 246, 0.65);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.login-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px -14px rgba(34, 211, 238, 0.55);
+}
+
+.login-submit:active {
+  transform: translateY(0);
+}
+
+.login-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-error {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.28);
+  color: #fca5b1;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.login-error.is-visible {
+  display: flex;
+}
+
+.login-error i {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.login-card.is-shaking {
+  animation: login-shake 0.4s ease;
+}
+
+@keyframes login-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(4px); }
+}
+
+.login-footnote {
+  text-align: center;
+  margin-top: 26px;
+  font-size: 11.5px;
+  color: rgba(152, 162, 195, 0.55);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 420px) {
+  .login-card { padding: 36px 24px 30px; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <form class="login-card" id="login-form" autocomplete="off">
+    <div class="login-badge"><i class="fa-solid fa-shield-halved"></i></div>
+    <h1>Acceso privado</h1>
+    <p class="login-sub">Ecosistema Digital · Panel de tarifas<br>Ingresa tus credenciales para continuar.</p>
+
+    <div class="login-field">
+      <label for="login-user">Usuario</label>
+      <div class="login-input-wrap">
+        <i class="fa-solid fa-user field-icon"></i>
+        <input type="text" id="login-user" name="user" placeholder="Usuario" autocomplete="username" required>
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label for="login-pass">Contraseña</label>
+      <div class="login-input-wrap">
+        <i class="fa-solid fa-lock field-icon"></i>
+        <input type="password" id="login-pass" name="pass" placeholder="Contraseña" autocomplete="current-password" required>
+        <button type="button" class="toggle-password" id="toggle-password" tabindex="-1" aria-label="Mostrar contraseña">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" class="login-submit" id="login-submit">Ingresar</button>
+
+    <div class="login-error" id="login-error">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span id="login-error-text">Usuario o contraseña incorrectos.</span>
+    </div>
+
+    <p class="login-footnote">Acceso restringido · Uso exclusivo autorizado</p>
+  </form>
+</div>
+
+<div id="protected-content" style="display:none">
+<button type="button" id="logout-btn" class="logout-btn" aria-label="Cerrar sesión">
+  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+  <span>Cerrar sesión</span>
+</button>
+<section class="eco-pricing fade-in">
+  <span class="eyebrow">Ecosistema Digital · Servicios</span>
+  <h2>Tarifa de precios y planes</h2>
+  <p class="subtitle">Arquitectura, tecnología e inteligencia artificial organizadas por línea de servicio — desde el diagnóstico estratégico hasta el acompañamiento continuo del ecosistema.</p>
+
+  <div class="table-scroll">
+<table class="premium-table">
+  <thead>
+    <tr>
+      <th class="th-linea">Línea de servicio</th>
+      <th class="th-servicio">Servicio</th>
+      <th class="th-caract">Características</th>
+      <th class="th-precio">Precio</th>
+      <th class="th-dirigido">Dirigido a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="data-row accent-violet"><td class="category-cell accent-violet" rowspan="3"><div class="category-inner"><span class="category-icon">🧠</span><span class="category-name">DIAGNÓSTICO</span></div></td><td class="cell-servicio"><span class="service-title">Diagnóstico Inicial - IA AI Business Brief</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">✅ Entrevista estratégica guiada por IA</li><li class="feat-item">✅ AI Business Brief personalizado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Estrategia</li><li class="feat-item">✅ Objetivo del negocio</li><li class="feat-item">✅ Objetivo comercial</li><li class="feat-item">✅ Objetivos de marketing</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marca</li><li class="feat-item">✅ Propuesta Única de Valor (USP)</li><li class="feat-item">✅ Voz de marca</li><li class="feat-item">✅ Personalidad</li><li class="feat-item">✅ Manifiesto</li><li class="feat-item">✅ Slogan</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Cliente</li><li class="feat-item">✅ ICP</li><li class="feat-item">✅ Buyer Persona</li><li class="feat-item">✅ Insights del mercado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Posicionamiento</li><li class="feat-item">✅ Competencia</li><li class="feat-item">✅ Diferenciadores</li><li class="feat-item">✅ Nivel de sofisticación del mercado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Oferta</li><li class="feat-item">✅ Oferta principal</li><li class="feat-item">✅ Oferta secundaria</li><li class="feat-item">✅ Promesa de valor</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marketing</li><li class="feat-item">✅ Canales prioritarios</li><li class="feat-item">✅ Hipótesis de crecimiento</li><li class="feat-item">✅ Recomendaciones estratégicas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-item">IA</li><li class="feat-item">✅ Oportunidades donde IA puede generar impacto</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Entregable</li><li class="feat-item">PDF ejecutivo</li><li class="feat-item">10-15 páginas</li></ul></td><td class="cell-precio"><span class="price-chip">$ 197.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Nuevos negocios</span></div></td></tr>
+    <tr class="data-row accent-violet"><td class="cell-servicio"><span class="service-title">Diagnóstico Estratégico IA - AI Growth Blueprint</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">✅ Todo lo anterior al IA AI Business Brief</li><li class="feat-item">✅ Auditoría Web</li><li class="feat-item">✅ Auditoría SEO</li><li class="feat-item">✅ Auditoría Redes</li><li class="feat-item">✅ Embudo Comercial</li><li class="feat-item">✅ Estrategia de Captación</li><li class="feat-item">✅ Estrategia de Contenidos</li><li class="feat-item">✅ Calendario Editorial</li><li class="feat-item">✅ Roadmap de 90 días</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marketing</li><li class="feat-item">✅ Parrilla inicial de contenidos</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Website Generator</li><li class="feat-item">✅ Arquitectura del sitio</li><li class="feat-item">✅ Copywriting</li><li class="feat-item">✅ Wireframe</li><li class="feat-item">✅ Estructura SEO</li><li class="feat-item">✅ Prompt para generación asistida por IA</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura comercial</li><li class="feat-item">CRM, WhatsApp, Email Marketing, Landing, Google Analytics, Google Ads, Meta, Calendario Editorial, Automatización, IA, Todo dependiendo del negocio.</li></ul></td><td class="cell-precio"><span class="price-chip">$ 397.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas en crecimiento</span><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+    <tr class="data-row accent-violet group-last"><td class="cell-servicio"><span class="service-title">Arquitectura de Ecosistema Digital</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">✅ Todo lo anterior al AI Growth Blueprint</li><li class="feat-item">✅ Arquitectura tecnológica</li><li class="feat-item">✅ Stack recomendado</li><li class="feat-item">✅ Herramientas IA</li><li class="feat-item">✅ Arquitectura CRM</li><li class="feat-item">✅ Automatizaciones recomendadas</li><li class="feat-item">✅ Roadmap técnico</li><li class="feat-item">✅ Diseño del ecosistema</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura completa</li><li class="feat-item">✅ CRM</li><li class="feat-item">✅ Automatizaciones</li><li class="feat-item">✅ IA</li><li class="feat-item">✅ Canales digitales</li><li class="feat-item">✅ Web</li><li class="feat-item">✅ Base de datos</li><li class="feat-item">✅ Dashboard</li><li class="feat-item">✅ Integraciones</li><li class="feat-item">✅ Workflows</li><li class="feat-item">✅ ROI esperado</li></ul></td><td class="cell-precio"><span class="price-chip">$ 597000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">CEOs</span><span class="tag-pill">Empresas medianas</span><span class="tag-pill">Grandes compañías</span></div></td></tr>
+    <tr class="data-row accent-cyan"><td class="category-cell accent-cyan" rowspan="4"><div class="category-inner"><span class="category-icon">⚙️</span><span class="category-name">IMPLEMENTACIÓN DEL ECOSISTEMA DIGITAL</span></div></td><td class="cell-servicio"><ul class="feat-list service-multi"><li class="feat-item">✔ Landing Pages</li><li class="feat-item">✔ Sitios Corporativos</li><li class="feat-item">✔ Tiendas Online</li><li class="feat-item">✔ CRM</li><li class="feat-item">✔ Automatizaciones</li><li class="feat-item">✔ Agentes IA</li><li class="feat-item">✔ Integraciones</li><li class="feat-item">✔ Dashboards</li><li class="feat-item">✔ Bases de Datos</li><li class="feat-item">✔ APIs</li><li class="feat-item">✔ WhatsApp</li><li class="feat-item">✔ Chatbots</li><li class="feat-item">✔ Arquitecturas Cloud</li></ul></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Cada implementación se cotiza según alcance.</li></ul></td><td class="cell-precio"><span class="tag-empty">A cotizar</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-cyan"><td class="cell-servicio"><span class="service-title">Implementación Starter</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Planeación:</li><li class="feat-item">- Reunión de inicio del proyecto</li><li class="feat-item">- Priorización de la implementación por fases(roadmap)</li><li class="feat-item">- Definición del alcance</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Presencia Digital:</li><li class="feat-item">- Landing page estratégica o sitio web básico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Captación:</li><li class="feat-item">- Formulario inteligente</li><li class="feat-item">- Integración con WhatsApp</li><li class="feat-item">- CTA optimizados</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Analítica:</li><li class="feat-item">- Google Analytics</li><li class="feat-item">- Google Search Console</li><li class="feat-item">- Meta Pixel (si aplica)</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatización básica:</li><li class="feat-item">Hasta 2 automatizaciones, por ejemplo:</li><li class="feat-item">- Formulario → Email</li><li class="feat-item">- Formulario → WhatsApp</li><li class="feat-item">- Formulario → Google Sheets</li><li class="feat-item">- Formulario → CRM</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">Configuración inicial de IA para:</li><li class="feat-item">- Generación de contenidos o asistente interno</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">- Una sesión de entrega</li><li class="feat-item">-Manual básico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">No incluye:</li><li class="feat-item">❌ CRM personalizado</li><li class="feat-item">❌ Desarrollo a medida</li><li class="feat-item">❌ Integraciones complejas</li><li class="feat-item">❌ Dashboards</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Tiempo estimado:</li><li class="feat-item">2–4 semanas.</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 1.500.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Empresas nuevas</span></div></td></tr>
+    <tr class="data-row accent-cyan"><td class="cell-servicio"><span class="service-title">Implementación Business</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-item">Todo Starter</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Sitio Web:</li><li class="feat-item">Landing o sitio corporativo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">CRM:</li><li class="feat-item">Implementación de CRM</li><li class="feat-item">Por ejemplo:</li><li class="feat-item">- HubSpot</li><li class="feat-item">- Chatwoot</li><li class="feat-item">- Mercately</li><li class="feat-item">- Zoho</li><li class="feat-item">- u otro según el proyecto.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatización:</li><li class="feat-item">Hasta 8 workflows.</li><li class="feat-item">Ejemplos:</li><li class="feat-item">- Leads</li><li class="feat-item">- Seguimiento</li><li class="feat-item">- Correos</li><li class="feat-item">- WhatsApp</li><li class="feat-item">- Agenda</li><li class="feat-item">- Recordatorios</li><li class="feat-item">- Notificaciones</li><li class="feat-item">- Reportes</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">- Prompt Engineering</li><li class="feat-item">- Agente IA inicial</li><li class="feat-item">- Clasificación automática de leads</li><li class="feat-item">- Generación automática de contenido</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Integraciones:</li><li class="feat-item">Hasta 5 integraciones.</li><li class="feat-item">Por ejemplo:</li><li class="feat-item">- WhatsApp</li><li class="feat-item">- Google Calendar</li><li class="feat-item">- Gmail</li><li class="feat-item">- Meta</li><li class="feat-item">- Stripe</li><li class="feat-item">- Wompi</li><li class="feat-item">- Supabase</li><li class="feat-item">- n8n</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Dashboard:</li><li class="feat-item">Dashboard inicial con indicadores.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">Dos sesiones.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Documentación:</li><li class="feat-item">Manual operativo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Tiempo:</li><li class="feat-item">4–8 semanas.</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 3.500.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas que ya venden.</span><span class="tag-pill">Clínicas.</span><span class="tag-pill">Constructoras.</span><span class="tag-pill">Agencias.</span><span class="tag-pill">Empresas B2B.</span></div></td></tr>
+    <tr class="data-row accent-cyan group-last"><td class="cell-servicio"><span class="service-title">Implementación Enterprise</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-item">Todo Business</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura Empresarial:</li><li class="feat-item">Diseño completo del ecosistema</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Infraestructura:</li><li class="feat-item">Según necesidad:</li><li class="feat-item">- AWS</li><li class="feat-item">- Azure</li><li class="feat-item">- VPS</li><li class="feat-item">- Docker</li><li class="feat-item">- Kubernetes</li><li class="feat-item">- Cloudflare</li><li class="feat-item">- CDN</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">CRM Empresarial:</li><li class="feat-item">Implementación avanzada.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatizaciones:</li><li class="feat-item">Automatizaciones sin límite fijo (definidas por alcance del proyecto).</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">Agentes especializados.</li><li class="feat-item">Ejemplos:</li><li class="feat-item">- Atención al cliente</li><li class="feat-item">- Ventas</li><li class="feat-item">- Recursos Humanos</li><li class="feat-item">- Marketing</li><li class="feat-item">- Documentación</li><li class="feat-item">- Soporte interno</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Integraciones:</li><li class="feat-item">- ERP</li><li class="feat-item">- Facturación</li><li class="feat-item">- Contabilidad</li><li class="feat-item">- Power BI</li><li class="feat-item">- Microsoft 365</li><li class="feat-item">- Google Workspace</li><li class="feat-item">- APIs</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Dashboard Ejecutivo:</li><li class="feat-item">- KPIs</li><li class="feat-item">- Ventas</li><li class="feat-item">- Marketing</li><li class="feat-item">- Operaciones</li><li class="feat-item">- Finanzas (si aplica)</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Seguridad:</li><li class="feat-item">- Backups</li><li class="feat-item">- Monitoreo</li><li class="feat-item">- Roles</li><li class="feat-item">- Permisos</li><li class="feat-item">- Buenas prácticas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">Capacitación al equipo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Documentación:</li><li class="feat-item">- Arquitectura</li><li class="feat-item">- Diagramas</li><li class="feat-item">- Roadmap</li><li class="feat-item">- Manual técnico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Acompañamiento:</li><li class="feat-item">30 días posteriores a la implementación.</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 6.000.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas medianas.</span><span class="tag-pill">Corporativos.</span><span class="tag-pill">Organizaciones con múltiples áreas</span></div></td></tr>
+    <tr class="data-row accent-blue"><td class="category-cell accent-blue" rowspan="4"><div class="category-inner"><span class="category-icon">🔄</span><span class="category-name">CONTINUIDAD OPERATIVA DEL NEGOCIO</span></div></td><td class="cell-servicio"><span class="service-title">Plan Essential</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">✔ Landing</li><li class="feat-item">✔ Sitio web</li><li class="feat-item">✔ Automatizaciones sencillas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-item">Incluye</li><li class="feat-item">Hosting VPS</li><li class="feat-item">SSL</li><li class="feat-item">Backups</li><li class="feat-item">Monitoreo</li><li class="feat-item">Actualizaciones menores</li><li class="feat-item">Soporte</li></ul></td><td class="cell-precio"><span class="price-chip">$ 350.000 COP / mes</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Nuevos negocios</span></div></td></tr>
+    <tr class="data-row accent-blue"><td class="cell-servicio"><span class="service-title">Plan Business</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Negocios que ya venden constantemente.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Incluye</li><li class="feat-item">Todo lo anterior</li><li class="feat-item">n8n</li><li class="feat-item">Chatwoot</li><li class="feat-item">Automatizaciones</li><li class="feat-item">Logs</li><li class="feat-item">Monitoreo</li><li class="feat-item">Soporte prioritario</li></ul></td><td class="cell-precio"><span class="price-chip">$ 650.000 - $ 900.000 COP / mes</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas en crecimiento</span><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+    <tr class="data-row accent-blue"><td class="cell-servicio"><span class="service-title">Plan Growth IA</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">deal para negocios que utilizan IA diariamente.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Incluye</li><li class="feat-item">Servidor</li><li class="feat-item">n8n</li><li class="feat-item">Chatwoot</li><li class="feat-item">Whisper</li><li class="feat-item">Redis</li><li class="feat-item">PostgreSQL</li><li class="feat-item">Traefik</li><li class="feat-item">Backups</li><li class="feat-item">Actualizaciones</li><li class="feat-item">Optimización mensual</li><li class="feat-item">Monitoreo</li></ul></td><td class="cell-precio"><span class="price-chip">$ 950.000 COP / mes</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+    <tr class="data-row accent-blue group-last"><td class="cell-servicio"><span class="service-title">Enterprise</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Infraestructura dedicada</li><li class="feat-item">Azure</li><li class="feat-item">AWS</li><li class="feat-item">Docker Swarm</li><li class="feat-item">Kubernetes</li><li class="feat-item">Alta disponibilidad</li><li class="feat-item">VPN</li><li class="feat-item">Backups externos</li><li class="feat-item">Monitoreo</li><li class="feat-item">SLA</li><li class="feat-item">Integraciones</li><li class="feat-item">Soporte</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 1.500.000 COP / mes</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">CEOs</span><span class="tag-pill">Empresas medianas</span><span class="tag-pill">Grandes compañías</span></div></td></tr>
+    <tr class="data-row accent-green"><td class="category-cell accent-green" rowspan="4"><div class="category-inner"><span class="category-icon">🎯</span><span class="category-name">ACOMPAÑAMIENTO ESTRATÉGICO</span></div></td><td class="cell-servicio"><span class="service-title">Mentoría Estratégica</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Emprendedores</li></ul></td><td class="cell-precio"><span class="price-chip">$ 300.000 - $ 450.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-green"><td class="cell-servicio"><span class="service-title">Growth Advisor</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Negocios en crecimiento</li></ul></td><td class="cell-precio"><span class="price-chip">$ 600.000 - $ 900.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-green"><td class="cell-servicio"><span class="service-title">Fractional CTO</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Empresas en expansión</li></ul></td><td class="cell-precio"><span class="price-chip">$ 1.200.000 - $ 2.000.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-green group-last"><td class="cell-servicio"><span class="service-title">Advisory Enterprise</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-item">Corporativos</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 2.500.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="category-cell accent-indigo" rowspan="9"><div class="category-inner"><span class="category-icon">💻</span><span class="category-name">SERVICIOS</span></div></td><td class="cell-servicio"><span class="service-title">Landing Page Estratégica</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 1.200.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Sitio Corporativo</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 2.800.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Tienda Online</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 4.500.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Plataforma Moodle</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 5.500.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Portal Empresarial</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 7.000.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Automatizaciones IA</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 2.000.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">Agente IA</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 3.500.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo"><td class="cell-servicio"><span class="service-title">CRM Personalizado</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 4.500.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-indigo group-last"><td class="cell-servicio"><span class="service-title">Desarrollo de Software</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 8.000.000 COP</span></td><td class="cell-dirigido"><span class="tag-empty">—</span></td></tr>
+    <tr class="data-row accent-duo"><td class="category-cell accent-duo" rowspan="5"><div class="category-inner"><span class="category-icon">🎬</span><span class="category-name">PRODUCCIÓN AUDIOVISUAL CON IA</span></div></td><td class="cell-servicio"><span class="service-title">Video IA Express</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Brief creativo</li><li class="feat-item">- Guion</li><li class="feat-item">- Avatar IA o voz IA</li><li class="feat-item">- Hasta 30 segundos</li><li class="feat-item">- Formato vertical</li><li class="feat-item">- 1 ronda de ajustes</li><li class="feat-item">- Exportación Full HD</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 250.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span></div></td></tr>
+    <tr class="data-row accent-duo"><td class="cell-servicio"><span class="service-title">Video IA Premium</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Todo Express</li><li class="feat-item">- Hasta 60 segundos</li><li class="feat-item">- Storytelling</li><li class="feat-item">- Subtítulos</li><li class="feat-item">- Música</li><li class="feat-item">- B-roll</li><li class="feat-item">- Corrección de color</li><li class="feat-item">- Adaptación para Instagram, TikTok y LinkedIn</li><li class="feat-item">- 2 rondas de cambios</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 450.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span></div></td></tr>
+    <tr class="data-row accent-duo"><td class="cell-servicio"><span class="service-title">Video IA Corporativo</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Investigación del negocio</li><li class="feat-item">- Guion ejecutivo</li><li class="feat-item">- Avatar personalizado</li><li class="feat-item">- Voz profesional</li><li class="feat-item">- Motion graphics</li><li class="feat-item">- Animaciones</li><li class="feat-item">- Branding</li><li class="feat-item">- Versiones horizontal y vertical</li><li class="feat-item">- Hasta 90 segundos</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 800.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+    <tr class="data-row accent-duo"><td class="cell-servicio"><span class="service-title">Avatar Corporativo con IA</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Diseño del personaje</li><li class="feat-item">- Personalidad</li><li class="feat-item">- Voz</li><li class="feat-item">- Prompt maestro</li><li class="feat-item">- Identidad visual</li><li class="feat-item">- Prompt para generación continua</li><li class="feat-item">- Banco de expresiones</li><li class="feat-item">- Banco de poses</li><li class="feat-item">- Configuración para producción continua</li></ul></td><td class="cell-precio"><span class="price-chip">Desde $ 1.500.000 COP</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+    <tr class="data-row accent-duo group-last"><td class="cell-servicio"><span class="service-title">Contenido IA Continuo</span></td><td class="cell-caract"><ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- 8 a 12 videos IA</li></ul></td><td class="cell-precio"><span class="price-chip">$ 1.500.000 COP / mes</span></td><td class="cell-dirigido"><div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div></td></tr>
+  </tbody>
+</table>
+</div>
+
+  <div class="mobile-view">
+      <div class="mobile-group accent-violet">
+        <div class="mobile-group-header">
+          <span class="category-icon">🧠</span>
+          <span class="category-name">DIAGNÓSTICO</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-violet">
+          <div class="card-service"><span class="service-title">Diagnóstico Inicial - IA AI Business Brief</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">✅ Entrevista estratégica guiada por IA</li><li class="feat-item">✅ AI Business Brief personalizado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Estrategia</li><li class="feat-item">✅ Objetivo del negocio</li><li class="feat-item">✅ Objetivo comercial</li><li class="feat-item">✅ Objetivos de marketing</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marca</li><li class="feat-item">✅ Propuesta Única de Valor (USP)</li><li class="feat-item">✅ Voz de marca</li><li class="feat-item">✅ Personalidad</li><li class="feat-item">✅ Manifiesto</li><li class="feat-item">✅ Slogan</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Cliente</li><li class="feat-item">✅ ICP</li><li class="feat-item">✅ Buyer Persona</li><li class="feat-item">✅ Insights del mercado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Posicionamiento</li><li class="feat-item">✅ Competencia</li><li class="feat-item">✅ Diferenciadores</li><li class="feat-item">✅ Nivel de sofisticación del mercado</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Oferta</li><li class="feat-item">✅ Oferta principal</li><li class="feat-item">✅ Oferta secundaria</li><li class="feat-item">✅ Promesa de valor</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marketing</li><li class="feat-item">✅ Canales prioritarios</li><li class="feat-item">✅ Hipótesis de crecimiento</li><li class="feat-item">✅ Recomendaciones estratégicas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-item">IA</li><li class="feat-item">✅ Oportunidades donde IA puede generar impacto</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Entregable</li><li class="feat-item">PDF ejecutivo</li><li class="feat-item">10-15 páginas</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 197.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Nuevos negocios</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-violet">
+          <div class="card-service"><span class="service-title">Diagnóstico Estratégico IA - AI Growth Blueprint</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">✅ Todo lo anterior al IA AI Business Brief</li><li class="feat-item">✅ Auditoría Web</li><li class="feat-item">✅ Auditoría SEO</li><li class="feat-item">✅ Auditoría Redes</li><li class="feat-item">✅ Embudo Comercial</li><li class="feat-item">✅ Estrategia de Captación</li><li class="feat-item">✅ Estrategia de Contenidos</li><li class="feat-item">✅ Calendario Editorial</li><li class="feat-item">✅ Roadmap de 90 días</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Marketing</li><li class="feat-item">✅ Parrilla inicial de contenidos</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Website Generator</li><li class="feat-item">✅ Arquitectura del sitio</li><li class="feat-item">✅ Copywriting</li><li class="feat-item">✅ Wireframe</li><li class="feat-item">✅ Estructura SEO</li><li class="feat-item">✅ Prompt para generación asistida por IA</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura comercial</li><li class="feat-item">CRM, WhatsApp, Email Marketing, Landing, Google Analytics, Google Ads, Meta, Calendario Editorial, Automatización, IA, Todo dependiendo del negocio.</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 397.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas en crecimiento</span><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-violet">
+          <div class="card-service"><span class="service-title">Arquitectura de Ecosistema Digital</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">✅ Todo lo anterior al AI Growth Blueprint</li><li class="feat-item">✅ Arquitectura tecnológica</li><li class="feat-item">✅ Stack recomendado</li><li class="feat-item">✅ Herramientas IA</li><li class="feat-item">✅ Arquitectura CRM</li><li class="feat-item">✅ Automatizaciones recomendadas</li><li class="feat-item">✅ Roadmap técnico</li><li class="feat-item">✅ Diseño del ecosistema</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura completa</li><li class="feat-item">✅ CRM</li><li class="feat-item">✅ Automatizaciones</li><li class="feat-item">✅ IA</li><li class="feat-item">✅ Canales digitales</li><li class="feat-item">✅ Web</li><li class="feat-item">✅ Base de datos</li><li class="feat-item">✅ Dashboard</li><li class="feat-item">✅ Integraciones</li><li class="feat-item">✅ Workflows</li><li class="feat-item">✅ ROI esperado</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 597000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">CEOs</span><span class="tag-pill">Empresas medianas</span><span class="tag-pill">Grandes compañías</span></div>
+          </div>
+        </article>
+        </div>
+      </div>
+      <div class="mobile-group accent-cyan">
+        <div class="mobile-group-header">
+          <span class="category-icon">⚙️</span>
+          <span class="category-name">IMPLEMENTACIÓN DEL ECOSISTEMA DIGITAL</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-cyan">
+          <div class="card-service"><ul class="feat-list service-multi"><li class="feat-item">✔ Landing Pages</li><li class="feat-item">✔ Sitios Corporativos</li><li class="feat-item">✔ Tiendas Online</li><li class="feat-item">✔ CRM</li><li class="feat-item">✔ Automatizaciones</li><li class="feat-item">✔ Agentes IA</li><li class="feat-item">✔ Integraciones</li><li class="feat-item">✔ Dashboards</li><li class="feat-item">✔ Bases de Datos</li><li class="feat-item">✔ APIs</li><li class="feat-item">✔ WhatsApp</li><li class="feat-item">✔ Chatbots</li><li class="feat-item">✔ Arquitecturas Cloud</li></ul></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Cada implementación se cotiza según alcance.</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="tag-empty">A cotizar</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-cyan">
+          <div class="card-service"><span class="service-title">Implementación Starter</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Planeación:</li><li class="feat-item">- Reunión de inicio del proyecto</li><li class="feat-item">- Priorización de la implementación por fases(roadmap)</li><li class="feat-item">- Definición del alcance</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Presencia Digital:</li><li class="feat-item">- Landing page estratégica o sitio web básico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Captación:</li><li class="feat-item">- Formulario inteligente</li><li class="feat-item">- Integración con WhatsApp</li><li class="feat-item">- CTA optimizados</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Analítica:</li><li class="feat-item">- Google Analytics</li><li class="feat-item">- Google Search Console</li><li class="feat-item">- Meta Pixel (si aplica)</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatización básica:</li><li class="feat-item">Hasta 2 automatizaciones, por ejemplo:</li><li class="feat-item">- Formulario → Email</li><li class="feat-item">- Formulario → WhatsApp</li><li class="feat-item">- Formulario → Google Sheets</li><li class="feat-item">- Formulario → CRM</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">Configuración inicial de IA para:</li><li class="feat-item">- Generación de contenidos o asistente interno</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">- Una sesión de entrega</li><li class="feat-item">-Manual básico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">No incluye:</li><li class="feat-item">❌ CRM personalizado</li><li class="feat-item">❌ Desarrollo a medida</li><li class="feat-item">❌ Integraciones complejas</li><li class="feat-item">❌ Dashboards</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Tiempo estimado:</li><li class="feat-item">2–4 semanas.</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 1.500.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Empresas nuevas</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-cyan">
+          <div class="card-service"><span class="service-title">Implementación Business</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-item">Todo Starter</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Sitio Web:</li><li class="feat-item">Landing o sitio corporativo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">CRM:</li><li class="feat-item">Implementación de CRM</li><li class="feat-item">Por ejemplo:</li><li class="feat-item">- HubSpot</li><li class="feat-item">- Chatwoot</li><li class="feat-item">- Mercately</li><li class="feat-item">- Zoho</li><li class="feat-item">- u otro según el proyecto.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatización:</li><li class="feat-item">Hasta 8 workflows.</li><li class="feat-item">Ejemplos:</li><li class="feat-item">- Leads</li><li class="feat-item">- Seguimiento</li><li class="feat-item">- Correos</li><li class="feat-item">- WhatsApp</li><li class="feat-item">- Agenda</li><li class="feat-item">- Recordatorios</li><li class="feat-item">- Notificaciones</li><li class="feat-item">- Reportes</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">- Prompt Engineering</li><li class="feat-item">- Agente IA inicial</li><li class="feat-item">- Clasificación automática de leads</li><li class="feat-item">- Generación automática de contenido</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Integraciones:</li><li class="feat-item">Hasta 5 integraciones.</li><li class="feat-item">Por ejemplo:</li><li class="feat-item">- WhatsApp</li><li class="feat-item">- Google Calendar</li><li class="feat-item">- Gmail</li><li class="feat-item">- Meta</li><li class="feat-item">- Stripe</li><li class="feat-item">- Wompi</li><li class="feat-item">- Supabase</li><li class="feat-item">- n8n</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Dashboard:</li><li class="feat-item">Dashboard inicial con indicadores.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">Dos sesiones.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Documentación:</li><li class="feat-item">Manual operativo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Tiempo:</li><li class="feat-item">4–8 semanas.</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 3.500.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas que ya venden.</span><span class="tag-pill">Clínicas.</span><span class="tag-pill">Constructoras.</span><span class="tag-pill">Agencias.</span><span class="tag-pill">Empresas B2B.</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-cyan">
+          <div class="card-service"><span class="service-title">Implementación Enterprise</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye:</li><li class="feat-item">Todo Business</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Arquitectura Empresarial:</li><li class="feat-item">Diseño completo del ecosistema</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Infraestructura:</li><li class="feat-item">Según necesidad:</li><li class="feat-item">- AWS</li><li class="feat-item">- Azure</li><li class="feat-item">- VPS</li><li class="feat-item">- Docker</li><li class="feat-item">- Kubernetes</li><li class="feat-item">- Cloudflare</li><li class="feat-item">- CDN</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">CRM Empresarial:</li><li class="feat-item">Implementación avanzada.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Automatizaciones:</li><li class="feat-item">Automatizaciones sin límite fijo (definidas por alcance del proyecto).</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">IA:</li><li class="feat-item">Agentes especializados.</li><li class="feat-item">Ejemplos:</li><li class="feat-item">- Atención al cliente</li><li class="feat-item">- Ventas</li><li class="feat-item">- Recursos Humanos</li><li class="feat-item">- Marketing</li><li class="feat-item">- Documentación</li><li class="feat-item">- Soporte interno</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Integraciones:</li><li class="feat-item">- ERP</li><li class="feat-item">- Facturación</li><li class="feat-item">- Contabilidad</li><li class="feat-item">- Power BI</li><li class="feat-item">- Microsoft 365</li><li class="feat-item">- Google Workspace</li><li class="feat-item">- APIs</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Dashboard Ejecutivo:</li><li class="feat-item">- KPIs</li><li class="feat-item">- Ventas</li><li class="feat-item">- Marketing</li><li class="feat-item">- Operaciones</li><li class="feat-item">- Finanzas (si aplica)</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Seguridad:</li><li class="feat-item">- Backups</li><li class="feat-item">- Monitoreo</li><li class="feat-item">- Roles</li><li class="feat-item">- Permisos</li><li class="feat-item">- Buenas prácticas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Capacitación:</li><li class="feat-item">Capacitación al equipo.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Documentación:</li><li class="feat-item">- Arquitectura</li><li class="feat-item">- Diagramas</li><li class="feat-item">- Roadmap</li><li class="feat-item">- Manual técnico</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Acompañamiento:</li><li class="feat-item">30 días posteriores a la implementación.</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 6.000.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas medianas.</span><span class="tag-pill">Corporativos.</span><span class="tag-pill">Organizaciones con múltiples áreas</span></div>
+          </div>
+        </article>
+        </div>
+      </div>
+      <div class="mobile-group accent-blue">
+        <div class="mobile-group-header">
+          <span class="category-icon">🔄</span>
+          <span class="category-name">CONTINUIDAD OPERATIVA DEL NEGOCIO</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-blue">
+          <div class="card-service"><span class="service-title">Plan Essential</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">✔ Landing</li><li class="feat-item">✔ Sitio web</li><li class="feat-item">✔ Automatizaciones sencillas</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-item">Incluye</li><li class="feat-item">Hosting VPS</li><li class="feat-item">SSL</li><li class="feat-item">Backups</li><li class="feat-item">Monitoreo</li><li class="feat-item">Actualizaciones menores</li><li class="feat-item">Soporte</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 350.000 COP / mes</span></div>
+            <div class="tag-group"><span class="tag-pill">Emprendedores</span><span class="tag-pill">Marcas personales</span><span class="tag-pill">Nuevos negocios</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-blue">
+          <div class="card-service"><span class="service-title">Plan Business</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Negocios que ya venden constantemente.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Incluye</li><li class="feat-item">Todo lo anterior</li><li class="feat-item">n8n</li><li class="feat-item">Chatwoot</li><li class="feat-item">Automatizaciones</li><li class="feat-item">Logs</li><li class="feat-item">Monitoreo</li><li class="feat-item">Soporte prioritario</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 650.000 - $ 900.000 COP / mes</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas en crecimiento</span><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-blue">
+          <div class="card-service"><span class="service-title">Plan Growth IA</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">deal para negocios que utilizan IA diariamente.</li><li class="feat-gap" aria-hidden="true"></li><li class="feat-header">Incluye</li><li class="feat-item">Servidor</li><li class="feat-item">n8n</li><li class="feat-item">Chatwoot</li><li class="feat-item">Whisper</li><li class="feat-item">Redis</li><li class="feat-item">PostgreSQL</li><li class="feat-item">Traefik</li><li class="feat-item">Backups</li><li class="feat-item">Actualizaciones</li><li class="feat-item">Optimización mensual</li><li class="feat-item">Monitoreo</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 950.000 COP / mes</span></div>
+            <div class="tag-group"><span class="tag-pill">Agencias</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-blue">
+          <div class="card-service"><span class="service-title">Enterprise</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Infraestructura dedicada</li><li class="feat-item">Azure</li><li class="feat-item">AWS</li><li class="feat-item">Docker Swarm</li><li class="feat-item">Kubernetes</li><li class="feat-item">Alta disponibilidad</li><li class="feat-item">VPN</li><li class="feat-item">Backups externos</li><li class="feat-item">Monitoreo</li><li class="feat-item">SLA</li><li class="feat-item">Integraciones</li><li class="feat-item">Soporte</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 1.500.000 COP / mes</span></div>
+            <div class="tag-group"><span class="tag-pill">CEOs</span><span class="tag-pill">Empresas medianas</span><span class="tag-pill">Grandes compañías</span></div>
+          </div>
+        </article>
+        </div>
+      </div>
+      <div class="mobile-group accent-green">
+        <div class="mobile-group-header">
+          <span class="category-icon">🎯</span>
+          <span class="category-name">ACOMPAÑAMIENTO ESTRATÉGICO</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-green">
+          <div class="card-service"><span class="service-title">Mentoría Estratégica</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Emprendedores</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 300.000 - $ 450.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-green">
+          <div class="card-service"><span class="service-title">Growth Advisor</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Negocios en crecimiento</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 600.000 - $ 900.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-green">
+          <div class="card-service"><span class="service-title">Fractional CTO</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Empresas en expansión</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 1.200.000 - $ 2.000.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-green">
+          <div class="card-service"><span class="service-title">Advisory Enterprise</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-item">Corporativos</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 2.500.000 COP</span></div>
+            
+          </div>
+        </article>
+        </div>
+      </div>
+      <div class="mobile-group accent-indigo">
+        <div class="mobile-group-header">
+          <span class="category-icon">💻</span>
+          <span class="category-name">SERVICIOS</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Landing Page Estratégica</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 1.200.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Sitio Corporativo</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 2.800.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Tienda Online</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 4.500.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Plataforma Moodle</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 5.500.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Portal Empresarial</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 7.000.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Automatizaciones IA</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 2.000.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Agente IA</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 3.500.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">CRM Personalizado</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 4.500.000 COP</span></div>
+            
+          </div>
+        </article>
+        <article class="service-card accent-indigo">
+          <div class="card-service"><span class="service-title">Desarrollo de Software</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-gap" aria-hidden="true"></li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 8.000.000 COP</span></div>
+            
+          </div>
+        </article>
+        </div>
+      </div>
+      <div class="mobile-group accent-duo">
+        <div class="mobile-group-header">
+          <span class="category-icon">🎬</span>
+          <span class="category-name">PRODUCCIÓN AUDIOVISUAL CON IA</span>
+        </div>
+        <div class="mobile-cards">
+          
+        <article class="service-card accent-duo">
+          <div class="card-service"><span class="service-title">Video IA Express</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Brief creativo</li><li class="feat-item">- Guion</li><li class="feat-item">- Avatar IA o voz IA</li><li class="feat-item">- Hasta 30 segundos</li><li class="feat-item">- Formato vertical</li><li class="feat-item">- 1 ronda de ajustes</li><li class="feat-item">- Exportación Full HD</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 250.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-duo">
+          <div class="card-service"><span class="service-title">Video IA Premium</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Todo Express</li><li class="feat-item">- Hasta 60 segundos</li><li class="feat-item">- Storytelling</li><li class="feat-item">- Subtítulos</li><li class="feat-item">- Música</li><li class="feat-item">- B-roll</li><li class="feat-item">- Corrección de color</li><li class="feat-item">- Adaptación para Instagram, TikTok y LinkedIn</li><li class="feat-item">- 2 rondas de cambios</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 450.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-duo">
+          <div class="card-service"><span class="service-title">Video IA Corporativo</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Investigación del negocio</li><li class="feat-item">- Guion ejecutivo</li><li class="feat-item">- Avatar personalizado</li><li class="feat-item">- Voz profesional</li><li class="feat-item">- Motion graphics</li><li class="feat-item">- Animaciones</li><li class="feat-item">- Branding</li><li class="feat-item">- Versiones horizontal y vertical</li><li class="feat-item">- Hasta 90 segundos</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 800.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-duo">
+          <div class="card-service"><span class="service-title">Avatar Corporativo con IA</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- Diseño del personaje</li><li class="feat-item">- Personalidad</li><li class="feat-item">- Voz</li><li class="feat-item">- Prompt maestro</li><li class="feat-item">- Identidad visual</li><li class="feat-item">- Prompt para generación continua</li><li class="feat-item">- Banco de expresiones</li><li class="feat-item">- Banco de poses</li><li class="feat-item">- Configuración para producción continua</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">Desde $ 1.500.000 COP</span></div>
+            <div class="tag-group"><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        <article class="service-card accent-duo">
+          <div class="card-service"><span class="service-title">Contenido IA Continuo</span></div>
+          <div class="card-block">
+            <span class="card-label">Características</span>
+            <ul class="feat-list"><li class="feat-header">Incluye</li><li class="feat-item">- 8 a 12 videos IA</li></ul>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span class="price-chip">$ 1.500.000 COP / mes</span></div>
+            <div class="tag-group"><span class="tag-pill">Marcas personales</span><span class="tag-pill">Emprendedores</span><span class="tag-pill">Lanzamientos</span><span class="tag-pill">Empresas</span><span class="tag-pill">Software</span><span class="tag-pill">Clínicas</span><span class="tag-pill">Constructoras</span></div>
+          </div>
+        </article>
+        </div>
+      </div></div>
+</section>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // La credencial nunca se guarda en texto plano: se compara el hash SHA-256
+  // de "usuario:contraseña" contra este valor precalculado.
+  var CREDENTIAL_HASH = "3eebc0d5264ccdc148ef541b261c80092190f7522d30d6b50fd1695aed19d216";
+  var SESSION_KEY = "eco_auth_ok";
+  var MAX_ATTEMPTS = 5;
+  var LOCKOUT_MS = 30000;
+  var INACTIVITY_MS = 10 * 60 * 1000; // 10 minutos sin interacción
+  var ACTIVITY_EVENTS = ["mousemove", "mousedown", "keydown", "scroll", "touchstart", "click"];
+
+  var loginScreen = document.getElementById("login-screen");
+  var protectedContent = document.getElementById("protected-content");
+  var form = document.getElementById("login-form");
+  var userInput = document.getElementById("login-user");
+  var passInput = document.getElementById("login-pass");
+  var toggleBtn = document.getElementById("toggle-password");
+  var toggleIcon = toggleBtn.querySelector("i");
+  var submitBtn = document.getElementById("login-submit");
+  var errorBox = document.getElementById("login-error");
+  var errorText = document.getElementById("login-error-text");
+  var card = document.querySelector(".login-card");
+  var logoutBtn = document.getElementById("logout-btn");
+
+  var attempts = 0;
+  var lockedUntil = 0;
+  var inactivityTimer = null;
+
+  async function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    var buf = await crypto.subtle.digest("SHA-256", enc);
+    var bytes = Array.from(new Uint8Array(buf));
+    return bytes.map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  function unlock(persist) {
+    loginScreen.classList.add("is-hidden");
+    protectedContent.style.display = "";
+    if (persist) {
+      try { sessionStorage.setItem(SESSION_KEY, "1"); } catch (e) {}
+    }
+    startInactivityWatch();
+  }
+
+  // --- Cerrar sesión (manual o por inactividad) ---
+  function lock() {
+    protectedContent.style.display = "none";
+    loginScreen.classList.remove("is-hidden");
+    try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+
+    userInput.value = "";
+    passInput.value = "";
+    passInput.type = "password";
+    toggleIcon.className = "fa-solid fa-eye";
+    toggleBtn.classList.remove("is-visible");
+    hideError();
+
+    stopInactivityWatch();
+  }
+
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(lock, INACTIVITY_MS);
+  }
+
+  function startInactivityWatch() {
+    resetInactivityTimer();
+    ACTIVITY_EVENTS.forEach(function (evt) {
+      document.addEventListener(evt, resetInactivityTimer, true);
+    });
+  }
+
+  function stopInactivityWatch() {
+    clearTimeout(inactivityTimer);
+    ACTIVITY_EVENTS.forEach(function (evt) {
+      document.removeEventListener(evt, resetInactivityTimer, true);
+    });
+  }
+
+  logoutBtn.addEventListener("click", lock);
+
+  function showError(message) {
+    errorText.textContent = message;
+    errorBox.classList.add("is-visible");
+    card.classList.remove("is-shaking");
+    // reflow para poder re-disparar la animación
+    void card.offsetWidth;
+    card.classList.add("is-shaking");
+  }
+
+  function hideError() {
+    errorBox.classList.remove("is-visible");
+  }
+
+  // Restaura sesión si ya se autenticó antes en esta pestaña
+  try {
+    if (sessionStorage.getItem(SESSION_KEY) === "1") {
+      unlock(false);
+    }
+  } catch (e) {}
+
+  // --- Mostrar el ícono del ojo solo si hay texto escrito ---
+  passInput.addEventListener("input", function () {
+    if (passInput.value.length > 0) {
+      toggleBtn.classList.add("is-visible");
+    } else {
+      toggleBtn.classList.remove("is-visible");
+      // si se borra todo mientras estaba visible, vuelve a modo oculto
+      passInput.type = "password";
+      toggleIcon.className = "fa-solid fa-eye";
+    }
+    hideError();
+  });
+
+  userInput.addEventListener("input", hideError);
+
+  // --- Alternar ver / ocultar contraseña ---
+  toggleBtn.addEventListener("click", function () {
+    var isHidden = passInput.type === "password";
+    passInput.type = isHidden ? "text" : "password";
+    toggleIcon.className = isHidden ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+    toggleBtn.setAttribute("aria-label", isHidden ? "Ocultar contraseña" : "Mostrar contraseña");
+    passInput.focus();
+  });
+
+  // --- Envío del formulario ---
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    var now = Date.now();
+    if (now < lockedUntil) {
+      var secs = Math.ceil((lockedUntil - now) / 1000);
+      showError("Demasiados intentos. Intenta de nuevo en " + secs + "s.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Verificando...";
+
+    var candidate = userInput.value.trim() + ":" + passInput.value;
+    var hash = await sha256Hex(candidate);
+
+    if (hash === CREDENTIAL_HASH) {
+      hideError();
+      unlock(true);
+    } else {
+      attempts++;
+      passInput.value = "";
+      toggleBtn.classList.remove("is-visible");
+      passInput.type = "password";
+      toggleIcon.className = "fa-solid fa-eye";
+
+      if (attempts >= MAX_ATTEMPTS) {
+        lockedUntil = now + LOCKOUT_MS;
+        showError("Demasiados intentos fallidos. Espera 30s para volver a intentar.");
+        attempts = 0;
+      } else {
+        showError("Usuario o contraseña incorrectos.");
+      }
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Ingresar";
+  });
+})();
+</script>
+
+</body>
+</html>
