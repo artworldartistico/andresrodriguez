@@ -4181,55 +4181,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
   // 🚀 FUNCIÓN PRINCIPAL (CORREGIDA)
   async function sendMessage(message) {
-      try {
-          isTyping = true;
-          sendButton.disabled = true;
+  try {
+    isTyping = true;
+    sendButton.disabled = true;
 
-          addMessage(message, 'user');
-          messageInput.value = '';
+    addMessage(message, 'user');
+    messageInput.value = '';
 
-          showTypingIndicator();
+    showTypingIndicator();
 
-          const response = await fetch("https://chatbot-web-chi-nine.vercel.app/api/chat", {
-              method: "POST", // 🔥 CLAVE
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                  message: message,
-                  model: "groq"
-              })
-          });
+    const response = await fetch("https://chatbot-web-chi-nine.vercel.app/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
 
-          if (!response.ok) {
-              throw new Error("Error en la API");
-          }
+    const data = await response.json();
 
-          const data = await response.json();
+    hideTypingIndicator();
 
-          hideTypingIndicator();
+    const botMessageElement = addMessage("", 'bot');
 
-          const botMessageElement = addMessage("", 'bot');
+    await simulateTypingWithFormat(
+      botMessageElement,
+      data.reply || "Sin respuesta"
+    );
 
-          await simulateTypingWithFormat(
-              botMessageElement,
-              data.reply || "Sin respuesta"
-          );
+  } catch (error) {
+    console.error("❌ Error:", error);
 
-          return data.reply;
+    hideTypingIndicator();
+    addMessage("⚠️ Error conectando con la IA", "bot");
 
-      } catch (error) {
-          console.error("❌ Error:", error);
-
-          hideTypingIndicator();
-          addMessage("⚠️ Error conectando con la IA", "bot");
-
-      } finally {
-          isTyping = false;
-          sendButton.disabled = false;
-          focusInput();
-      }
+  } finally {
+    isTyping = false;
+    sendButton.disabled = false;
+    focusInput();
   }
+}
 
   // ✨ EFECTO DE ESCRITURA
   async function simulateTypingWithFormat(element, text) {
