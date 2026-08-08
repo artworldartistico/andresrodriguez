@@ -3913,6 +3913,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
   // Animación scroll
   const animatedElements = document.querySelectorAll('.fade-in, .fade-up');
@@ -4482,15 +4483,50 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
   // 🎨 FORMATO DE TEXTO
   function formatBotMessage(text) {
-      if (!text) return '<p></p>';
-      
-      let formatted = text
-          .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-          .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-          .replace(/\n/g, '<br>');
-      
-      return `<p>${formatted}</p>`;
-  }
+    if (!text) return '';
+
+    // Escapar HTML para evitar inyección de código
+    let formatted = text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    // 🔗 Enlaces Markdown
+    // Convierte:
+    // [Agenda con Andrés](https://calendly.com/...)
+    // [Agenda con Andrés]\(https://calendly.com/...\)
+    formatted = formatted.replace(
+        /\[([^\]]+)\]\\?\((https?:\/\/[^\s)]+)\\?\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
+
+    // 🔗 También convierte URLs escritas directamente
+    formatted = formatted.replace(
+        /(?<!["'=])(https?:\/\/[^\s<]+)/g,
+        function (url) {
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+        }
+    );
+
+    // **Negrita**
+    formatted = formatted.replace(
+        /\*\*([^*]+)\*\*/g,
+        '<strong>$1</strong>'
+    );
+
+    // *Cursiva*
+    formatted = formatted.replace(
+        /(^|[^*])\*([^*\n]+)\*(?!\*)/g,
+        '$1<em>$2</em>'
+    );
+
+    // Saltos de línea
+    formatted = formatted.replace(/\n/g, '<br>');
+
+    return `<p>${formatted}</p>`;
+}
 
   // ⏳ TYPING INDICATOR
   function showTypingIndicator() {
