@@ -4483,51 +4483,101 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
   // 🎨 FORMATO DE TEXTO
   function formatBotMessage(text) {
-    if (!text) return '';
+      if (!text) return '';
+  
+      // =====================================================
+      // 1. LIMPIEZA INICIAL
+      // =====================================================
+  
+      let formatted = text.trim();
+  
+      // Eliminar caracteres accidentales alrededor de Markdown
+      formatted = formatted
+          .replace(/<\s*(?=\[)/g, '')
+          .replace(/(?<=\))\s*>/g, '');
+  
+      // Eliminar %3E accidental al final de URLs Markdown
+      formatted = formatted.replace(
+          /(https?:\/\/[^\s)]+?)%3E(?=\))/gi,
+          '$1'
+      );
+  
+      // Eliminar %3C accidental al final/inicio de URLs Markdown
+      formatted = formatted.replace(
+          /(https?:\/\/[^\s)]+?)%3C(?=\))/gi,
+          '$1'
+      );
+  
+      // Eliminar > accidental antes del cierre del Markdown
+      formatted = formatted.replace(
+          /(https?:\/\/[^\s)]+?)[>]+(?=\))/gi,
+          '$1'
+      );
+  
+      // =====================================================
+      // 2. ESCAPAR HTML
+      // =====================================================
+  
+      formatted = formatted
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+  
+      // =====================================================
+      // 3. LIMPIAR MARKDOWN MALFORMADO
+      // =====================================================
+  
+      // [&lt;texto...] → [texto...]
+      formatted = formatted.replace(
+          /&lt;(\[[^\]]+\]\(https?:\/\/[^)]+\))/gi,
+          '$1'
+      );
+  
+      // [texto](url)&gt; → [texto](url)
+      formatted = formatted.replace(
+          /(\[[^\]]+\]\(https?:\/\/[^)]+\))&gt;/gi,
+          '$1'
+      );
+  
+      // =====================================================
+      // 4. MARKDOWN DE ENLACES
+      // =====================================================
+  
+      formatted = formatted.replace(
+          /\[([^\]]+)\]\\?\((https?:\/\/[^\s)]+)\\?\)/gi,
+          '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+      );
+  
+      // =====================================================
+      // 5. NEGRITA
+      // =====================================================
+  
+      formatted = formatted.replace(
+          /\*\*([^*]+)\*\*/g,
+          '<strong>$1</strong>'
+      );
+  
+      // =====================================================
+      // 6. CURSIVA
+      // =====================================================
+  
+      formatted = formatted.replace(
+          /(^|[^*])\*([^*\n]+)\*(?!\*)/g,
+          '$1<em>$2</em>'
+      );
+  
+      // =====================================================
+      // 7. SALTOS DE LÍNEA
+      // =====================================================
+  
+      formatted = formatted.replace(/\n/g, '<br>');
+  
+      return `<p>${formatted}</p>`;
+  }
 
-    // Escapar HTML para evitar inyección de código
-    let formatted = text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-
-    // 🔗 Enlaces Markdown
-    // Convierte:
-    // [Agenda con Andrés](https://calendly.com/...)
-    // [Agenda con Andrés]\(https://calendly.com/...\)
-    formatted = formatted.replace(
-        /\[([^\]]+)\]\\?\((https?:\/\/[^\s)]+)\\?\)/g,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-    );
-
-    // 🔗 También convierte URLs escritas directamente
-    formatted = formatted.replace(
-        /(?<!["'=])(https?:\/\/[^\s<]+)/g,
-        function (url) {
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-        }
-    );
-
-    // **Negrita**
-    formatted = formatted.replace(
-        /\*\*([^*]+)\*\*/g,
-        '<strong>$1</strong>'
-    );
-
-    // *Cursiva*
-    formatted = formatted.replace(
-        /(^|[^*])\*([^*\n]+)\*(?!\*)/g,
-        '$1<em>$2</em>'
-    );
-
-    // Saltos de línea
-    formatted = formatted.replace(/\n/g, '<br>');
-
-    return `<p>${formatted}</p>`;
-}
-
+  
   // ⏳ TYPING INDICATOR
   function showTypingIndicator() {
       const div = document.createElement('div');
