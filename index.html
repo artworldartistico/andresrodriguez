@@ -2841,6 +2841,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             border-radius: 18px;
             line-height: 1.4;
             font-size: 14px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .message-content a {
+            display: inline-block;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        #messagesContainer {
+            overflow-x: hidden;
         }
 
         .message.user .message-content {
