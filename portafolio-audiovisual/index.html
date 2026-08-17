@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ============================================================
+         META & SEO
+    ============================================================ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de Producción Audiovisual con IA y Motion Design — Andrés Rodríguez. Creamos contenido audiovisual que comunica, vende y automatiza experiencias digitales.">
+    <meta name="keywords" content="producción audiovisual, IA, motion design, video corporativo, motion graphics, inteligencia artificial, portafolio audiovisual">
+    <meta name="author" content="Andrés Rodríguez">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Producción Audiovisual con IA y Motion Design — Andrés Rodríguez">
+    <meta property="og:description" content="Creamos contenido audiovisual que comunica, vende y automatiza experiencias digitales mediante IA, Motion Graphics y Producción Tradicional.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+
+    <title>Producción Audiovisual con IA y Motion Design — Andrés Rodríguez</title>
+
+    <!-- ============================================================
+         FONTS & ICONS
+    ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ============================================================
+         STYLES
+    ============================================================ -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ============================================================
+         SKIP LINK (Accesibilidad)
+    ============================================================ -->
+    <a href="#portfolio" class="skip-link">Ir al portafolio</a>
+
+    <!-- ============================================================
+         PARTÍCULAS DE FONDO
+    ============================================================ -->
+    <canvas id="particles-canvas" class="particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- ============================================================
+         MAIN CONTENT
+    ============================================================ -->
+    <main>
+
+        <!-- ============================================================
+             HERO — Pantalla completa
+        ============================================================ -->
+        <section class="hero" id="hero" aria-label="Introducción">
+            <!-- Video de fondo (reemplazar src con tu video) -->
+            <div class="hero-video-bg">
+                <!-- <video autoplay muted loop playsinline>
+                    <source src="tu-video.mp4" type="video/mp4">
+                </video> -->
+                <!-- Fallback animado cuando no hay video -->
+                <div class="hero-fallback-bg" aria-hidden="true"></div>
+            </div>
+
+            <!-- Overlay oscuro -->
+            <div class="hero-overlay" aria-hidden="true"></div>
+
+            <!-- Contenido del hero -->
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-sparkles"></i>
+                    Estudio Creativo Premium
+                </div>
+
+                <h1 class="hero-title">
+                    Producción Audiovisual con
+                    <span class="highlight">IA y Motion Design</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Creo contenido audiovisual que comunica, vende y automatiza
+                    experiencias digitales mediante Inteligencia Artificial,
+                    Motion Graphics y Producción Tradicional.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn-primary">
+                        <i class="fa-solid fa-play"></i>
+                        Ver proyectos
+                    </a>
+                    <a href="https://wa.me/573213900071?text=Hola%20%F0%9F%91%8B%0AQuiero%20solicitar%20un%20diagn%C3%B3stico%20de%20producci%C3%B3n%20audiovisual." target="_blank" rel="noopener noreferrer" class="btn-ghost">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        Solicitar diagnóstico
+                    </a>
+                </div>
+            </div>
+
+            <!-- Indicador de scroll -->
+            <div class="hero-scroll" aria-hidden="true">
+                <span>Scroll</span>
+                <div class="hero-scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             PORTAFOLIO — Galería Principal
+        ============================================================ -->
+        <section class="section portfolio" id="portfolio" aria-label="Portafolio de proyectos">
+            <div class="container">
+
+                <!-- Encabezado -->
+                <div class="section-header reveal">
+                    <div class="section-badge">
+                        <i class="fa-solid fa-film"></i>
+                        Portafolio Audiovisual
+                    </div>
+                    <h2 class="section-title">
+                        Proyectos que
+                        <span class="highlight">transforman marcas</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Cada proyecto es una pieza estratégica diseñada para comunicar,
+                        conectar y convertir. Explora nuestro trabajo.
+                    </p>
+                </div>
+
+                <!-- Controles del portafolio -->
+                <div class="portfolio-controls reveal">
+
+                    <!-- Buscador -->
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            type="search"
+                            id="search-input"
+                            placeholder="Buscar por cliente, proyecto, tecnología..."
+                            aria-label="Buscar proyectos"
+                            autocomplete="off"
+                        />
+                        <button class="search-clear" aria-label="Limpiar búsqueda">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Filtros chip -->
+                    <div class="filters" id="filters" role="tablist" aria-label="Filtrar por categoría">
+                        <!-- Se generan dinámicamente desde JS -->
+                    </div>
+
+                    <!-- Toolbar: vistas + ordenar + contador -->
+                    <div class="portfolio-toolbar">
+                        <div style="display:flex;align-items:center;gap:16px;">
+                            <div class="view-toggle" role="radiogroup" aria-label="Tipo de vista">
+                                <button class="view-btn is-active" data-view="grid" role="radio" aria-checked="true" aria-label="Vista cuadrícula">
+                                    <i class="fa-solid fa-grid-2"></i>
+                                </button>
+                                <button class="view-btn" data-view="carousel" role="radio" aria-checked="false" aria-label="Vista carrusel">
+                                    <i class="fa-solid fa-bars-staggered"></i>
+                                </button>
+                            </div>
+
+                            <select class="sort-select" id="sort-select" aria-label="Ordenar proyectos">
+                                <option value="reciente">Más recientes</option>
+                                <option value="antiguo">Más antiguos</option>
+                                <option value="cliente">Por cliente</option>
+                                <option value="categoria">Por categoría</option>
+                                <option value="tecnologia">Por tecnología</option>
+                            </select>
+                        </div>
+
+                        <span class="results-count" id="results-count" aria-live="polite">11 proyectos</span>
+                    </div>
+                </div>
+
+                <!-- Galería -->
+                <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Proyectos audiovisuales">
+                    <!-- Se renderiza dinámicamente desde JS -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================================
+             CÓMO TRABAJAMOS — Timeline
+        ============================================================ -->
+        <section class="section proceso" id="proceso" aria-label="Nuestro proceso de trabajo">
+            <div class="container">
+
+                <div class="section-header reveal">
+                    <div class="section-badge">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        Proceso Creativo
+                    </div>
+                    <h2 class="section-title">
+                        Cómo
+                        <span class="highlight">trabajo</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Cada proyecto sigue un proceso estructurado que garantiza
+                        resultados excepcionales, desde el concepto hasta la entrega final.
+                    </p>
+                </div>
+
+                <div class="timeline reveal">
+                    <div class="timeline-step">
+                        <span class="timeline-number">01</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Brief</div>
+                            <div class="timeline-desc">Entrevista estratégica y definición de objetivos</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">02</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-pen-fancy"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Guion</div>
+                            <div class="timeline-desc">Narrativa, storyboard y estructura visual</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">03</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-clapperboard"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Producción</div>
+                            <div class="timeline-desc">Filmación, grabación o generación con IA</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">04</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Edición</div>
+                            <div class="timeline-desc">Montaje, color grading y motion graphics</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">05</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">IA</div>
+                            <div class="timeline-desc">Optimización y mejora con inteligencia artificial</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">06</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Entrega</div>
+                            <div class="timeline-desc">Formatos optimizados y soporte post-entrega</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <span class="timeline-number">07</span>
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <div class="timeline-label">Optimización</div>
+                            <div class="timeline-desc">Análisis de resultados e iteración continua</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================================
+             CLIENTES — Carrusel infinito
+        ============================================================ -->
+        <section class="section clientes" id="clientes" aria-label="Nuestros clientes">
+            <div class="container">
+
+                <div class="section-header reveal">
+                    <div class="section-badge">
+                        <i class="fa-solid fa-handshake"></i>
+                        Clientes
+                    </div>
+                    <h2 class="section-title">
+                        Marcas que
+                        <span class="highlight">confían en mi</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Empresas de múltiples industrias que han potenciado su
+                        comunicación audiovisual con nuestro equipo.
+                    </p>
+                </div>
+
+                <div class="clients-track-wrapper reveal">
+                    <div class="clients-track" aria-label="Logos de clientes">
+                        <!-- Logos placeholder usando texto estilizado -->
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">Digiticol</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">NexTech Solutions</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">Urbana Living</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">Grupo Financiero Atlas</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">Quantum Labs</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">FitPro Academy</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">CloudServ</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">CryptoBase</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">Meridian Group</div>
+                        <div class="client-logo-text" style="height:40px;display:flex;align-items:center;font-weight:700;font-size:18px;opacity:0.4;color:white;white-space:nowrap;flex-shrink:0;">MarketPulse</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================================
+             CTA FINAL
+        ============================================================ -->
+        <section class="section cta-final" id="contacto" aria-label="Llamada a la acción">
+            <div class="cta-final-bg" aria-hidden="true"></div>
+            <div class="container">
+                <div class="cta-final-content reveal">
+                    <div class="section-badge">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        Empecemos
+                    </div>
+                    <h2 class="cta-final-title">
+                        ¿Quieres que tu marca tenga contenido audiovisual que realmente
+                        <span class="highlight">genere resultados</span>?
+                    </h2>
+                    <p class="cta-final-subtitle">
+                        Agenda una reunión sin costo y descubre cómo podemos transformar
+                        la comunicación audiovisual de tu empresa con producción premium,
+                        inteligencia artificial y estrategia.
+                    </p>
+                    <a href="https://wa.me/573213900071?text=Hola%20%F0%9F%91%8B%0AQuiero%20agendar%20una%20reuni%C3%B3n%20para%20discutir%20un%20proyecto%20audiovisual." target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:17px;padding:18px 40px;">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Agendar una reunión
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================================
+         MODAL FULLSCREEN
+    ============================================================ -->
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Detalles del proyecto">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close" aria-label="Cerrar modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Video -->
+            <div class="modal-video" id="modal-video">
+                <!-- Reproductor inteligente se inserta aquí desde JS -->
+            </div>
+
+            <!-- Detalles -->
+            <div class="modal-details">
+                <h2 class="modal-project-title" id="modal-title"></h2>
+                <p class="modal-project-client" id="modal-client"></p>
+
+                <div class="modal-grid">
+                    <div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Descripción</div>
+                            <div class="modal-field-value" id="modal-desc"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Objetivos</div>
+                            <div class="modal-field-value" id="modal-obj"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Resultado</div>
+                            <div class="modal-field-value" id="modal-result"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Tipo de producción</div>
+                            <div class="modal-field-value"><span class="modal-badge" id="modal-badge"></span></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Formato</div>
+                            <div class="modal-field-value" id="modal-format"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Industria</div>
+                            <div class="modal-field-value" id="modal-industry"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Duración</div>
+                            <div class="modal-field-value" id="modal-duration"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Año</div>
+                            <div class="modal-field-value" id="modal-year"></div>
+                        </div>
+                        <div class="modal-field">
+                            <div class="modal-field-label">Tecnologías</div>
+                            <div class="modal-tech-list" id="modal-tech"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-cta">
+                    <a href="https://wa.me/573213900071?text=Hola%20%F0%9F%91%8B%0AMe%20interesa%20un%20proyecto%20audiovisual%20similar.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        Quiero un proyecto similar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+         SCRIPTS
+    ============================================================ -->
+    <script src="script.js"></script>
+
+</body>
+</html>
