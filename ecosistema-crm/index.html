@@ -520,32 +520,49 @@
           </ul>
         </div>
 
-        <form class="card form reveal" id="diagnosticForm" novalidate>
+        <form method="POST" class="card form reveal" id="diagnosticForm" novalidate>
           <div class="form-grid">
-            <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" /><span class="err" data-err="nombre"></span></div>
-            <div class="field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" autocomplete="organization" /><span class="err"></span></div>
-            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" /><span class="err" data-err="email"></span></div>
-            <div class="field"><label for="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" /><span class="err"></span></div>
-            <div class="field"><label for="tipo">Tipo de negocio</label>
+            <div class="field"><label for="nombre">Nombre <span class="required" aria-hidden="true">*</span></label><input id="nombre" name="nombre" type="text" autocomplete="name" /><span class="err" data-err="nombre"></span></div>
+            <div class="field"><label for="empresa">Empresa <span class="required" aria-hidden="true">*</span></label><input id="empresa" name="empresa" type="text" autocomplete="organization" /><span class="err" data-err="empresa"></span></div>
+            <div class="field"><label for="email">Email <span class="required" aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" /><span class="err" data-err="email"></span></div>
+            <div class="field"><label for="whatsapp">WhatsApp <span class="required" aria-hidden="true">*</span></label><input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" /><span class="err" data-err="whatsapp"></span></div>
+            <div class="field"><label for="tipo">Tipo de negocio <span class="required" aria-hidden="true">*</span></label>
               <select id="tipo" name="tipo">
                 <option value="">Selecciona una opción</option>
                 <option>Comercio</option><option>Servicios</option><option>Empresa / B2B</option><option>E-commerce</option><option>Otro</option>
-              </select><span class="err"></span>
+              </select><span class="err" data-err="tipo"></span>
             </div>
-            <div class="field"><label for="equipo">Personas en el equipo (aprox.)</label>
+            <div class="field"><label for="equipo">Personas en el equipo (aprox.) <span class="required" aria-hidden="true">*</span></label>
               <select id="equipo" name="equipo">
                 <option value="">Selecciona una opción</option>
                 <option>1 – 3</option><option>4 – 10</option><option>11 – 30</option><option>Más de 30</option>
-              </select><span class="err"></span>
+              </select><span class="err" data-err="equipo"></span>
             </div>
-            <div class="field field--full"><label for="gestion">¿Cómo gestionas actualmente tus clientes?</label><textarea id="gestion" name="gestion" rows="3"></textarea><span class="err" data-err="gestion"></span></div>
-            <div class="field field--full"><label for="mejorar">¿Qué te gustaría mejorar?</label><textarea id="mejorar" name="mejorar" rows="3"></textarea><span class="err"></span></div>
+            <div class="field field--full"><label for="gestion">¿Cómo gestionas actualmente tus clientes? <span class="required" aria-hidden="true">*</span></label><textarea id="gestion" name="gestion" rows="3"></textarea><span class="err" data-err="gestion"></span></div>
+            <div class="field field--full"><label for="mejorar">¿Qué te gustaría mejorar? <span class="required" aria-hidden="true">*</span></label><textarea id="mejorar" name="mejorar" rows="3"></textarea><span class="err" data-err="mejorar"></span></div>
             <div class="field field--full">
-              <label class="consent" for="consent"><input id="consent" name="consent" type="checkbox" /> <span>Acepto el tratamiento de mis datos para ser contactado sobre esta consulta.</span></label>
+              <label class="consent" for="consent"><input id="consent" name="consent" type="checkbox" /> <span>Acepto el tratamiento de mis datos para ser contactado sobre esta consulta.</span> <span class="required" aria-hidden="true">*</span></label>
               <span class="err" data-err="consent"></span>
             </div>
+            <div class="field field--full">
+              <label for="captchaAnswer">Verificación de seguridad <span class="required" aria-hidden="true">*</span></label>
+              <div class="captcha-box">
+                <span id="captchaQuestion"></span>
+                <input
+                  type="number"
+                  id="captchaAnswer"
+                  name="captchaAnswer"
+                  class="form-input"
+                  placeholder="Tu respuesta"
+                  autocomplete="off"
+                />
+              </div>
+              <span class="err" data-err="captcha"></span>
+            </div>
           </div>
-          <div class="btn-row"><button class="btn btn--primary" type="submit">Solicitar diagnóstico</button></div>
+          <div class="btn-row">
+            <button class="btn btn--primary" type="submit">Solicitar diagnóstico</button>
+          </div>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
