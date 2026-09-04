@@ -1588,3 +1588,61 @@
     }
     .reveal { opacity: 1; transform: none; filter: none; }
   }
+
+/* =========================================================
+   CAPTCHA
+   ========================================================= */
+
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#captchaQuestion {
+  min-width: 90px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+#captchaAnswer {
+  flex: 1;
+}
+
+/* Quitar flechas del input numérico */
+
+#captchaAnswer::-webkit-outer-spin-button,
+#captchaAnswer::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#captchaAnswer {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Error */
+
+.field input.field-error,
+.field select.field-error,
+.field textarea.field-error {
+  border-color: #ff9d8d !important;
+  box-shadow: 0 0 0 3px rgba(255, 157, 141, 0.15) !important;
+}
+
+.field .err {
+  font-size: 0.76rem;
+  color: #ff9d8d;
+  min-height: 1em;
+}
