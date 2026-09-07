@@ -81,6 +81,89 @@
 </head>
 <body>
 
+  <!--Contacto por WhatsApp-->
+
+  <div class="nav-bottom">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+    <div class="popup-whatsapp fadeIn">
+        <div class="content-whatsapp -top"><button type="button" class="closePopup">
+              <i class="material-icons icon-font-color">close</i>
+            </button> 
+          
+            <p>  <img style="border-radius: 50px; margin-right: 15px;" src="../images/andres_rodriguez.png" width="50">  Hola, ¿en que puedo ayudarte? </p>
+            
+        </div>
+        <div class="content-whatsapp -bottom">
+          <input class="whats-input" id="whats-in" type="text" Placeholder="Enviar mensaje..." />
+            
+            
+          
+  
+            <button class="send-msPopup" id="send-btn" type="button">
+                <i class="material-icons icon-font-color--black">send</i>
+            </button>
+
+        </div>
+    </div>
+    <button type="button" id="whats-openPopup" class="whatsapp-button">
+        <div class="float" >
+            <i class="fa-brands fa-whatsapp my-float"></i></div>
+    </button>
+    <div class="circle-anime"></div>
+</div>
+
+<!--CHATBOT WEB-->
+<!-- Botón flotante del chat -->
+<button class="chat-toggle" id="chatToggle">
+<span class="icon" id="chatIcon">💬</span>
+</button>
+
+<!-- Widget del chat -->
+<div class="chat-widget" id="chatWidget">
+<!-- Header -->
+<div class="widget-header">
+    <div class="assistant-photo-wrap">
+        <img class="assistant-photo" src="../images/aurea-asistente-ia.png" alt="Aurea">
+        <span class="status-dot"></span>
+    </div>
+    <div class="widget-header-text">
+        <div class="widget-title">Aurea</div>
+        <div class="widget-subtitle">Arquitecta Estratégica de Ecosistemas Digitales</div>
+    </div>
+</div>
+
+<!-- Mensajes -->
+<div class="messages-container" id="messagesContainer">
+    <div class="welcome-message">
+        <div class="welcome-avatar"><img src="../images/aurea-asistente-ia.png"></div>
+        <div class="welcome-text">¡Hola! 👋</div>
+        <div class="welcome-subtext">Soy <strong>Aurea</strong>, tu asistente virtual.
+
+          Puedo ayudarte a descubrir el mejor servicio para tu empresa, responder preguntas y orientarte sobre automatización, IA y arquitectura de ecosistemas digitales.</div>
+    </div>
+</div>
+
+<!-- Input -->
+<div class="input-area">
+    <form id="chatForm">
+        <div class="input-container">
+            <textarea 
+                class="message-input" 
+                id="messageInput" 
+                placeholder="Escribe tu pregunta..."
+                rows="1"
+            ></textarea>
+            <button type="submit" class="send-button" id="sendButton">
+                →
+            </button>
+        </div>
+    </form>
+</div>
+</div>
+
+<!-- ============ HASTA AQUÍ FINALIZA EL CHATBOT Y WHATSAPP ============ -->
+
 <main id="inicio">
 
   <!-- ============ HERO ============ -->
