@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier Técnico WACRM | Andrés Rodríguez</title>
+<meta name="description" content="Dossier técnico de implementación, containerización y despliegue de WACRM, un CRM autoalojable para WhatsApp sobre Next.js, Supabase y Docker.">
+<meta property="og:title" content="Dossier Técnico WACRM | Andrés Rodríguez">
+<meta property="og:description" content="Implementación, containerización, integración y despliegue continuo de un CRM para WhatsApp.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dossier.css">
+</head>
+<body>
+
+<!-- ====================== BARRA SUPERIOR ====================== -->
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html">
+      <span class="brand__dot" aria-hidden="true"></span>
+      Andrés Rodríguez <span>· Dossier técnico</span>
+    </a>
+    <div class="topbar__actions">
+      <a class="btn btn--ghost" href="#repositorio">Repositorio</a>
+      <a class="btn btn--primary" href="../index.html#contacto">Hablemos</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<main class="shell">
+
+  <!-- ====================== HERO ====================== -->
+  <section class="hero">
+    <span class="pill">Implementación &amp; Arquitectura</span>
+    <h1>Dossier Técnico<br><em>WACRM</em></h1>
+    <p class="hero__lede">
+      Puesta en funcionamiento de un CRM autoalojable para WhatsApp: del código base a un
+      entorno containerizado, con base de datos gestionada, despliegue continuo y agentes
+      de IA multiproveedor.
+    </p>
+    <ul class="hero__meta">
+      <li>Docker</li>
+      <li>Next.js 16</li>
+      <li>Supabase</li>
+      <li>PostgreSQL</li>
+      <li>Railway</li>
+      <li>WhatsApp Cloud API</li>
+      <li>GitHub</li>
+    </ul>
+
+    <div class="flow reveal">
+<pre>  ENTORNO LOCAL                 REPOSITORIO              PRODUCCIÓN
+  <b>Docker Compose</b>                <b>GitHub</b>                   <b>Railway</b>
+  npm run dev                   fork + upstream          build por Dockerfile
+  localhost:<b>8085</b>       ──push──▶  main            ──auto──▶  dominio público
+       │                                                     │
+       └──────────────┬──────────────────────────────────────┘
+                      ▼
+        <i>Supabase</i>  ·  PostgreSQL + Auth + Storage
+                      ▼
+        <i>WhatsApp Cloud API</i> (Meta)  ·  LLM: OpenAI / Anthropic / Gemini</pre>
+    </div>
+  </section>
+
+  <!-- ====================== ÍNDICE ====================== -->
+  <nav class="toc reveal" aria-label="Índice del dossier">
+    <h2>Contenido</h2>
+    <ol>
+      <li><a href="#contexto"><span>01</span>Contexto y alcance</a></li>
+      <li><a href="#arquitectura"><span>02</span>Arquitectura implementada</a></li>
+      <li><a href="#intervencion"><span>03</span>Intervención realizada</a></li>
+      <li><a href="#local"><span>04</span>Entorno local con Docker</a></li>
+      <li><a href="#contenedor"><span>05</span>Containerización</a></li>
+      <li><a href="#variables"><span>06</span>Variables de entorno</a></li>
+      <li><a href="#datos"><span>07</span>Base de datos y migraciones</a></li>
+      <li><a href="#despliegue"><span>08</span>Despliegue continuo</a></li>
+      <li><a href="#upstream"><span>09</span>Sincronización con el origen</a></li>
+      <li><a href="#integraciones"><span>10</span>WhatsApp y agentes de IA</a></li>
+      <li><a href="#incidencias"><span>11</span>Incidencias y resolución</a></li>
+      <li><a href="#validacion"><span>12</span>Validación funcional</a></li>
+      <li><a href="#resultado"><span>13</span>Resultado</a></li>
+      <li><a href="#repositorio"><span>14</span>Repositorio y autoría</a></li>
+    </ol>
+  </nav>
+
+  <!-- ====================== 01 CONTEXTO ====================== -->
+  <section class="section reveal" id="contexto">
+    <div class="section__head">
+      <h2>Contexto y alcance</h2>
+      <p>Qué existía antes y qué problema resolvió esta intervención.</p>
+    </div>
+    <div class="card">
+      <p>
+        WACRM es una solución CRM open source construida sobre Next.js y Supabase que
+        centraliza conversaciones de WhatsApp, contactos, pipelines comerciales,
+        automatizaciones y agentes de IA. El proyecto base ya existe; el trabajo documentado
+        aquí consiste en llevarlo desde un repositorio clonado hasta un entorno productivo
+        estable y reproducible.
+      </p>
+      <p>
+        El alcance cubre cuatro frentes: un <strong>entorno local containerizado</strong> con
+        recarga en caliente para desarrollo, una <strong>imagen de producción</strong>
+        optimizada y sin secretos horneados, una <strong>base de datos gestionada</strong>
+        con migraciones versionadas, y un <strong>flujo de despliegue continuo</strong> donde
+        cada cambio validado en local llega a producción con un <code>git push</code>.
+      </p>
+      <div class="callout">
+        <p>
+          <strong>Criterio de trabajo.</strong> Ninguna corrección se aplicó a ciegas. Cada
+          fallo se aisló reproduciéndolo primero en local, se formuló una hipótesis, se
+          verificó con una prueba concreta y solo entonces se modificó código o
+          configuración. Ese método es el que explica la sección de incidencias.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 02 ARQUITECTURA ====================== -->
+  <section class="section reveal" id="arquitectura">
+    <div class="section__head">
+      <h2>Arquitectura implementada</h2>
+      <p>Dos entornos, una sola base de código. El mismo repositorio produce el contenedor de desarrollo y la imagen de producción, sin duplicar Dockerfiles.</p>
+    </div>
+    <div class="card">
+      <div class="code">
+        <div class="code__bar"><span class="code__label">arquitectura</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>                         WACRM (Next.js 16 · App Router)
+                                    │
+        ┌───────────────────────────┼───────────────────────────┐
+        │                           │                           │
+   <span class="k">CONTENEDOR</span>                  <span class="k">DATOS</span>                    <span class="k">INTEGRACIONES</span>
+        │                           │                           │
+  Dockerfile multi-stage      Supabase              WhatsApp Cloud API
+  ├ deps    (npm ci)          ├ PostgreSQL          ├ /api/whatsapp/webhook
+  ├ builder (next build)      ├ Auth                ├ /api/whatsapp/send
+  └ runner  (standalone)      ├ Storage             ├ /api/whatsapp/templates
+        │                     └ migrations/*.sql    └ /api/v1/webhooks
+        │                           │                           │
+  ┌─────┴─────┐                     │                   Proveedores LLM
+  │           │                     │                   ├ OpenAI
+compose     Railway                 │                   ├ Anthropic
+(dev :8085) (prod $PORT)            │                   └ Google Gemini
+  │           │                     │
+  └───────────┴─────────────────────┘
+        variables de entorno
+   públicas (build) / secretas (runtime)</pre>
+      </div>
+      <h3>Tecnologías utilizadas</h3>
+      <ul class="stack">
+        <li>Docker</li><li>Docker Compose</li><li>Next.js 16</li><li>React 19</li>
+        <li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li>Supabase CLI</li>
+        <li>Railway</li><li>Git / GitHub</li><li>WhatsApp Cloud API</li><li>Zod</li>
+        <li>next-intl</li><li>OpenAI</li><li>Anthropic</li><li>Google Gemini</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================== 03 INTERVENCIÓN ====================== -->
+  <section class="section reveal" id="intervencion">
+    <div class="section__head">
+      <h2>Intervención realizada</h2>
+      <p>La autoría del producto es del proyecto open source. La ingeniería de puesta en funcionamiento es la que se describe aquí.</p>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Área</th><th>Trabajo realizado</th></tr></thead>
+          <tbody>
+            <tr><td>Solución base</td><td>Fork del repositorio original y gestión de dos cuentas de GitHub (personal y cliente) mediante remotos y claves SSH separadas</td></tr>
+            <tr><td>Entorno local</td><td>Contenedor de desarrollo en el puerto 8085, coexistiendo con otros proyectos Docker sin conflicto de puertos</td></tr>
+            <tr><td>Containerización</td><td>Dockerfile multi-stage con salida standalone, usuario no root y healthcheck; Compose para desarrollo con hot reload</td></tr>
+            <tr><td>Configuración</td><td>Separación estricta entre variables públicas de build y secretos de runtime; <code>.dockerignore</code> y <code>.gitignore</code> endurecidos</td></tr>
+            <tr><td>Datos</td><td>Vinculación de Supabase CLI al proyecto remoto y aplicación de las migraciones SQL versionadas</td></tr>
+            <tr><td>Integración</td><td>Configuración del canal de WhatsApp Cloud API y del módulo de agentes de IA</td></tr>
+            <tr><td>Desarrollo</td><td>Incorporación de Google Gemini como tercer proveedor LLM: interfaz, validación, capa de proveedor y constraint en base de datos</td></tr>
+            <tr><td>Despliegue</td><td>Railway conectado a GitHub, con build por Dockerfile y despliegue automático por commit</td></tr>
+            <tr><td>Troubleshooting</td><td>Diagnóstico y resolución de fallos de build, prerender, variables de entorno, i18n y constraints de PostgreSQL</td></tr>
+            <tr><td>Mantenimiento</td><td>Merge de <code>upstream/main</code> resolviendo conflictos sin perder la configuración de ambos entornos</td></tr>
+            <tr><td>Documentación</td><td>Registro reproducible del proceso completo (este dossier y el README del repositorio)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 04 LOCAL ====================== -->
+  <section class="section reveal" id="local">
+    <div class="section__head">
+      <span class="phase-tag">Fase 1</span>
+      <h2>Entorno local con Docker</h2>
+      <p>Ejecutar el proyecto de forma aislada y reproducible, sin instalar Node en la máquina y sin chocar con los contenedores ya existentes.</p>
+    </div>
+    <div class="card">
+      <h3>Clonado y verificación del remoto</h3>
+      <p>
+        Con varias cuentas de GitHub configuradas, el primer control es confirmar a qué
+        repositorio apuntan los push antes del primer commit. Docker no interviene aquí: lo
+        determina el remoto de Git y la clave SSH en uso.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>git clone &lt;url-del-fork&gt; wacrm
+cd wacrm
+git remote -v        <span class="c"># confirma cuenta personal vs. cuenta cliente</span></pre>
+      </div>
+
+      <h3>Elección del tipo de contenedor</h3>
+      <p>
+        El árbol del proyecto (<code>package.json</code>, <code>next.config.ts</code>,
+        <code>src/</code>, <code>supabase/</code>) descarta el patrón
+        <code>nginx:alpine</code> usado para sitios estáticos: una aplicación Next.js
+        necesita runtime Node, dependencias instaladas y variables de entorno. Se define un
+        contenedor Node con mapeo <code>8085:3000</code>, ya que Next escucha internamente
+        en el 3000.
+      </p>
+
+      <h3>Operación del contenedor</h3>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c"># levantar / reconstruir</span>
+docker compose up -d
+docker compose up -d --build
+
+<span class="c"># observar</span>
+docker ps
+docker compose logs -f wacrm
+
+<span class="c"># operar</span>
+docker exec -it wacrm sh
+docker compose restart
+docker compose down
+
+<span class="c"># puerto alternativo sin tocar el compose</span>
+HOST_PORT=8086 docker compose up -d</pre>
+      </div>
+      <p>Aplicación disponible en <code>http://localhost:8085</code>.</p>
+    </div>
+  </section>
+
+  <!-- ====================== 05 CONTENEDOR ====================== -->
+  <section class="section reveal" id="contenedor">
+    <div class="section__head">
+      <span class="phase-tag">Fase 2</span>
+      <h2>Containerización</h2>
+      <p>Una imagen de producción pequeña y segura, y un contenedor de desarrollo con recarga en caliente, ambos desde el mismo Dockerfile.</p>
+    </div>
+
+    <div class="card">
+      <h3>Dockerfile multi-stage</h3>
+      <p>
+        Tres etapas: dependencias cacheadas hasta que cambie el lockfile, compilación, y un
+        runtime mínimo que solo contiene la salida <em>standalone</em> de Next.js y arranca
+        con un usuario sin privilegios.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">Dockerfile</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c"># Etapa 1 — dependencias (caché hasta que cambie package-lock.json)</span>
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+<span class="c"># Etapa 2 — build. Las NEXT_PUBLIC_* se inlinean en el bundle del</span>
+<span class="c"># cliente, por lo que deben entrar como build args.</span>
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_APP_LOCALE=en
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
+    NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
+    NEXT_PUBLIC_APP_LOCALE=$NEXT_PUBLIC_APP_LOCALE \
+    NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+<span class="c"># Etapa 3 — runtime mínimo</span>
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+RUN addgroup -S nextjs &amp;&amp; adduser -S nextjs -G nextjs
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+USER nextjs
+EXPOSE 3000
+CMD ["node", "server.js"]</pre>
+      </div>
+      <p><strong>Decisiones deliberadas:</strong></p>
+      <ul>
+        <li><code>npm ci</code> en lugar de <code>npm install</code>: instalación reproducible desde el lockfile.</li>
+        <li>Salida <em>standalone</em>: la imagen final no arrastra <code>node_modules</code> completo.</li>
+        <li>Usuario <code>nextjs</code> sin privilegios en el runtime.</li>
+        <li>Solo variables públicas como <code>ARG</code>; ningún secreto queda en una capa de la imagen.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Docker Compose para desarrollo</h3>
+      <p>
+        Compose sobrescribe el <code>CMD</code> de producción con <code>npm run dev</code>,
+        monta el código como volumen para hot reload y preserva los
+        <code>node_modules</code> del contenedor con un volumen anónimo.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">docker-compose.yml</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>services:
+  wacrm:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-}
+        NEXT_PUBLIC_APP_LOCALE: ${NEXT_PUBLIC_APP_LOCALE:-en}
+    container_name: wacrm
+    working_dir: /app
+    env_file: [.env]            <span class="c"># secretos solo en runtime</span>
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - '${HOST_PORT:-8085}:3000'
+    command: npm run dev
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD','node','-e',"fetch('http://localhost:3000')
+        .then((r)=&gt;process.exit(r.ok||r.status&lt;500?0:1))
+        .catch(()=&gt;process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s</pre>
+      </div>
+      <p>
+        El healthcheck consulta la aplicación desde dentro del contenedor y acepta cualquier
+        respuesta por debajo de 500, de modo que un 404 de ruta no marque el servicio como
+        caído.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 06 VARIABLES ====================== -->
+  <section class="section reveal" id="variables">
+    <div class="section__head">
+      <span class="phase-tag">Fase 3</span>
+      <h2>Variables de entorno</h2>
+      <p>Que las claves públicas lleguen al build y las privadas nunca salgan del runtime ni del repositorio. Este fue el punto que más incidencias generó y el que define la seguridad del despliegue.</p>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Variable</th><th>Naturaleza</th><th>Momento</th></tr></thead>
+          <tbody>
+            <tr><td><code>NEXT_PUBLIC_SUPABASE_URL</code></td><td class="tag-public">Pública</td><td>Build + runtime</td></tr>
+            <tr><td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td><td class="tag-public">Pública</td><td>Build + runtime</td></tr>
+            <tr><td><code>NEXT_PUBLIC_SITE_URL</code></td><td class="tag-public">Pública</td><td>Build + runtime</td></tr>
+            <tr><td><code>NEXT_PUBLIC_APP_LOCALE</code></td><td class="tag-public">Pública</td><td>Build + runtime</td></tr>
+            <tr><td><code>SUPABASE_SERVICE_ROLE_KEY</code></td><td class="tag-secret">Secreta</td><td>Solo runtime</td></tr>
+            <tr><td><code>ENCRYPTION_KEY</code></td><td class="tag-secret">Secreta</td><td>Solo runtime</td></tr>
+            <tr><td><code>META_APP_SECRET</code></td><td class="tag-secret">Secreta</td><td>Solo runtime</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        El prefijo <code>NEXT_PUBLIC_</code> no es cosmético: Next.js incrusta esas variables
+        en el JavaScript que descarga el navegador. Por eso pueden pasarse como
+        <code>ARG</code> sin riesgo, y por eso <strong>una clave privilegiada nunca debe
+        llevar ese prefijo</strong>. Las tres secretas se inyectan en ejecución —vía
+        <code>env_file</code> en local y vía panel de variables en producción— y nunca quedan
+        en una capa de la imagen.
+      </p>
+      <p>
+        En el repositorio, <code>.gitignore</code> excluye todo <code>.env*</code>
+        conservando los ejemplos, y <code>.dockerignore</code> excluye además
+        <code>.git</code>, <code>node_modules</code>, <code>.next</code>, <code>docs</code>
+        y los propios ficheros de Docker para no ensuciar el contexto de build.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 07 DATOS ====================== -->
+  <section class="section reveal" id="datos">
+    <div class="section__head">
+      <span class="phase-tag">Fase 4</span>
+      <h2>Base de datos y migraciones</h2>
+      <p>Llevar el esquema completo —tablas, funciones, triggers y políticas RLS— a un proyecto gestionado de Supabase de forma versionada y repetible.</p>
+    </div>
+    <div class="card">
+      <p>
+        En lugar de pegar scripts a mano en el editor SQL, se vinculó la CLI de Supabase al
+        proyecto remoto y se aplicaron todas las migraciones del directorio
+        <code>supabase/migrations/</code> con un solo comando. La conexión se resolvió
+        mediante <em>session pooler</em>, ya que la conexión directa no está disponible en el
+        plan utilizado.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">powershell</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>supabase --version
+supabase login
+npx supabase link --project-ref &lt;project-ref&gt;
+npx supabase db push</pre>
+      </div>
+      <p>
+        Verificación en el <em>Table Editor</em> de Supabase, comprobando la creación de las
+        tablas del dominio: contactos, conversaciones, mensajes, pipelines, automatizaciones
+        y configuración de IA.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 08 DESPLIEGUE ====================== -->
+  <section class="section reveal" id="despliegue">
+    <div class="section__head">
+      <span class="phase-tag">Fase 5</span>
+      <h2>Despliegue continuo</h2>
+      <p>Que producción se actualice sola al hacer push, sin que el entorno local pueda romperla y sin comandos manuales de despliegue.</p>
+    </div>
+
+    <div class="card">
+      <h3>Flujo establecido</h3>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">flujo</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>cambio en local  →  docker compose up -d  →  prueba en :8085
+       ↓
+git add . &amp;&amp; git commit -m "..." &amp;&amp; git push origin main
+       ↓
+Railway detecta el commit → build por Dockerfile → deploy → dominio público</pre>
+      </div>
+
+      <h3>Configuración del servicio</h3>
+      <ul>
+        <li>Servicio conectado al repositorio de GitHub, con acceso restringido a los repositorios seleccionados en lugar de a la cuenta completa.</li>
+        <li>Las siete variables cargadas en el panel del servicio, con <code>NEXT_PUBLIC_SITE_URL</code> apuntando al dominio de producción y no a <code>localhost</code>.</li>
+        <li>Sin mapeo de puertos: la plataforma inyecta su propio <code>PORT</code> y gestiona dominio y TLS. El 8085 es exclusivo del entorno local.</li>
+      </ul>
+
+      <div class="callout">
+        <p>
+          <strong>Aislamiento entre entornos.</strong> Producción no lee nada de la máquina
+          local: se reconstruye desde el repositorio con sus propias variables. Un contenedor
+          local roto no afecta al servicio desplegado, y como <code>.env</code> está en
+          <code>.gitignore</code>, las credenciales locales nunca viajan en un push.
+        </p>
+      </div>
+
+      <h3>Alternativas evaluadas</h3>
+      <p>
+        Antes de consolidar la plataforma se compararon cuatro rutas: PaaS gestionado, PaaS
+        autoalojado sobre VPS (Coolify, Dokploy), hosting Node gestionado y VPS manual con
+        PM2 y Nginx. El criterio no fue el precio sino si la plataforma resolvía el fallo de
+        build o solo lo trasladaba: cambiar de proveedor no arregla un error de prerender de
+        Next.js. Se mantuvo el PaaS gestionado por menor carga de mantenimiento, rollback
+        integrado y TLS automático, dejando documentada la ruta de migración a VPS con Docker
+        si el coste por minuto de build lo justifica.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 09 UPSTREAM ====================== -->
+  <section class="section reveal" id="upstream">
+    <div class="section__head">
+      <span class="phase-tag">Fase 6</span>
+      <h2>Sincronización con el proyecto original</h2>
+      <p>Incorporar las mejoras del repositorio origen sin perder la configuración propia de ambos entornos.</p>
+    </div>
+    <div class="card">
+      <p>
+        El fork solo tenía configurado <code>origin</code>. Se añadió el remoto
+        <code>upstream</code> apuntando al repositorio original y se integraron sus commits
+        mediante merge, conservando el historial completo.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>git remote add upstream &lt;url-del-repositorio-original&gt;
+git fetch upstream
+git log --oneline HEAD..upstream/main    <span class="c"># ver qué llega antes de integrar</span>
+git merge upstream/main --no-edit</pre>
+      </div>
+      <p>
+        El merge produjo conflictos en los tres archivos de infraestructura:
+        <code>Dockerfile</code>, <code>docker-compose.yml</code> y
+        <code>.dockerignore</code>. La resolución no fue elegir un lado, sino combinar: se
+        adoptó el Dockerfile multi-stage con salida standalone y el healthcheck del upstream,
+        y se conservaron el puerto 8085, el modo desarrollo con volúmenes y el
+        <code>env_file</code> local del lado propio.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>git add .dockerignore Dockerfile docker-compose.yml
+git commit --no-edit -m "chore: merge upstream/main - resolve Docker config conflicts"
+docker compose up -d --build     <span class="c"># validar en local antes de publicar</span>
+git push origin main</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 10 INTEGRACIONES ====================== -->
+  <section class="section reveal" id="integraciones">
+    <div class="section__head">
+      <span class="phase-tag">Fase 7</span>
+      <h2>WhatsApp y agentes de IA</h2>
+      <p>Los dos módulos que dan sentido al producto: el canal de mensajería y la capa conversacional automatizada.</p>
+    </div>
+
+    <div class="card">
+      <h3>Canal de WhatsApp</h3>
+      <p>
+        Integración con la API oficial de WhatsApp Cloud de Meta. Endpoints expuestos por el
+        build de producción:
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Endpoint</th><th>Función</th></tr></thead>
+          <tbody>
+            <tr><td><code>/api/whatsapp/webhook</code></td><td>Recepción de mensajes y eventos de estado desde Meta</td></tr>
+            <tr><td><code>/api/whatsapp/send</code></td><td>Envío de mensajes salientes</td></tr>
+            <tr><td><code>/api/whatsapp/config</code></td><td>Configuración y verificación del registro del número</td></tr>
+            <tr><td><code>/api/whatsapp/templates</code></td><td>Sincronización y envío de plantillas aprobadas</td></tr>
+            <tr><td><code>/api/whatsapp/broadcast</code></td><td>Envíos masivos sobre segmentos de contactos</td></tr>
+            <tr><td><code>/api/v1/webhooks</code></td><td>Webhooks salientes hacia sistemas externos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        La firma de los webhooks entrantes se valida con <code>META_APP_SECRET</code> y las
+        credenciales del canal se almacenan cifradas con <code>ENCRYPTION_KEY</code>: por eso
+        ambas se tratan como secretos de runtime. El webhook debe apuntar al dominio público
+        con HTTPS, nunca a <code>localhost</code>.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Agentes de IA: incorporación de un tercer proveedor</h3>
+      <p>
+        El módulo soportaba OpenAI y Anthropic. Se añadió Google Gemini como tercera opción
+        seleccionable, lo que exigió tocar cuatro capas distintas: un buen ejemplo de por qué
+        un cambio aparentemente cosmético no lo es.
+      </p>
+      <ol>
+        <li><strong>Interfaz</strong> — nueva opción en el selector de proveedor de la configuración del agente.</li>
+        <li><strong>Capa de proveedor</strong> — integración del SDK de Google en <code>src/lib/ai/providers/</code> y actualización de los identificadores de modelo por defecto.</li>
+        <li><strong>Validación</strong> — ampliación del esquema Zod de <code>POST /api/ai/config</code> y del tipo TypeScript inferido.</li>
+        <li><strong>Base de datos</strong> — ampliación del <em>check constraint</em> de la columna <code>provider</code>, que rechazaba cualquier valor distinto de los dos originales.</li>
+      </ol>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">typescript · validación de la API</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>provider: z.enum([<span class="s">'openai'</span>, <span class="s">'anthropic'</span>, <span class="s">'google'</span>])</pre>
+      </div>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">sql · constraint en PostgreSQL</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>ALTER TABLE ai_configs DROP CONSTRAINT IF EXISTS ai_configs_provider_check;
+ALTER TABLE ai_configs ADD CONSTRAINT ai_configs_provider_check
+  CHECK (provider IN (<span class="s">'openai'</span>, <span class="s">'anthropic'</span>, <span class="s">'google'</span>));</pre>
+      </div>
+      <p>
+        Omitir el último paso produce un fallo al guardar aunque la API valide
+        correctamente: el rechazo ocurre en la base de datos. Validación final en el
+        <em>playground</em> del agente, comprobando prueba de clave, persistencia de la
+        configuración y respuesta del modelo con la personalidad y las reglas de negocio
+        definidas en el system prompt.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 11 INCIDENCIAS ====================== -->
+  <section class="section reveal" id="incidencias">
+    <div class="section__head">
+      <span class="phase-tag">Fase 8</span>
+      <h2>Incidencias y resolución</h2>
+      <p>Cinco fallos representativos, con el razonamiento que llevó a cada solución. Esta es la parte que distingue seguir un README de implementar un sistema.</p>
+    </div>
+
+    <div class="card">
+      <details class="issue" open>
+        <summary><span class="issue__n">01</span> El build de producción falla al pre-renderizar <code>/forgot-password</code></summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>
+              <code>Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!</code>,
+              seguido de <code>Export encountered an error on /(auth)/forgot-password/page</code>
+              y salida con código 1. En desarrollo la aplicación funcionaba sin problemas.
+            </dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              Next.js genera estáticamente todas las rutas que considera estáticas durante
+              <code>next build</code>. Esa página instancia el cliente de Supabase, que exige
+              URL y anon key en el momento de la compilación, no en ejecución. Si faltan, la
+              librería lanza excepción y detiene el build entero.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Garantizar las variables públicas durante el build mediante <code>ARG</code> +
+              <code>ENV</code> en el Dockerfile, y forzar renderizado dinámico en las rutas de
+              autenticación que dependen del contexto de petición.
+            </dd>
+          </dl>
+          <div class="code">
+            <div class="code__bar"><span class="code__label">typescript</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>export const dynamic = <span class="s">'force-dynamic'</span>;</pre>
+          </div>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">02</span> Las variables existen en la plataforma pero llegan vacías al build</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>Las siete variables estaban correctamente cargadas en el panel y aun así el build seguía fallando por variables ausentes.</dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              En lugar de seguir modificando código a ciegas, se instrumentó el Dockerfile con
+              una sonda que imprime en el log si la variable llega o no. El log devolvió
+              <code>MISSING</code>, lo que probó que el problema no era el valor sino el ciclo
+              de vida de Docker: las variables de servicio se inyectan en <em>runtime</em>,
+              mientras que <code>RUN npm run build</code> ocurre en <em>build time</em> y solo
+              ve lo declarado como <code>ARG</code>.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Declarar las variables públicas como <code>ARG</code> y elevarlas a
+              <code>ENV</code> antes del paso de compilación, dejando los secretos
+              exclusivamente como variables de ejecución. La sonda se retiró una vez
+              confirmado el diagnóstico.
+            </dd>
+          </dl>
+          <div class="code">
+            <div class="code__bar"><span class="code__label">Dockerfile · sonda de diagnóstico</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>RUN test -n "$NEXT_PUBLIC_SUPABASE_URL" \
+    &amp;&amp; echo "SUPABASE_URL: OK" || echo "SUPABASE_URL: MISSING"</pre>
+          </div>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">03</span> Bucle 307 → 404 en el entorno local</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd><code>localhost:8085</code> redirigía a <code>/login</code> con un 307 y esa ruta devolvía 404, mientras producción funcionaba correctamente. Reiniciar el contenedor no cambiaba nada.</dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              Los logs del contenedor mostraron el par 307/404. La causa estaba en el
+              <code>.env</code>: <code>NEXT_PUBLIC_SITE_URL</code> apuntaba al dominio remoto
+              de producción y sin esquema <code>https://</code>, de modo que el middleware
+              construía redirecciones contra un origen que no coincidía con el host local.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Fijar <code>NEXT_PUBLIC_SITE_URL=http://localhost:8085</code>, recrear el
+              contenedor para que Compose reinyecte las variables —un <code>restart</code>
+              reutiliza el contenedor y no basta— y validar en ventana de incógnito para
+              evitar la redirección cacheada por el navegador.
+            </dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">04</span> <code>MISSING_MESSAGE</code> en traducciones tras sincronizar con el upstream</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>Error de internacionalización al abrir la pantalla de configuración, solo en local; en producción la misma pantalla cargaba bien.</dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              El merge actualizó los archivos de traducción, pero el servidor de desarrollo
+              dentro del contenedor seguía sirviendo la caché previa de <code>.next</code>.
+              Producción no tenía el problema porque compila desde cero en cada deploy. El
+              contraste local/producción fue justamente la pista que apuntó a caché y no a
+              código.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>Eliminar el directorio <code>.next</code>, reiniciar el contenedor para forzar la reindexación y recargar con caché limpia.</dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">05</span> La base de datos rechaza el nuevo proveedor de IA</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd><em>Failed to save AI configuration</em> al guardar, pese a que el modelo respondía correctamente en la prueba de clave. Al aplicar la corrección, un segundo error: <code>42P01: relation "ai_config" does not exist</code>.</dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              Dos capas distintas. La primera, un <em>check constraint</em> en PostgreSQL que
+              solo admitía los dos proveedores originales: el <code>UPDATE</code> se rechazaba
+              en base de datos aunque la validación de la API ya aceptara el nuevo valor. La
+              segunda, un supuesto equivocado sobre el nombre real de la tabla.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>Consultar el esquema real antes de alterarlo y aplicar el <code>ALTER TABLE</code> sobre el nombre verificado, alineando constraint, esquema Zod y tipos de TypeScript.</dd>
+          </dl>
+          <div class="code">
+            <div class="code__bar"><span class="code__label">sql</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>SELECT table_name FROM information_schema.tables
+WHERE table_schema = <span class="s">'public'</span> AND table_name LIKE <span class="s">'%ai%'</span>;</pre>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ====================== 12 VALIDACIÓN ====================== -->
+  <section class="section reveal" id="validacion">
+    <div class="section__head">
+      <span class="phase-tag">Fase 9</span>
+      <h2>Validación funcional</h2>
+      <p>Criterios de aceptación comprobados en ambos entornos antes de dar la implementación por cerrada.</p>
+    </div>
+    <div class="card">
+      <ul class="checklist">
+        <li>Contenedor en estado <em>Up</em> y healthcheck en <em>healthy</em></li>
+        <li>Aplicación respondiendo 200 en <code>localhost:8085</code> con hot reload activo</li>
+        <li>Build de producción sin errores: 51 páginas generadas y TypeScript limpio</li>
+        <li>Autenticación operativa, incluida la recuperación de contraseña que rompía el build</li>
+        <li>Migraciones aplicadas y tablas visibles en el panel de Supabase</li>
+        <li>Despliegue automático disparado por commit, con estado correcto</li>
+        <li>Módulos de CRM accesibles: contactos, conversaciones, pipelines y automatizaciones</li>
+        <li>Endpoints de WhatsApp registrados y webhook alcanzable desde el dominio público</li>
+        <li>Agente de IA guardando configuración y respondiendo con los tres proveedores</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================== 13 RESULTADO ====================== -->
+  <section class="section reveal" id="resultado">
+    <div class="section__head">
+      <span class="phase-tag">Fase 10</span>
+      <h2>Resultado</h2>
+      <p>Solución CRM para WhatsApp operativa en dos entornos coherentes entre sí, con secretos aislados del código y una capa de IA multiproveedor configurable desde la propia interfaz.</p>
+    </div>
+    <ul class="metrics">
+      <li><b>2</b><span>Entornos: local containerizado y producción con despliegue continuo</span></li>
+      <li><b>3</b><span>Etapas de imagen: dependencias, build y runtime sin privilegios</span></li>
+      <li><b>7</b><span>Variables gestionadas, separadas entre build y runtime</span></li>
+      <li><b>3</b><span>Proveedores LLM seleccionables, uno incorporado en esta intervención</span></li>
+      <li><b>5</b><span>Incidencias documentadas con diagnóstico y verificación</span></li>
+      <li><b>1</b><span>Comando para desplegar: <code>git push</code></span></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 14 REPOSITORIO ====================== -->
+  <section class="section reveal" id="repositorio">
+    <div class="section__head">
+      <h2>Repositorio y autoría</h2>
+      <p>Evidencia técnica y delimitación honesta del trabajo realizado.</p>
+    </div>
+    <div class="card">
+      <h3>Repositorio técnico</h3>
+      <p>
+        El código del fork, la configuración de containerización y la evolución de la
+        implementación están disponibles en el repositorio del proyecto.
+        <a target="_blank" href="https://github.com/artworldartistico/wacrm" data-repo-link>Ver repositorio en GitHub</a>
+      </p>
+      <div class="callout">
+        <p>
+          <strong>Nota de autoría.</strong> El proyecto parte de WACRM, una solución CRM open
+          source de terceros publicada bajo licencia MIT. La intervención documentada aquí
+          corresponde a su implementación, adaptación, configuración, containerización,
+          integración, resolución de incidencias, pruebas y despliegue.
+        </p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>¿Necesitas llevar una solución así a tu operación?</h2>
+      <p>
+        Implemento, integro y pongo en producción ecosistemas digitales: CRM, automatización,
+        canales de mensajería y agentes de IA.
+      </p>
+      <div class="cta__row">
+        <a class="btn btn--primary" href="../index.html#contacto">Agendar diagnóstico</a>
+        <a class="btn" href="../index.html">Volver al sitio principal</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Dossier técnico · WACRM · Andrés Felipe Rodríguez Barbosa</span>
+    <span>Actualizado: septiembre 2026</span>
+  </footer>
+
+</main>
+
+<script src="assets/dossier.js"></script>
+</body>
+</html>
