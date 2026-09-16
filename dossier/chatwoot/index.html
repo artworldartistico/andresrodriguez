@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier Técnico Chatwoot + n8n + Airtable | Andrés Rodríguez</title>
+<meta name="description" content="Dossier técnico de implementación de Chatwoot en Docker, con automatización de captura, consolidación y scoring de leads mediante n8n hacia Airtable.">
+<meta property="og:title" content="Dossier Técnico Chatwoot + n8n + Airtable | Andrés Rodríguez">
+<meta property="og:description" content="Implementación, automatización de datos y scoring de leads: Chatwoot, n8n y Airtable conectados en un mismo ecosistema.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dossier.css">
+</head>
+<body>
+
+<!-- ====================== BARRA SUPERIOR ====================== -->
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../../index.html">
+      <span class="brand__dot" aria-hidden="true"></span>
+      Andrés Rodríguez <span>· Dossier técnico</span>
+    </a>
+    <div class="topbar__actions">
+      <a class="btn btn--ghost" href="#repositorio">Repositorio</a>
+      <a class="btn btn--primary" href="../../index.html#contacto">Hablemos</a>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<main class="shell">
+
+  <!-- ====================== HERO ====================== -->
+  <section class="hero">
+    <span class="pill">Automatización &amp; Datos</span>
+    <h1>Chatwoot + n8n<br><em>Captura y scoring de leads</em></h1>
+    <p class="hero__lede">
+      Implementación de Chatwoot como plataforma de atención en entorno local, conectada
+      mediante un workflow de n8n que captura, consolida y califica cada conversación antes
+      de dejarla estructurada en Airtable — sin intervención manual y sin duplicados.
+    </p>
+    <ul class="hero__meta">
+      <li>Docker</li>
+      <li>Chatwoot</li>
+      <li>n8n</li>
+      <li>Airtable</li>
+      <li>Ngrok</li>
+      <li>Webhooks</li>
+      <li>NLP en español</li>
+    </ul>
+
+    <div class="flow reveal">
+<pre>  CANAL DE ATENCIÓN             AUTOMATIZACIÓN            DATOS
+  <b>Chatwoot</b>  (Web · WhatsApp)   <b>n8n</b>  (workflow)         <b>Airtable</b>
+  Conversaciones                Procesar → Consolidar      CRM_leads_n8n
+  Contactos                     → Score                    registro estructurado
+       │                              │                          │
+       └──────────webhook────────────▶│──────update/create──────▶│
+                                       ▼
+                         <i>Docker Compose</i>  ·  <i>Ngrok</i> (túnel local)</pre>
+    </div>
+  </section>
+
+  <!-- ====================== ÍNDICE ====================== -->
+  <nav class="toc reveal" aria-label="Índice del dossier">
+    <h2>Contenido</h2>
+    <ol>
+      <li><a href="#contexto"><span>01</span>Contexto del proyecto</a></li>
+      <li><a href="#chatwoot"><span>02</span>¿Qué es Chatwoot?</a></li>
+      <li><a href="#problema"><span>03</span>El problema a resolver</a></li>
+      <li><a href="#arquitectura"><span>04</span>Arquitectura implementada</a></li>
+      <li><a href="#docker"><span>05</span>Implementación de Chatwoot</a></li>
+      <li><a href="#configuracion"><span>06</span>Configuración funcional</a></li>
+      <li><a href="#n8n"><span>07</span>Automatización con n8n</a></li>
+      <li><a href="#captura"><span>08</span>¿Qué información se captura?</a></li>
+      <li><a href="#consolidacion"><span>09</span>Consolidación de datos</a></li>
+      <li><a href="#scoring"><span>10</span>Motor de scoring</a></li>
+      <li><a href="#airtable"><span>11</span>Airtable como capa de datos</a></li>
+      <li><a href="#prueba"><span>12</span>Prueba de extremo a extremo</a></li>
+      <li><a href="#troubleshooting"><span>13</span>Troubleshooting &amp; resolución</a></li>
+      <li><a href="#resultado"><span>14</span>Resultado</a></li>
+      <li><a href="#tecnologias"><span>15</span>Tecnologías</a></li>
+      <li><a href="#repositorio"><span>16</span>Evidencia técnica y repositorio</a></li>
+    </ol>
+  </nav>
+
+  <!-- ====================== 01 CONTEXTO ====================== -->
+  <section class="section reveal" id="contexto">
+    <div class="section__head">
+      <h2>Contexto del proyecto</h2>
+      <p>Chatwoot es una parte del ecosistema, no el proyecto completo.</p>
+    </div>
+    <div class="card">
+      <p>
+        Este dossier documenta la implementación y despliegue de <strong>Chatwoot</strong>
+        como plataforma de atención y gestión centralizada de conversaciones, complementada
+        con un flujo de automatización construido en <strong>n8n</strong> para capturar,
+        transformar, consolidar y calificar la información conversacional antes de enviarla
+        de forma estructurada a <strong>Airtable</strong>.
+      </p>
+      <p>
+        Forma parte de un ecosistema digital más amplio —dirección estratégica, ecosistema
+        digital y ecosistema CRM— en el que Chatwoot cubre la capa de atención, mientras n8n
+        actúa como motor de procesamiento entre la conversación y el dato estructurado que
+        alimenta un proceso comercial.
+      </p>
+      <div class="callout">
+        <p>
+          <strong>Criterio de trabajo.</strong> El proyecto se desarrolló de forma incremental
+          y verificable: cada regla de captura (nombre, teléfono, presupuesto, tipo de
+          cliente) se probó contra conversaciones reales en el chat web antes de darla por
+          válida, y cada fallo detectado en producción de prueba se documentó con su síntoma,
+          diagnóstico y corrección — ver la sección de troubleshooting.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 02 QUÉ ES CHATWOOT ====================== -->
+  <section class="section reveal" id="chatwoot">
+    <div class="section__head">
+      <h2>¿Qué es Chatwoot?</h2>
+      <p>Plataforma open source de atención y gestión de conversaciones.</p>
+    </div>
+    <div class="card">
+      <p>
+        Chatwoot centraliza conversaciones provenientes de distintos canales —chat web,
+        WhatsApp, redes sociales— en una única interfaz de atención, con gestión de
+        contactos, conversaciones, agentes, equipos y procesos de soporte.
+      </p>
+      <p>En esta implementación el trabajo se enfocó en:</p>
+      <ul>
+        <li>Instalación y despliegue en entorno local con Docker Compose.</li>
+        <li>Configuración de la plataforma: cuenta administrador, inbox, base de datos y colas.</li>
+        <li>Preparación del entorno de ejecución (Postgres, Redis, worker de Sidekiq).</li>
+        <li>Configuración de agentes, conversaciones y del widget de chat web.</li>
+        <li>Validación funcional de extremo a extremo.</li>
+        <li>Integración con un flujo externo de automatización (n8n) vía webhooks.</li>
+      </ul>
+      <p>
+        Enlace oficial: <a href="https://www.chatwoot.com/" target="_blank" rel="noopener">chatwoot.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 03 PROBLEMA ====================== -->
+  <section class="section reveal" id="problema">
+    <div class="section__head">
+      <h2>El problema que se buscaba resolver</h2>
+      <p>La información generada en las conversaciones puede quedar aislada dentro de la plataforma de atención.</p>
+    </div>
+    <div class="card">
+      <p>
+        Chatwoot resuelve la atención al cliente, pero por sí solo no convierte esa
+        conversación en un dato aprovechable para seguimiento comercial: un nombre, un
+        teléfono o un presupuesto mencionados en el chat se quedan dentro del historial de
+        mensajes si nadie los extrae, normaliza y persiste en algún lugar consultable.
+      </p>
+      <p>
+        Para convertir esa información en datos utilizables para procesos comerciales,
+        seguimiento y análisis, es necesario establecer un mecanismo de captura,
+        estructuración y transferencia hacia un sistema de datos. Ahí aparece n8n: recibe el
+        evento de cada mensaje entrante, lo interpreta, lo consolida con lo que ya se sabía de
+        ese contacto y lo entrega estructurado a Airtable.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 04 ARQUITECTURA ====================== -->
+  <section class="section reveal" id="arquitectura">
+    <div class="section__head">
+      <h2>Arquitectura implementada</h2>
+      <p>Del canal de atención al registro estructurado, en un único workflow con siete etapas.</p>
+    </div>
+    <div class="card">
+      <div class="code">
+        <div class="code__bar"><span class="code__label">arquitectura</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>                     CANAL DE ATENCIÓN
+                            │
+                            ▼
+                      ┌───────────┐
+                      │ <span class="k">CHATWOOT</span>  │   Docker Compose (postgres · redis · chatwoot · worker)
+                      │ Conversa- │
+                      │ ciones ·  │
+                      │ Contactos │
+                      └─────┬─────┘
+                            │ webhook (message_created)
+                            ▼
+                      ┌───────────┐
+                      │   <span class="k">n8n</span>     │
+                      │           │
+                      │ Procesar Lead      <span class="c">→ NLP: nombre, teléfono, tipo, presupuesto</span>
+                      │      ↓            
+                      │ Construir Fórmula  <span class="c">→ prioridad de matching</span>
+                      │      ↓
+                      │ Buscar Lead        <span class="c">→ Airtable, por contact_id / email / teléfono</span>
+                      │      ↓
+                      │ Consolidar Lead    <span class="c">→ funde turno actual + histórico</span>
+                      │      ↓
+                      │ ¿Lead existe? ──┬─ Update Lead
+                      │                 └─ Crear Lead
+                      │      ↓
+                      │ Score              <span class="c">→ engagement + intención + fit + recencia</span>
+                      └─────┬─────┘
+                            │
+                            ▼
+                      ┌───────────┐
+                      │ <span class="k">AIRTABLE</span>  │   Registro estructurado, sin duplicados
+                      │ CRM_leads │
+                      │    _n8n   │
+                      └───────────┘</pre>
+      </div>
+      <p>
+        Toda la conexión entre Chatwoot y n8n viaja por un único webhook, expuesto en local
+        mediante un túnel de ngrok durante el desarrollo. El detalle de cada nodo se describe
+        en las secciones siguientes.
+      </p>
+      <figure class="figure" data-protect>
+        <img src="assets/img/workflow-n8n.png" loading="lazy" alt="Workflow completo en n8n: CRM Chatwoot → Airtable (SMART UPDATE + SCORING v3.4)">
+        <figcaption>Workflow real en n8n — 13 nodos, desde el webhook de Chatwoot hasta la actualización del score en Airtable.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ====================== 05 IMPLEMENTACIÓN DOCKER ====================== -->
+  <section class="section reveal" id="docker">
+    <div class="section__head">
+      <span class="phase-tag">Fase 1</span>
+      <h2>Implementación de Chatwoot</h2>
+      <p>Entorno local, reproducible y sin depender de instalar Ruby, Node o Postgres directamente en la máquina.</p>
+    </div>
+
+    <div class="card">
+      <h3>Stack de Chatwoot (Docker Compose)</h3>
+      <p>
+        Cuatro servicios: base de datos con extensión vectorial, cola en memoria, la
+        aplicación web y —el que faltaba en la primera versión de este stack— el
+        <strong>worker de Sidekiq</strong>, sin el cual Chatwoot recibe eventos pero nunca
+        procesa las colas en segundo plano.
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">docker-compose.yml</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>services:
+  postgres:
+    image: ankane/pgvector
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: chatwoot
+      POSTGRES_USER: chatwoot
+      POSTGRES_PASSWORD: chatwootpass
+    volumes:
+      - chatwoot_db:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    restart: unless-stopped
+
+  chatwoot:
+    image: chatwoot/chatwoot:latest
+    depends_on: [postgres, redis]
+    ports:
+      - "3001:3000"
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://chatwoot:chatwootpass@postgres:5432/chatwoot
+      REDIS_URL: redis://redis:6379
+      FRONTEND_URL: http://localhost:3001
+      FORCE_SSL: "false"
+    command: >
+      sh -c "bundle exec rails db:chatwoot_prepare &amp;&amp;
+             bundle exec rails s -p 3000 -b 0.0.0.0"
+    restart: unless-stopped
+
+  <span class="c"># worker de colas — imprescindible, no opcional</span>
+  worker:
+    image: chatwoot/chatwoot:latest
+    depends_on: [postgres, redis]
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://chatwoot:chatwootpass@postgres:5432/chatwoot
+      REDIS_URL: redis://redis:6379
+    command: bundle exec sidekiq
+    restart: unless-stopped
+
+volumes:
+  chatwoot_db:</pre>
+      </div>
+      <p><strong>Decisiones deliberadas:</strong></p>
+      <ul>
+        <li><code>ankane/pgvector</code> en lugar de <code>postgres</code> puro: Chatwoot habilita búsqueda semántica sobre esa extensión si se activa más adelante.</li>
+        <li><code>FRONTEND_URL</code> apuntando a <code>localhost:3001</code> y <code>FORCE_SSL=false</code>: evita redirecciones a HTTPS inexistente en el entorno local.</li>
+        <li><code>worker</code> como servicio independiente de <code>chatwoot</code>: permite escalar o reiniciar la cola sin tumbar la interfaz web.</li>
+      </ul>
+
+      <h3>Operación del contenedor</h3>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c"># levantar / reconstruir</span>
+docker compose up -d
+docker compose up -d --build
+
+<span class="c"># observar</span>
+docker ps
+docker compose logs -f chatwoot
+docker compose logs -f worker
+
+<span class="c"># operar</span>
+docker exec -it chatwoot sh
+docker compose restart
+docker compose down</pre>
+      </div>
+      <p>Aplicación disponible en <code>http://localhost:3001</code>.</p>
+
+      <figure class="figure" data-protect>
+        <img src="assets/img/docker-desktop-containers.png" loading="lazy" alt="Docker Desktop mostrando los contenedores en ejecución: chatwoot, n8n, postgres, worker y otros proyectos">
+        <figcaption>Docker Desktop — Chatwoot y n8n conviviendo con otros proyectos containerizados en la misma máquina.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ====================== 06 CONFIGURACIÓN FUNCIONAL ====================== -->
+  <section class="section reveal" id="configuracion">
+    <div class="section__head">
+      <span class="phase-tag">Fase 2</span>
+      <h2>Configuración funcional</h2>
+      <p>Qué se dejó funcionando, más allá de la instalación.</p>
+    </div>
+    <div class="card">
+      <ul>
+        <li>Cuenta administrador y primera instalación (<em>db:chatwoot_prepare</em>).</li>
+        <li>Inbox tipo <strong>Website</strong> con widget embebido en el sitio del proyecto.</li>
+        <li>Configuración de agentes y asignación de conversaciones.</li>
+        <li>Validación del flujo conversacional: captura de nombre, teléfono, correo y presupuesto directamente desde el chat.</li>
+        <li>Exploración del historial de conversaciones y de los atributos de contacto generados.</li>
+        <li>Configuración del webhook saliente (<code>message_created</code>) hacia n8n.</li>
+      </ul>
+      <div class="gallery">
+        <figure class="figure" data-protect>
+          <img src="assets/img/widget-chatweb.jpeg" loading="lazy" alt="Widget de Chatwoot embebido en el sitio, conversación de captación de datos del lead">
+          <figcaption>Widget de chat web — captura conversacional de nombre, teléfono y correo.</figcaption>
+        </figure>
+        <figure class="figure" data-protect>
+          <img src="assets/img/chatwoot-inbox.jpeg" loading="lazy" alt="Panel de administración de Chatwoot con la bandeja de conversaciones">
+          <figcaption>Panel de agente — bandeja de conversaciones, contactos y estado de cada chat.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 07 AUTOMATIZACIÓN N8N ====================== -->
+  <section class="section reveal" id="n8n">
+    <div class="section__head">
+      <span class="phase-tag">Fase 3</span>
+      <h2>Automatización con n8n</h2>
+      <p>Captura → procesamiento → estructuración → persistencia. No es solo conectar dos herramientas.</p>
+    </div>
+
+    <div class="card">
+      <h3>Recepción del evento</h3>
+      <p>
+        El webhook de n8n recibe cada evento <code>message_created</code> de Chatwoot. El
+        primer filtro del nodo <code>Code - Procesar Lead</code> descarta cualquier mensaje
+        que no sea entrante (del cliente), y luego busca el contenido del mensaje en varias
+        rutas posibles del payload, porque esta ruta cambia entre versiones de Chatwoot:
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">javascript · Code - Procesar Lead</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c">// Solo procesar mensajes entrantes (del cliente)</span>
+if ($json.body.message_type !== <span class="s">"incoming"</span>) { return []; }
+
+<span class="c">// Chatwoot varía según versión: buscar el mensaje en varias rutas</span>
+const mensaje = (
+  body.content ||
+  body.message?.content ||
+  body.data?.content ||
+  <span class="s">""</span>
+).trim();
+
+<span class="c">// Normalización sin diacríticos — crítico para NLP en español</span>
+const normalizeStr = (s) =&gt;
+  String(s || <span class="s">""</span>).toLowerCase()
+    .normalize(<span class="s">"NFD"</span>).replace(/[\u0300-\u036f]/g, <span class="s">""</span>);</pre>
+      </div>
+
+      <h3>Normalización de teléfono</h3>
+      <p>
+        Cubre tanto el número automático que entrega el canal de WhatsApp Business API como
+        el número escrito a mano por el usuario en el chat web, con prioridad en cascada:
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">javascript · normalizarTelefono()</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c">// Colombia: números locales de 10 dígitos, móviles (3) o fijos (6)</span>
+if (limpio.length === 10 &amp;&amp; (limpio.startsWith(<span class="s">"3"</span>) || limpio.startsWith(<span class="s">"6"</span>))) {
+  return <span class="s">"+"</span> + paisDefault + limpio;
+}
+
+<span class="c">// PRIORIDAD 1: WhatsApp automático → 2: atributo manual en Chatwoot</span>
+<span class="c">// → 3: texto libre del mensaje → 4: historial de la conversación</span></pre>
+      </div>
+
+      <h3>Clasificación por NLP, no por palabra suelta</h3>
+      <p>
+        El tipo de cliente y el presupuesto no se detectan con coincidencias exactas de
+        palabras aisladas — eso fue justamente uno de los problemas reportados durante las
+        pruebas (ver troubleshooting) — sino con reglas contextuales:
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">javascript · reglas de presupuesto (extracto)</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>{
+  <span class="c">// Alto: "presupuesto alto", "sin límite", "quiero algo premium"…</span>
+  pattern: /presupuesto\s*(alto|grande|amplio)|no\s*(hay|tengo)\s*l[ií]mite|.../i,
+  valor: <span class="s">"Alto"</span>
+},
+{
+  <span class="c">// Medio: "presupuesto razonable", "dispuesto a invertir un poco"…</span>
+  pattern: /presupuesto\s*(medio|moderado|razonable)|dispuesto\s*a\s*invertir.../i,
+  valor: <span class="s">"Medio"</span>
+}</pre>
+      </div>
+      <p>
+        Así, frases como <em>"tengo un presupuesto básico"</em> o <em>"estoy dispuesto a
+        pagar por un buen servicio"</em> se interpretan como una intención de presupuesto
+        medio/alto, en lugar de exigirle al usuario que escriba literalmente la palabra
+        <code>alto</code>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 08 CAPTURA DE DATOS ====================== -->
+  <section class="section reveal" id="captura">
+    <div class="section__head">
+      <span class="phase-tag">Fase 4</span>
+      <h2>¿Qué información se captura?</h2>
+      <p>Campos realmente presentes en el workflow, mapeados de Chatwoot a Airtable.</p>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Información</th><th>Origen</th><th>Destino</th></tr></thead>
+          <tbody>
+            <tr><td>Identificación del contacto</td><td>Chatwoot (<code>sender.id</code>)</td><td>Airtable · <code>contact_id</code></td></tr>
+            <tr><td>Nombre</td><td>Chatwoot / NLP del mensaje</td><td>Airtable · <code>name</code></td></tr>
+            <tr><td>Correo y teléfono</td><td>Chatwoot (canal) / texto libre</td><td>Airtable · <code>email</code>, <code>phone_number</code></td></tr>
+            <tr><td>Canal / origen</td><td>Chatwoot (<code>conversation.channel</code>)</td><td>Airtable · <code>origen</code> (Web / WhatsApp)</td></tr>
+            <tr><td>Interés / servicio</td><td>Workflow (NLP por palabras clave)</td><td>Airtable · <code>interes</code></td></tr>
+            <tr><td>Nivel de interés</td><td>Workflow (keywords de intención)</td><td>Airtable · <code>nivel_interes</code></td></tr>
+            <tr><td>Tipo de cliente</td><td>Workflow (reglas NLP contextuales)</td><td>Airtable · <code>tipo_de_cliente</code></td></tr>
+            <tr><td>Presupuesto</td><td>Workflow (reglas NLP contextuales)</td><td>Airtable · <code>presupuesto</code></td></tr>
+            <tr><td>Último mensaje</td><td>Chatwoot</td><td>Airtable · <code>ultimo_mensaje</code></td></tr>
+            <tr><td>Fecha de creación / última interacción</td><td>Evento (zona horaria Bogotá)</td><td>Airtable · <code>fecha_creacion</code>, <code>ultima_interaccion</code></td></tr>
+            <tr><td>Estado de captura</td><td>Workflow (consolidación histórica)</td><td>Airtable · <code>estado_captura</code></td></tr>
+            <tr><td>Score de calificación</td><td>Workflow (motor de scoring)</td><td>Airtable · <code>score</code>, <code>score_nivel</code>, etc.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== 09 CONSOLIDACIÓN ====================== -->
+  <section class="section reveal" id="consolidacion">
+    <div class="section__head">
+      <span class="phase-tag">Fase 5</span>
+      <h2>Consolidación de datos y prevención de duplicados</h2>
+      <p>El ajuste arquitectónico más importante del proyecto: dejar de evaluar completitud sobre datos parciales.</p>
+    </div>
+    <div class="card">
+      <p>
+        Durante las pruebas se detectó que un lead nunca terminaba de marcarse como
+        <code>completo</code> aunque Airtable ya tuviera el nombre, el correo y el teléfono
+        guardados de mensajes anteriores. La causa: <code>estado_captura</code> se calculaba
+        en <code>Code - Procesar Lead</code> usando <strong>únicamente</strong> los datos del
+        mensaje del turno actual, nunca el histórico ya guardado en Airtable.
+      </p>
+      <div class="callout">
+        <p>
+          <strong>Diagnóstico.</strong> El workflow preguntaba <em>"¿está completo?"</em>
+          sobre datos parciales, y solo después guardaba. El orden correcto es al revés:
+          primero consolidar <code>name_final</code>, <code>email_final</code>,
+          <code>phone_final</code> y <code>presupuesto_final</code> contra el histórico, y
+          recién ahí evaluar completitud.
+        </p>
+      </div>
+      <p>
+        La solución fue insertar un nodo nuevo, <code>Code - Consolidar Lead</code>, justo
+        después de <code>Airtable - Buscar Lead</code> y antes del <code>IF - ¿Lead
+        existe?</code>, de modo que tanto la rama de actualización como la de creación reciban
+        datos ya fusionados:
+      </p>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">javascript · Code - Consolidar Lead (extracto)</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c">// Regla general: "nuevo si tiene valor útil, si no el histórico, si no vacío"</span>
+const emailNuevo = (actual.email || <span class="s">""</span>).trim();
+const emailHist  = String(getHist(<span class="s">"email"</span>, <span class="s">""</span>)).trim();
+const email = emailNuevo || emailHist || <span class="s">""</span>;
+
+<span class="c">// Recién sobre los valores consolidados se recalculan faltantes</span>
+const faltantes = [];
+if (!email &amp;&amp; origen !== <span class="s">"WhatsApp"</span>) faltantes.push(<span class="s">"email"</span>);
+if (!phone_number &amp;&amp; origen !== <span class="s">"WhatsApp"</span>) faltantes.push(<span class="s">"telefono"</span>);
+
+estado_captura_str =
+  faltantes.length === 0 ? <span class="s">"completo"</span> :
+  faltantes.length === 1 ? <span class="s">"en_proceso"</span> : <span class="s">"incompleto"</span>;</pre>
+      </div>
+      <p><strong>Impacto verificado del cambio:</strong></p>
+      <ul>
+        <li><strong>Duplicados:</strong> ninguno — la fórmula de búsqueda se construye antes de este nodo, no se ve afectada.</li>
+        <li><strong>Scoring:</strong> desacoplado — sigue leyendo del nodo de procesamiento del turno, sin cambios.</li>
+        <li><strong>WhatsApp:</strong> sin impacto — sigue eximiendo email/teléfono de <code>faltantes</code> igual que antes.</li>
+        <li><strong>Chat web:</strong> el que más se beneficia — es el caso típico de captura incremental en varios mensajes que antes quedaba atrapado en <code>en_proceso</code>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================== 10 SCORING ====================== -->
+  <section class="section reveal" id="scoring">
+    <div class="section__head">
+      <span class="phase-tag">Fase 6</span>
+      <h2>Motor de scoring</h2>
+      <p>Un puntaje de 0 a 100 por lead, acumulativo entre mensajes, sobre cuatro pilares.</p>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pilar</th><th>Qué mide</th><th>Máximo</th></tr></thead>
+          <tbody>
+            <tr><td>Engagement</td><td>Tiene email, tiene teléfono, canal WhatsApp, mensaje con contenido sustancial</td><td>25 pts</td></tr>
+            <tr><td>Intención</td><td>Keywords de alta intención ("cotización", "contratar", "cuánto cuesta"…) vs. informativas vs. saludo</td><td>40 pts</td></tr>
+            <tr><td>Fit</td><td>Contacto completo (email + teléfono); solo suma en la primera interacción</td><td>20 pts</td></tr>
+            <tr><td>Recencia</td><td>Penaliza inactividad prolongada (más de 30 días sin interacción resta puntos)</td><td>±5 pts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code">
+        <div class="code__bar"><span class="code__label">javascript · Score - Calcular (extracto)</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c">// El score anterior se LEE de Airtable, nunca se resetea a 0</span>
+const scoreAnterior = Math.max(0, parseFloat(getField(<span class="s">"score"</span>, 0)) || 0);
+
+const delta      = ptsEngagement + ptsIntencion + fitDelta + ptsRecencia;
+const scoreNuevo = Math.min(100, Math.max(0, scoreAnterior + delta));
+
+const scoreNivel = scoreNuevo &gt;= 70 ? <span class="s">"caliente"</span>
+                 : scoreNuevo &gt;= 35 ? <span class="s">"tibio"</span>
+                 : <span class="s">"frío"</span>;</pre>
+      </div>
+      <p>
+        Cada cálculo queda registrado en <code>score_log</code> (las últimas 10 entradas por
+        lead), con el desglose por pilar — lo que permite auditar por qué un lead subió o bajó
+        de nivel sin tener que recalcular manualmente.
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== 11 AIRTABLE ====================== -->
+  <section class="section reveal" id="airtable">
+    <div class="section__head">
+      <span class="phase-tag">Fase 7</span>
+      <h2>Airtable como capa de datos</h2>
+      <p>No una hoja de cálculo: una base estructurada para seguimiento, consulta y segmentación.</p>
+    </div>
+    <div class="card">
+      <p>
+        La información procesada por el workflow se almacena en la base
+        <code>CRM_leads_n8n</code>, con matching por <code>contact_id</code>, email o teléfono
+        —en ese orden de prioridad— para decidir si un mensaje pertenece a un lead ya
+        existente o si debe crear uno nuevo. Cada actualización preserva los valores válidos
+        ya guardados: un nombre real nunca se sobrescribe con un nombre genérico de Chatwoot
+        (<code>visitor-xxx</code>), ni un email confirmado se reemplaza por uno vacío.
+      </p>
+      <figure class="figure" data-protect>
+        <img src="assets/img/airtable-leads.jpeg" loading="lazy" alt="Base CRM_leads_n8n en Airtable con leads capturados desde Chatwoot">
+        <figcaption>Base <code>CRM_leads_n8n</code> — registros consolidados con interés, nivel de interés, tipo de cliente y fuente.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ====================== 12 PRUEBA EXTREMO A EXTREMO ====================== -->
+  <section class="section reveal" id="prueba">
+    <div class="section__head">
+      <span class="phase-tag">Fase 8</span>
+      <h2>Prueba de extremo a extremo</h2>
+      <p>Del mensaje del usuario al registro verificado en Airtable, en un caso real.</p>
+    </div>
+    <div class="card">
+      <ol class="timeline">
+        <li>
+          <h4>El usuario escribe en el widget del sitio</h4>
+          <p>Inicia la conversación en el chat web y responde a la solicitud de nombre, teléfono y correo directamente en el hilo.</p>
+        </li>
+        <li>
+          <h4>Chatwoot registra la interacción</h4>
+          <p>La conversación queda visible en el panel de agente, con el mensaje entrante marcado como no leído hasta su revisión.</p>
+        </li>
+        <li>
+          <h4>El webhook dispara el workflow en n8n</h4>
+          <p><code>message_created</code> llega al endpoint expuesto por ngrok y activa <code>Code - Procesar Lead</code>.</p>
+        </li>
+        <li>
+          <h4>n8n normaliza y consolida</h4>
+          <p>Extrae nombre, teléfono y correo del mensaje, busca si el contacto ya existe en Airtable y funde ambos conjuntos de datos.</p>
+        </li>
+        <li>
+          <h4>Airtable recibe el registro</h4>
+          <p><code>Airtable - Update Lead</code> o <code>Airtable - Crear Lead</code> escribe el registro, y <code>Score - Calcular</code> actualiza el puntaje.</p>
+        </li>
+        <li>
+          <h4>Verificación del dato almacenado</h4>
+          <p>El registro en <code>CRM_leads_n8n</code> muestra teléfono normalizado a formato internacional, interés detectado y nivel de interés — sin duplicar el contacto.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ====================== 13 TROUBLESHOOTING ====================== -->
+  <section class="section reveal" id="troubleshooting">
+    <div class="section__head">
+      <span class="phase-tag">Fase 9</span>
+      <h2>Troubleshooting &amp; resolución</h2>
+      <p>Los fallos reales encontrados durante las pruebas, con el razonamiento que llevó a cada corrección.</p>
+    </div>
+
+    <div class="card">
+      <details class="issue" open>
+        <summary><span class="issue__n">01</span> El lead nunca queda "completo" aunque el dato ya está en Airtable</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>
+              Con nombre, correo y teléfono ya guardados de mensajes anteriores, un nuevo
+              mensaje del mismo lead seguía marcando <code>estado_captura = en_proceso</code> o
+              incluso volvía a <code>incompleto</code>.
+            </dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              <code>estado_captura</code> se calculaba en <code>Code - Procesar Lead</code>
+              usando solo los datos del mensaje del turno actual. Airtable sí tenía el
+              histórico completo, pero ningún nodo lo consultaba antes de evaluar completitud.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Nuevo nodo <code>Code - Consolidar Lead</code> entre <code>Airtable - Buscar
+              Lead</code> y <code>IF - ¿Lead existe?</code>, que funde datos nuevos con
+              históricos antes de recalcular <code>faltantes</code> y
+              <code>estado_captura</code> — ver sección 09.
+            </dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">02</span> El presupuesto queda "No definido" salvo que el usuario escriba la palabra exacta</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>
+              Frases como <em>"tengo un presupuesto básico"</em> o <em>"estoy dispuesto a
+              pagar por un buen servicio"</em> no se clasificaban en ningún nivel de
+              presupuesto.
+            </dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              La primera versión de la regla solo comparaba contra las palabras literales
+              <code>alto</code>, <code>medio</code> y <code>bajo</code>, sin considerar el
+              contexto de la frase completa.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Reglas contextuales con expresiones regulares ampliadas por nivel (alto / medio /
+              bajo), evaluadas sobre el mensaje normalizado sin acentos, con un fallback
+              explícito a <code>"No definido"</code> —nunca <code>null</code>— para que el
+              campo no bloquee la evaluación de completitud.
+            </dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">03</span> El nombre capturado queda como "con Andrés" en lugar de "Andrés"</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>
+              Al preguntar <em>"¿con quién tengo el gusto de hablar?"</em>, una respuesta como
+              <em>"habla con Andrés"</em> capturaba una porción del texto que no correspondía
+              solo al nombre.
+            </dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              La extracción de nombre por NLP depende de frases gatillo ("me llamo…", "mi
+              nombre es…", "habla…") y de la forma exacta en que el bot formula la pregunta;
+              variaciones en la pregunta cambian qué texto queda capturado tras el patrón.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Ampliar el conjunto de frases gatillo reconocidas y estandarizar la pregunta que
+              hace el flujo de bienvenida, dejando como mejora futura evaluada un paso de
+              extracción de entidades con un modelo de lenguaje en lugar de expresiones
+              regulares para este campo específico.
+            </dd>
+          </dl>
+        </div>
+      </details>
+
+      <details class="issue">
+        <summary><span class="issue__n">04</span> Intermitencia del webhook en el flujo local</summary>
+        <div class="issue__body">
+          <dl>
+            <dt>SÍNTOMA</dt>
+            <dd>
+              Algunos mensajes no completaban el recorrido del workflow: quedaban registrados
+              hasta <code>Code - Procesar Lead</code> pero no avanzaban, obligando a repetir la
+              pregunta desde Chatwoot para que el dato quedara guardado.
+            </dd>
+            <dt>DIAGNÓSTICO</dt>
+            <dd>
+              La lógica de los nodos, verificada de forma aislada, funcionaba correctamente.
+              La intermitencia se correlacionaba con el túnel de ngrok del entorno local
+              —capa de exposición del webhook—, no con el procesamiento del workflow en sí.
+            </dd>
+            <dt>SOLUCIÓN</dt>
+            <dd>
+              Documentado como limitación conocida del entorno de desarrollo: ngrok en plan
+              gratuito no ofrece la estabilidad de un dominio propio con SSL. La ruta de
+              producción reemplaza el túnel por un dominio real, tal como se indica en la
+              sección de despliegue del README.
+            </dd>
+          </dl>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ====================== 14 RESULTADO ====================== -->
+  <section class="section reveal" id="resultado">
+    <div class="section__head">
+      <span class="phase-tag">Fase 10</span>
+      <h2>Resultado</h2>
+      <p>Se implementó Chatwoot en entorno local y se estableció un flujo de automatización mediante n8n para capturar, consolidar, calificar y almacenar información estructurada en Airtable, validando el recorrido completo desde la interacción hasta su persistencia.</p>
+    </div>
+    <ul class="metrics">
+      <li><b>4</b><span>Servicios en Docker: postgres, redis, chatwoot y worker</span></li>
+      <li><b>13</b><span>Nodos en el workflow de n8n, de webhook a scoring</span></li>
+      <li><b>2</b><span>Canales soportados: chat web y WhatsApp</span></li>
+      <li><b>4</b><span>Pilares del motor de scoring (0–100)</span></li>
+      <li><b>4</b><span>Incidencias documentadas con diagnóstico y solución</span></li>
+      <li><b>0</b><span>Intervención manual para pasar de conversación a registro en CRM</span></li>
+    </ul>
+  </section>
+
+  <!-- ====================== 15 TECNOLOGÍAS ====================== -->
+  <section class="section reveal" id="tecnologias">
+    <div class="section__head">
+      <h2>Tecnologías</h2>
+      <p>Stack utilizado en esta implementación.</p>
+    </div>
+    <div class="card">
+      <h3>Atención</h3>
+      <ul class="stack"><li>Chatwoot</li></ul>
+      <h3>Automatización</h3>
+      <ul class="stack"><li>n8n</li></ul>
+      <h3>Datos</h3>
+      <ul class="stack"><li>Airtable</li></ul>
+      <h3>Infraestructura</h3>
+      <ul class="stack"><li>Docker</li><li>Docker Compose</li><li>Portainer</li><li>Ngrok</li></ul>
+      <h3>Integración</h3>
+      <ul class="stack"><li>Webhooks</li><li>JSON</li><li>REST API</li><li>NLP con expresiones regulares</li></ul>
+    </div>
+  </section>
+
+  <!-- ====================== 16 REPOSITORIO ====================== -->
+  <section class="section reveal" id="repositorio">
+    <div class="section__head">
+      <h2>Evidencia técnica y repositorio</h2>
+      <p>Vista de solo lectura del workflow. El archivo exportable de n8n es parte de la implementación que se ofrece como servicio.</p>
+    </div>
+
+    <div class="card">
+      <h3>Workflow en n8n — vista protegida</h3>
+      <p>
+        A continuación, una vista de solo lectura del canvas real del workflow
+        <code>CRM Chatwoot → Airtable (SMART UPDATE + SCORING v3.4)</code>. La descarga del
+        archivo <code>.json</code> y la implementación completa —incluida la adaptación a tu
+        propio CRM o base de datos— se entregan como solución bajo contacto directo.
+      </p>
+
+      <div class="embed">
+        <div class="embed__bar">
+          <span class="embed__label"><span class="embed__dot" aria-hidden="true"></span> n8n · CRM Chatwoot → Airtable (solo lectura)</span>
+          <span class="embed__lock">🔒 vista protegida</span>
+        </div>
+        <div class="embed__frame-wrap" data-protect>
+          <!--
+            Si cuentas con un enlace público de "Share" de n8n (n8n Cloud o
+            self-hosted con sharing habilitado), reemplaza el <div class="embed__fallback">
+            de abajo por:
+            <iframe src="https://TU-ENLACE-DE-SHARE-DE-N8N" loading="lazy" title="Workflow n8n — vista de solo lectura"></iframe>
+            Mientras no exista ese enlace público, se muestra la captura real del canvas.
+          -->
+          <div class="embed__fallback">
+            <img src="assets/img/workflow-n8n.png" loading="lazy" alt="Vista de solo lectura del workflow CRM Chatwoot → Airtable en n8n">
+          </div>
+          <div class="embed__shield" aria-hidden="true"></div>
+        </div>
+        <div class="embed__note">
+          <strong>Nota.</strong> Esta vista es únicamente demostrativa. No incluye credenciales,
+          no permite exportar el <code>.json</code> ni clonar el workflow. Para adquirir la
+          implementación completa —flujo, documentación y soporte de puesta en marcha—
+          <a href="../index.html#contacto">contáctame directamente</a>.
+        </div>
+      </div>
+
+      <h3>Repositorio técnico</h3>
+      <p>
+        La configuración de containerización, el README de instalación y la documentación de
+        este proyecto están disponibles en el repositorio del proyecto.
+        <a target="_blank" href="https://github.com/artworldartistico/captura-y-scoring-de-leads" data-repo-link>Ver repositorio en GitHub</a>
+      </p>
+      <div class="callout">
+        <p>
+          <strong>Nota de autoría.</strong> Chatwoot y n8n son proyectos open source de
+          terceros. La intervención documentada aquí corresponde a su implementación,
+          configuración, containerización, diseño del workflow de automatización,
+          resolución de incidencias, pruebas y documentación.
+        </p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>¿Necesitas un sistema así para capturar y calificar tus propios leads?</h2>
+      <p>
+        Implemento, integro y pongo en producción ecosistemas digitales: atención al cliente,
+        automatización de datos, scoring de leads y CRM.
+      </p>
+      <div class="cta__row">
+        <a class="btn btn--primary" href="../index.html#contacto">Agendar diagnóstico</a>
+        <a class="btn" href="../../index.html">Volver al sitio principal</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Dossier técnico · Chatwoot + n8n + Airtable · Andrés Felipe Rodríguez Barbosa</span>
+    <span>Actualizado: septiembre 2026</span>
+  </footer>
+
+</main>
+
+<script src="assets/dossier.js"></script>
+</body>
+</html>
