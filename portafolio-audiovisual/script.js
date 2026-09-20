@@ -294,6 +294,52 @@ const PROJECTS = [
         industria: "Psicología y Educación Infantil",
         anio: 2024,
         duracion: "12:00"
+    },
+    {
+        id: 14,
+        titulo: "Silla promocional",
+        cliente: "Indumuebles Hernández",
+        categoria: "Reels",
+        formato: "Video Comercial",
+        tipoProduccion: "Tradicional",
+        tecnologias: [
+            "CapCut",
+            "Canva",
+        ],
+        fuente: {
+            tipo: "MP4",
+            url: "https://digiticol.com/files/images/produccion-audiovisual/silla-promocional.3gp"
+        },
+        thumbnail: "",
+        descripcion: "Video comercial de una silla en oferta especial mostrando su uso, utilidad y ergonomía ideal para ambientes de trabajo en oficinas.",
+        objetivos: "Mantener una presencia constante en redes sociales con contenido de alta calidad generado con el fin de mostrar comodidad, uso y experiencia en el uso del producto.",
+        resultado: "Aumento en la tasa de conversión en Instagram como comentarios o likes.",
+        industria: "Manufactura",
+        anio: 2023,
+        duracion: "00:47"
+    },
+    {
+        id: 15,
+        titulo: "Testimonial Corporativo",
+        cliente: "Indumuebles Hernández",
+        categoria: "Testimoniales",
+        formato: "Video Testimonial",
+        tipoProduccion: "Tradicional",
+        tecnologias: [
+            "CapCut",
+            "Canva",
+        ],
+        fuente: {
+            tipo: "MP4",
+            url: "https://digiticol.com/files/images/diseno-de-piezas-rrss/Reels/reel-testimonios-indumuebles.mp4"
+        },
+        thumbnail: "",
+        descripcion: "Video testimonial corporativo que combina entrevista reale filmada en locación para mostrar resultados concretos.",
+        objetivos: "Construir confianza y credibilidad mostrando resultados reales de clientes satisfechos.",
+        resultado: "Aumento en las ventas y conversiones en los canales digitales.",
+        industria: "Manufactura",
+        anio: 2023,
+        duracion: "01:17"
     }
 ];
 
