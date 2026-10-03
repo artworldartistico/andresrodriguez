@@ -16,9 +16,11 @@
 <header class="topbar">
   <div class="topbar__inner">
     <a class="brand" href="../../"><i class="brand__dot"></i>Andrés Rodríguez <span>/ Dossier técnico</span></a>
-    <div class="topbar__actions">
+    <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="topbar-menu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <div class="topbar__actions" id="topbar-menu">
+      <a target="_blank" class="btn btn--ghost" href="https://apps2.petroworks.com.co:18080/">Ver plataforma</a>
       <a class="btn btn--ghost" href="../../">Portafolio</a>
-      <a class="btn btn--ghost" href="#repositorio">Repositorio</a>
+      <a target="_blank" class="btn btn--ghost" href="https://github.com/artworldartistico/arquitectura-moodle">Repositorio</a>
       <a class="btn btn--primary" href="https://lnkd.in/p/ePDQ2n2V" target="_blank" rel="noopener">Ver publicación</a>
       <a class="btn btn--primary" href="../../index.html#contacto">Hablemos</a>
     </div>
@@ -444,6 +446,7 @@ grep -i alert /var/log/apache2/error.log</pre></div></div></details>
   <div class="cta__row">
     <a class="btn btn--primary" href="mailto:anfelirod86@hotmail.com">Escríbeme</a>
     <a class="btn" href="https://lnkd.in/p/ePDQ2n2V" target="_blank" rel="noopener">Publicación en LinkedIn</a>
+    <a class="btn" href="https://apps2.petroworks.com.co:18080/" target="_blank" rel="noopener">Ver plataforma</a>
     <a class="btn" href="../../">Ver portafolio</a>
   </div>
 </section>
