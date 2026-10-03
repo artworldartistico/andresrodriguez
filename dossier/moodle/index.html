@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dossier técnico · Moodle sobre Ubuntu (Petroworks) — Andrés Rodríguez</title>
+<meta name="description" content="Recuperación de una plataforma Moodle: del diagnóstico en Windows Server a una arquitectura estable en Ubuntu, Apache, PHP y MySQL con H5P funcionando.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dossier.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../../"><i class="brand__dot"></i>Andrés Rodríguez <span>/ Dossier técnico</span></a>
+    <div class="topbar__actions">
+      <a class="btn btn--ghost" href="../../">Portafolio</a>
+      <a class="btn btn--ghost" href="#repositorio">Repositorio</a>
+      <a class="btn btn--primary" href="https://lnkd.in/p/ePDQ2n2V" target="_blank" rel="noopener">Ver publicación</a>
+      <a class="btn btn--primary" href="../../index.html#contacto">Hablemos</a>
+    </div>
+  </div>
+  <div class="progress"></div>
+</header>
+
+<main class="shell">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <span class="pill">Caso de transformación · Petroworks · Bogotá D.C.</span>
+  <h1>Moodle no era el problema: <em>era la arquitectura</em></h1>
+  <p class="hero__lede">Cómo recuperé una plataforma de formación que no podía pasar a producción: diagnóstico, migración de Windows Server a Ubuntu, HTTPS, H5P funcionando, login personalizado y entrega documentada.</p>
+  <ul class="hero__meta">
+    <li>Ubuntu Server 22.04</li><li>Apache 2</li><li>PHP 8.1</li><li>MySQL</li><li>Moodle 4.4</li><li>H5P · SCORM</li><li>Tema Adaptable</li>
+  </ul>
+
+  <div class="flow"><pre><b>ANTES</b>   Windows Server → IIS/FastCGI → PHP → Moodle → MySQL        <i>✕ H5P · ✕ iconos · ✕ errores 500</i>
+
+<b>DESPUÉS</b>  Navegador ──▶ <b>Apache</b> :80 ─301─▶ :443 / :18080 (SSL)
+                         │
+                         ▼
+               <b>PHP 8.1</b> (pdo_mysql · 512M) ──▶ <b>Moodle</b> /moodle-petroworks ──▶ <b>MySQL</b>
+                         │                                  │
+                         └──────── <b>moodledata</b> (www-data) ┘      <i>✓ H5P · ✓ estable · ✓ listo para producción</i></pre></div>
+</section>
+
+<!-- ================= ÍNDICE ================= -->
+<nav class="toc reveal" aria-label="Índice">
+  <h2>Contenido del dossier</h2>
+  <ol>
+    <li><a href="#contexto"><span>01</span>Contexto y rol</a></li>
+    <li><a href="#diagnostico"><span>02</span>Diagnóstico</a></li>
+    <li><a href="#decisiones"><span>03</span>Decisiones de arquitectura</a></li>
+    <li><a href="#implementacion"><span>04</span>Implementación paso a paso</a></li>
+    <li><a href="#login"><span>05</span>Login personalizado</a></li>
+    <li><a href="#tema"><span>06</span>Personalización del tema</a></li>
+    <li><a href="#troubleshooting"><span>07</span>Troubleshooting &amp; resolución</a></li>
+    <li><a href="#operacion"><span>08</span>Operación y entrega</a></li>
+    <li><a href="#resultado"><span>09</span>Caso de éxito y aprendizajes</a></li>
+  </ol>
+</nav>
+
+<!-- ================= 01 CONTEXTO ================= -->
+<section class="section" id="contexto">
+  <div class="section__head reveal">
+    <span class="phase-tag">01 · Contexto</span>
+    <h2>Una plataforma que no podía avanzar a producción</h2>
+    <p>Petroworks necesitaba un centro virtual de formación (inducción, políticas, HSEQ). El proyecto ya existía, pero presentaba errores y no lograba avanzar.</p>
+  </div>
+  <div class="grid-2" style="margin-top:26px">
+    <div class="card reveal">
+      <h3>Situación inicial</h3>
+      <ul>
+        <li>Moodle sobre <strong>Windows Server</strong> con IIS.</li>
+        <li>Errores <code>500 – Error interno del servidor</code> al abrir actividades.</li>
+        <li>Actividades que no aparecían por incompatibilidades.</li>
+        <li>H5P sin cargar y SCORM con avisos de conexión inestable.</li>
+        <li>Sin estrategia de infraestructura, respaldos ni continuidad.</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Mi rol</h3>
+      <p><strong>Dirección estratégica + arquitectura + implementación.</strong> Diagnostiqué la causa raíz, decidí la arquitectura destino, ejecuté la migración y entregué la documentación de operación.</p>
+      <ul class="stack"><li>Diagnóstico</li><li>Arquitectura</li><li>Migración</li><li>Seguridad SSL</li><li>UX / Login</li><li>Entrega</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 DIAGNÓSTICO ================= -->
+<section class="section" id="diagnostico">
+  <div class="section__head reveal">
+    <span class="phase-tag">02 · Diagnóstico</span>
+    <h2>La hipótesis inicial apuntaba a Moodle. Los datos, no.</h2>
+    <p>Antes de tocar la aplicación revisé el entorno completo: sistema operativo, servidor web, PHP, base de datos, permisos y registros.</p>
+  </div>
+  <div class="card reveal">
+    <div class="table-wrap"><table>
+      <thead><tr><th>Síntoma</th><th>Hipótesis inicial</th><th>Hallazgo real</th></tr></thead>
+      <tbody>
+        <tr><td>H5P “esperando a que se cargue”</td><td>Plugin H5P dañado</td><td>Permisos de <code>moodledata</code>, FastCGI/IIS y combinación de versiones del stack</td></tr>
+        <tr><td>Error 500 en actividades</td><td>Error en el curso</td><td>Incompatibilidades del entorno Windows/IIS con el LMS</td></tr>
+        <tr><td>Iconos e imágenes rotos</td><td>URLs mal escritas</td><td><code>wwwroot</code>, caché y <code>slasharguments</code> en IIS</td></tr>
+        <tr><td>Warning en <code>theme/adaptable/db/caches.php</code></td><td>Tema corrupto</td><td>Permisos del usuario del servidor web sobre el directorio</td></tr>
+        <tr><td>Plataforma lenta</td><td>Poco hardware</td><td>Caché sin optimizar, límites de PHP y arquitectura sin plan de continuidad</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><p><strong>Conclusión del diagnóstico:</strong> seguir “ajustando” Moodle sobre ese entorno era tratar síntomas. El riesgo real era la ausencia de una arquitectura preparada para compatibilidad, respaldos y continuidad operativa.</p></div>
+  </div>
+</section>
+
+<!-- ================= 03 DECISIONES ================= -->
+<section class="section" id="decisiones">
+  <div class="section__head reveal">
+    <span class="phase-tag">03 · Decisiones</span>
+    <h2>Cuatro decisiones que cambiaron el proyecto</h2>
+    <p>Cada decisión reduce un riesgo concreto. Se priorizó estabilidad y compatibilidad sobre “parchar”.</p>
+  </div>
+  <div class="card reveal">
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Decisión</th><th>¿Por qué?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>No continuar sobre Windows Server</td><td>Compatibilidad</td></tr>
+        <tr><td>2</td><td>Migrar a Ubuntu (Apache + PHP + MySQL)</td><td>Mayor estabilidad</td></tr>
+        <tr><td>3</td><td>Mantener la misma versión de MySQL</td><td>Reducir riesgos durante la migración</td></tr>
+        <tr><td>4</td><td>Instalar H5P únicamente después de validar el entorno</td><td>Evitar falsos diagnósticos</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Decisiones complementarias</h3>
+    <ul>
+      <li><strong>HTTPS obligatorio:</strong> puerto 80 redirige con 301 a HTTPS; SSL en 443 y en el puerto alterno 18080 del cliente.</li>
+      <li><strong>Límites de PHP definidos desde el inicio</strong> (memoria, subida de archivos) en lugar de reaccionar a errores.</li>
+      <li><strong>Documentar todo el entorno</strong> para que el equipo del cliente pueda operarlo sin depender de mí.</li>
+      <li><strong>Login propio</strong> alineado a la marca del cliente (“Somos Power / Somos Petroworks”).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 04 IMPLEMENTACIÓN ================= -->
+<section class="section" id="implementacion">
+  <div class="section__head reveal">
+    <span class="phase-tag">04 · Implementación</span>
+    <h2>Paso a paso de la migración y puesta en marcha</h2>
+    <p>Los valores sensibles (usuarios, claves, IPs, rutas de llaves) se omiten o se reemplazan por marcadores.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Paso 1 · Verificar el servidor</h3>
+    <p>Línea base de recursos y servicios antes de instalar nada.</p>
+    <div class="code"><div class="code__bar"><span class="code__label">bash · línea base</span><button class="code__copy" type="button">Copiar</button></div>
+<pre><span class="c"># Recursos</span>
+free -h && nproc && df -h && lscpu
+<span class="c"># Sistema y versiones</span>
+uname -a && lsb_release -a && php -v
+<span class="c"># Servicios y salud de Apache</span>
+sudo systemctl status apache2
+sudo apache2ctl configtest          <span class="c"># Debe responder: Syntax OK</span>
+<span class="c"># Logs en vivo</span>
+tail -f /var/log/apache2/error.log</pre></div>
+
+    <h3>Paso 2 · Base de datos</h3>
+    <p>Misma versión de MySQL que el origen para minimizar riesgo. Se restaura la base de datos y se valida el acceso del usuario de aplicación.</p>
+    <div class="code"><div class="code__bar"><span class="code__label">bash · acceso y validación</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>mysql -u <span class="s">USUARIO_MOODLE</span> -h localhost -p
+<span class="k">mysql&gt;</span> SHOW DATABASES;
+<span class="k">mysql&gt;</span> USE moodle_petroworks;
+<span class="k">mysql&gt;</span> SHOW TABLES;</pre></div>
+
+    <h3>Paso 3 · PHP: extensiones y límites</h3>
+    <div class="code"><div class="code__bar"><span class="code__label">php.ini</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>extension=pdo_mysql
+memory_limit = 512M        <span class="c">; se subió 128M → 256M → 512M según el error</span>
+post_max_size = 100M
+upload_max_filesize = 100M</pre></div>
+
+    <h3>Paso 4 · Apache: HTTPS, puertos y redirección</h3>
+    <div class="code"><div class="code__bar"><span class="code__label">/etc/apache2/ports.conf</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>Listen 80
+&lt;IfModule ssl_module&gt;
+    Listen 443
+    Listen 18080
+&lt;/IfModule&gt;</pre></div>
+    <div class="code"><div class="code__bar"><span class="code__label">sites-available/moodle-ssl.conf</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>&lt;IfModule mod_ssl.c&gt;
+  &lt;VirtualHost *:443 *:18080&gt;
+    ServerName <span class="s">apps.tudominio.com</span>
+    DocumentRoot /var/www/html/moodle-petroworks
+    SSLEngine on
+    SSLCertificateFile      /etc/apache2/ssl/<span class="s">certificado.crt</span>
+    SSLCertificateKeyFile   /etc/apache2/ssl/<span class="s">llave.key</span>
+    SSLCertificateChainFile /etc/apache2/ssl/<span class="s">cadena.crt</span>
+    Header always set Strict-Transport-Security "max-age=31536000"
+    &lt;Directory /var/www/html/moodle-petroworks&gt;
+      AllowOverride All
+      Require all granted
+    &lt;/Directory&gt;
+    ErrorLog  ${APACHE_LOG_DIR}/moodle-petroworks_error.log
+    CustomLog ${APACHE_LOG_DIR}/moodle-petroworks_access.log combined
+  &lt;/VirtualHost&gt;
+&lt;/IfModule&gt;
+
+&lt;VirtualHost *:80&gt;
+  ServerName <span class="s">apps.tudominio.com</span>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+&lt;/VirtualHost&gt;</pre></div>
+    <div class="code"><div class="code__bar"><span class="code__label">bash · habilitar y comprobar</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>sudo a2enmod ssl rewrite headers
+sudo a2ensite moodle-ssl.conf 80-default.conf
+sudo apache2ctl configtest &amp;&amp; sudo systemctl reload apache2
+
+sudo lsof -i :443 ; sudo lsof -i :18080
+sudo netstat -tuln | grep 18080
+openssl s_client -connect <span class="s">apps.tudominio.com</span>:18080</pre></div>
+
+    <h3>Paso 5 · Archivos y permisos</h3>
+    <div class="code"><div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>sudo chown -R www-data:www-data /var/www/moodledata
+sudo chmod -R 755 /var/www/moodledata
+<span class="c"># Tras migrar: limpiar cachés</span>
+sudo rm -rf /var/www/moodledata/cache/* /var/www/moodledata/localcache/*
+php admin/cli/purge_caches.php</pre></div>
+
+    <h3>Paso 6 · Validar H5P (solo con el entorno estable)</h3>
+    <p>Con el stack validado se instala/habilita H5P y se prueba con una actividad simple (cuestionario) antes de cargar contenido real. Así se evita atribuirle al plugin un fallo que no es suyo.</p>
+  </div>
+</section>
+
+<!-- ================= 05 LOGIN ================= -->
+<section class="section" id="login">
+  <div class="section__head reveal">
+    <span class="phase-tag">05 · Experiencia</span>
+    <h2>Login personalizado con identidad de marca</h2>
+    <p>Una página de acceso propia que envía el formulario al login nativo de Moodle, sin tocar el núcleo.</p>
+  </div>
+  <div class="card reveal">
+    <ul class="checklist">
+      <li>Formulario que apunta a <code>../login/index.php</code> (autenticación nativa de Moodle).</li>
+      <li>Alerta de credenciales inválidas leyendo <code>?errorcode=3</code> de la URL.</li>
+      <li>Mostrar/ocultar contraseña, “Recordar nombre de usuario” y enlace de recuperación.</li>
+      <li>Animación “Somos <em>Power</em> / Somos <em>Petroworks</em>”, parallax y texto con efecto de escritura.</li>
+      <li>Galería de videos institucionales con reproducción en cadena y arrastre táctil.</li>
+      <li>Alojado en una carpeta propia dentro de Moodle: <code>/moodle-petroworks/login-petroworks/</code>.</li>
+    </ul>
+    <div class="code"><div class="code__bar"><span class="code__label">login · alerta por errorcode</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>document.addEventListener(<span class="s">"DOMContentLoaded"</span>, () =&gt; {
+  <span class="k">const</span> params = <span class="k">new</span> URLSearchParams(window.location.search);
+  <span class="k">if</span> (params.get(<span class="s">"errorcode"</span>) === <span class="s">"3"</span>) {
+    <span class="k">const</span> box = document.createElement(<span class="s">"div"</span>);
+    box.className = <span class="s">"alert alert-danger"</span>;
+    box.setAttribute(<span class="s">"role"</span>, <span class="s">"alert"</span>);
+    box.innerText = <span class="s">"Acceso inválido. Por favor, inténtelo otra vez."</span>;
+    document.getElementById(<span class="s">"alertContainer"</span>).appendChild(box);
+  }
+});</pre></div>
+  </div>
+</section>
+
+<!-- ================= 06 TEMA ================= -->
+<section class="section" id="tema">
+  <div class="section__head reveal">
+    <span class="phase-tag">06 · Tema</span>
+    <h2>Personalización del tema Adaptable</h2>
+    <p>La plataforma se alineó a la marca verde de Petroworks desde la administración del sitio, sin modificar archivos del núcleo.</p>
+  </div>
+  <div class="card reveal">
+    <div class="table-wrap"><table>
+      <thead><tr><th>Ruta en Moodle</th><th>Ajuste</th></tr></thead>
+      <tbody>
+        <tr><td>Apariencia › Adaptable › Fuentes</td><td>Fuente principal <code>Roboto</code></td></tr>
+        <tr><td>Adaptable › Colores</td><td>Verde de marca <code>#26A146</code> (títulos, cargador, hover); enlaces <code>#707173</code> / hover <code>#153e3c</code>; bloques <code>#46635e</code></td></tr>
+        <tr><td>Adaptable › Botones</td><td>Base <code>#656d64</code>, hover y secundario <code>#26A146</code></td></tr>
+        <tr><td>Apariencia › HTML adicional</td><td>Banner en <em>head</em> y scripts antes de cerrar <em>body</em></td></tr>
+        <tr><td>Personalizar CSS del tema</td><td>Estilos del banner e iconos (p. ej. <code>.modtype_scorm</code>)</td></tr>
+        <tr><td>Adaptable › Barra de usuario</td><td>Se ocultan opciones innecesarias y se ajustan los ítems del menú de usuario</td></tr>
+        <tr><td>Extensiones › Editores de texto</td><td>Editor HTML priorizado</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><p>El CSS propio va en el campo de <em>personalizar CSS</em> del tema, no en el CSS de H5P.</p></div>
+  </div>
+</section>
+
+<!-- ================= 07 TROUBLESHOOTING ================= -->
+<section class="section" id="troubleshooting">
+  <div class="section__head reveal">
+    <span class="phase-tag">07 · Troubleshooting &amp; resolución</span>
+    <h2>Los fallos que encontré y cómo los resolví</h2>
+    <p>Cada incidencia está documentada con síntoma, causa, solución y verificación. Es la parte más útil para quien opere la plataforma después.</p>
+  </div>
+  <div class="card reveal">
+
+    <details class="issue" open><summary><span class="issue__n">01</span>H5P se queda en “esperando a que se cargue”</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>Las actividades H5P no terminaban de cargar en Moodle sobre Windows Server.</dd>
+        <dt>CAUSA</dt><dd>Entorno IIS/FastCGI con permisos de <code>moodledata</code> y combinación de versiones que no sostenían H5P. El plugin no era el problema.</dd>
+        <dt>SOLUCIÓN</dt><dd>Migrar a Ubuntu + Apache + PHP + MySQL, validar el entorno y solo entonces habilitar H5P.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Actividad H5P simple y luego contenido real cargando sin esperas.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">02</span>Error 500 y aviso del reproductor SCORM</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd><code>500 – Error interno del servidor</code> en actividades y aviso de “conexión inestable” en SCORM.</dd>
+        <dt>CAUSA</dt><dd>Errores del servidor que el reproductor interpreta como pérdida de conexión.</dd>
+        <dt>SOLUCIÓN</dt><dd>Revisar registros y estabilizar el stack. Con Apache y PHP corregidos desaparece el aviso.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Seguimiento de progreso guardado sin avisos.</dd>
+      </dl>
+      <div class="code"><div class="code__bar"><span class="code__label">bash</span><button class="code__copy" type="button">Copiar</button></div>
+<pre>tail -f /var/log/apache2/error.log
+sudo journalctl -xeu apache2.service
+grep -i alert /var/log/apache2/error.log</pre></div></div></details>
+
+    <details class="issue"><summary><span class="issue__n">03</span>Imágenes e iconos no cargan tras migrar</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>Los hipervínculos estaban bien, pero las imágenes e iconos no aparecían.</dd>
+        <dt>CAUSA</dt><dd><code>moodledata</code> incompleto o con permisos incorrectos, <code>$CFG-&gt;wwwroot</code> distinto al dominio real, contenido mixto HTTP/HTTPS y caché desactualizada.</dd>
+        <dt>SOLUCIÓN</dt><dd>Copiar completo <code>moodledata</code>, corregir <code>wwwroot</code> con <code>https</code>, ajustar propietario a <code>www-data</code> y purgar cachés.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Abrir la URL de una imagen directamente y revisar la consola del navegador.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">04</span>Warning: <code>theme/adaptable/db/caches.php</code></summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd><code>Failed to open stream</code> al incluir <code>caches.php</code> del tema.</dd>
+        <dt>CAUSA</dt><dd>Permisos del usuario del servidor web sobre el directorio del tema o archivos faltantes.</dd>
+        <dt>SOLUCIÓN</dt><dd>Corregir permisos y, si falta el archivo, reinstalar/actualizar Adaptable.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Recarga sin warnings con depuración activada.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">05</span>Error de base de datos y límites de PHP</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>Error de conexión a la base de datos y fallos al procesar actividades pesadas.</dd>
+        <dt>CAUSA</dt><dd>Extensión <code>pdo_mysql</code> deshabilitada y <code>memory_limit</code> de 128M insuficiente.</dd>
+        <dt>SOLUCIÓN</dt><dd>Habilitar <code>extension=pdo_mysql</code>; subir memoria a 256M y luego a 512M; fijar <code>post_max_size</code> y <code>upload_max_filesize</code> en 100M.</dd>
+        <dt>VERIFICACIÓN</dt><dd><code>php -m | grep -i pdo_mysql</code> y reinicio de Apache.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">06</span>Redirección HTTP → HTTPS y SSL en puerto 18080</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>“El fichero o directorio no existe” al configurar los sitios y el sitio no respondía por SSL en el puerto alterno.</dd>
+        <dt>CAUSA</dt><dd>Archivos de sitio sin habilitar, módulos <code>ssl</code>/<code>rewrite</code> inactivos y puerto 18080 no declarado dentro de <code>ssl_module</code>.</dd>
+        <dt>SOLUCIÓN</dt><dd>Habilitar módulos y sitios, declarar <code>Listen 18080</code> en <code>ports.conf</code> y forzar HTTPS con regla 301 en el puerto 80.</dd>
+        <dt>VERIFICACIÓN</dt><dd><code>apache2ctl configtest</code>, <code>lsof -i :18080</code> y <code>openssl s_client</code>.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">07</span>Plataforma lenta</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>Tiempos de respuesta altos en la plataforma instalada en el servidor.</dd>
+        <dt>CAUSA</dt><dd>Caché y sesiones sin optimizar, límites de PHP bajos y falta de monitoreo.</dd>
+        <dt>SOLUCIÓN</dt><dd>Ajustar PHP, purgar cachés, limpiar sesiones antiguas y monitorear con <code>top</code>, <code>free -h</code> y <code>df -h</code>.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Recursos estables bajo carga normal de usuarios.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">08</span>La alerta del login desaparecía tras redirigir</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>La alerta salía, pero al redirigir con <code>errorcode=3</code> se perdía.</dd>
+        <dt>CAUSA</dt><dd>La alerta se creaba en el envío y no después de la redirección.</dd>
+        <dt>SOLUCIÓN</dt><dd>Leer <code>errorcode</code> de la URL al cargar la página y renderizar la alerta en un contenedor bajo el formulario.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Credenciales incorrectas muestran el aviso; correctas inician sesión.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">09</span>Banner de cabecera cubría toda la pantalla</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>La cabecera tapaba la interfaz, bloqueaba la configuración y obligó a reiniciar la máquina virtual.</dd>
+        <dt>CAUSA</dt><dd>Posición absoluta con desplazamiento negativo y un <code>@media</code> escrito dentro de un <code>style</code> en línea, que no es válido.</dd>
+        <dt>SOLUCIÓN</dt><dd>Mover los estilos al CSS personalizado del tema con media queries reales y alturas adaptables.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Pruebas en escritorio y móvil sin solapamientos.</dd>
+      </dl></div></details>
+
+    <details class="issue"><summary><span class="issue__n">10</span>Importación CSV y calificación máxima</summary>
+      <div class="issue__body"><dl>
+        <dt>SÍNTOMA</dt><dd>“No hay suficientes columnas” al importar usuarios y no se podía fijar calificación máxima 10.</dd>
+        <dt>CAUSA</dt><dd>CSV con delimitador o encabezados incorrectos; categoría del libro de calificaciones con bloqueos.</dd>
+        <dt>SOLUCIÓN</dt><dd>Normalizar columnas y delimitador del CSV; quitar bloqueos o crear una categoría nueva con máximo 10.</dd>
+        <dt>VERIFICACIÓN</dt><dd>Importación completa y ponderaciones correctas.</dd>
+      </dl></div></details>
+  </div>
+</section>
+
+<!-- ================= 08 OPERACIÓN ================= -->
+<section class="section" id="operacion">
+  <div class="section__head reveal">
+    <span class="phase-tag">08 · Operación y entrega</span>
+    <h2>Entrega documentada, sin dependencia de una sola persona</h2>
+    <p>El cliente recibió un manual operativo del servidor para diagnosticar y mantener la plataforma.</p>
+  </div>
+  <div class="grid-2" style="margin-top:26px">
+    <div class="card reveal">
+      <h3>Qué incluye la entrega</h3>
+      <ul class="checklist">
+        <li>Comandos de recursos, versiones, logs y estado de servicios.</li>
+        <li>Configuración de Apache, puertos y SSL.</li>
+        <li>Acceso y validación de la base de datos.</li>
+        <li>Parámetros de PHP y permisos.</li>
+        <li>Personalización del tema y del login.</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3>Gestión de secretos</h3>
+      <p>Las credenciales no se publican ni se versionan.</p>
+      <ul>
+        <li>Se entregan por canal seguro al responsable del cliente.</li>
+        <li>Recomendado: rotar claves tras la entrega y usar un gestor de contraseñas.</li>
+        <li>Este dossier solo usa marcadores.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 RESULTADO ================= -->
+<section class="section" id="resultado">
+  <div class="section__head reveal">
+    <span class="phase-tag">09 · Caso de éxito</span>
+    <h2>Resultado e impacto</h2>
+    <p>Una plataforma recuperada, estable y lista para continuar hacia producción.</p>
+  </div>
+  <ul class="metrics reveal">
+    <li><b>Windows → Ubuntu</b><span>Migración exitosa</span></li>
+    <li><b>H5P ✓</b><span>Funcionando</span></li>
+    <li><b>80 · 443 · 18080</b><span>HTTPS configurado</span></li>
+    <li><b>10</b><span>Incidencias documentadas</span></li>
+  </ul>
+  <div class="card reveal">
+    <ul class="checklist">
+      <li>Se recuperó un proyecto con problemas de infraestructura y compatibilidad.</li>
+      <li>Se migró Moodle a un entorno Linux más estable.</li>
+      <li>Se habilitó H5P, que no era compatible con la arquitectura anterior.</li>
+      <li>La plataforma quedó preparada para producción con una infraestructura más robusta.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>Lección:</strong> el principal riesgo no era Moodle, sino la ausencia de una arquitectura preparada para soportar continuidad operativa, respaldos y compatibilidad tecnológica.</p>
+      <p>La tecnología rara vez falla por una sola aplicación. Con frecuencia, el problema está en las decisiones de arquitectura que la sostienen.</p>
+    </div>
+    <h3>Stack</h3>
+    <ul class="stack"><li>Ubuntu Server 22.04</li><li>Apache 2</li><li>PHP 8.1</li><li>MySQL</li><li>Moodle 4.4</li><li>Tema Adaptable</li><li>H5P</li><li>SCORM</li><li>SSL / HSTS</li></ul>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta reveal">
+  <h2>¿Tu plataforma falla y no sabes por dónde empezar?</h2>
+  <p>Identifico dónde está la causa real y estructuro un sistema que convierta el problema en resultados medibles.</p>
+  <div class="cta__row">
+    <a class="btn btn--primary" href="mailto:anfelirod86@hotmail.com">Escríbeme</a>
+    <a class="btn" href="https://lnkd.in/p/ePDQ2n2V" target="_blank" rel="noopener">Publicación en LinkedIn</a>
+    <a class="btn" href="../../">Ver portafolio</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>Andrés Felipe Rodríguez Barbosa · Dirección + Estrategia + Arquitectura + IA</span>
+  <span>Dossier técnico · Moodle · Petroworks</span>
+</footer>
+
+</main>
+<script src="dossier.js"></script>
+</body>
+</html>
