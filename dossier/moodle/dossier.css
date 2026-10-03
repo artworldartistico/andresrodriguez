@@ -645,3 +645,150 @@
     .card, .code, .table-wrap { border-color: #ccc; background: #fff; }
     .card p, .card li, td { color: #222; }
   }
+
+/* ==========================================================================
+   Header dinámico y adaptable (transiciones 0.5s ease all)
+   Se añade al final: no modifica el resto de estilos del dossier.
+   ========================================================================== */
+
+.topbar { transition: all 0.5s ease; }
+.topbar__inner { transition: all 0.5s ease; }
+.topbar.is-stuck {
+  background: rgba(11, 14, 23, 0.94);
+  box-shadow: 0 14px 32px -22px rgba(0, 0, 0, 0.9);
+}
+.topbar.is-stuck .topbar__inner { padding-top: 9px; padding-bottom: 9px; }
+
+.brand { white-space: nowrap; transition: all 0.5s ease; }
+.brand:hover { transform: translateX(3px); color: #fff; }
+.brand__dot { transition: all 0.5s ease; animation: brand-pulse 2.6s ease-in-out infinite; }
+@keyframes brand-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--violet-dim); }
+  50%      { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0.05); }
+}
+
+/* Botones: elevación, brillo que cruza y entrada escalonada */
+.btn {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.5s ease;
+  animation: btn-in 0.5s ease backwards;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: all 0.5s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(139, 92, 246, 0.75); }
+.btn:hover::after { transform: translateX(120%); }
+.btn:active { transform: translateY(0) scale(0.97); }
+.btn--ghost:hover { background: var(--violet-dim); }
+
+.topbar__actions .btn:nth-child(1) { animation-delay: 0.05s; }
+.topbar__actions .btn:nth-child(2) { animation-delay: 0.10s; }
+.topbar__actions .btn:nth-child(3) { animation-delay: 0.15s; }
+.topbar__actions .btn:nth-child(4) { animation-delay: 0.20s; }
+.topbar__actions .btn:nth-child(5) { animation-delay: 0.25s; }
+@keyframes btn-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Botón hamburguesa (oculto en escritorio) */
+.topbar__toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--card);
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.topbar__toggle:hover { border-color: var(--violet-line); background: var(--violet-dim); }
+.topbar__toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text-2);
+  transition: all 0.5s ease;
+}
+.topbar.is-open .topbar__toggle { border-color: var(--violet-line); }
+.topbar.is-open .topbar__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--violet-soft); }
+.topbar.is-open .topbar__toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.topbar.is-open .topbar__toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--violet-soft); }
+
+/* Tablet y móvil: menú desplegable */
+@media (max-width: 900px) {
+  .topbar__toggle { display: inline-flex; }
+
+  .topbar__actions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 0 22px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    background: rgba(11, 14, 23, 0.97);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s ease;
+  }
+  .topbar.is-open .topbar__actions {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    padding: 14px 22px 22px;
+    border-bottom-color: var(--line);
+  }
+
+  /* Anula el ocultamiento antiguo de los botones secundarios en móvil */
+  .topbar .topbar__actions .btn--ghost { display: inline-flex; }
+
+  .topbar__actions .btn {
+    justify-content: center;
+    padding: 13px 18px;
+    font-size: 15px;
+    animation: none;
+  }
+  .topbar.is-open .topbar__actions .btn { animation: btn-drop 0.5s ease backwards; }
+  .topbar.is-open .topbar__actions .btn:nth-child(1) { animation-delay: 0.05s; }
+  .topbar.is-open .topbar__actions .btn:nth-child(2) { animation-delay: 0.10s; }
+  .topbar.is-open .topbar__actions .btn:nth-child(3) { animation-delay: 0.15s; }
+  .topbar.is-open .topbar__actions .btn:nth-child(4) { animation-delay: 0.20s; }
+  .topbar.is-open .topbar__actions .btn:nth-child(5) { animation-delay: 0.25s; }
+}
+@keyframes btn-drop {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 400px) {
+  .brand span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand__dot, .btn, .topbar.is-open .topbar__actions .btn { animation: none; }
+  .btn::after { display: none; }
+}
