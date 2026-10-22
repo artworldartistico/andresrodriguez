@@ -340,6 +340,28 @@ const PROJECTS = [
         industria: "Manufactura",
         anio: 2023,
         duracion: "01:17"
+    },
+   {
+        id: 16,
+        titulo: "Reel UGC @jheralhuertas",
+        cliente: "Jheraldin Huertas",
+        categoria: "Reels",
+        formato: "Reels para Instagram",
+        tipoProduccion: "Híbrida",
+        tecnologias: [
+            "CapCut",
+        ],
+        fuente: {
+            tipo: "MP4",
+            url: "https://andisystem.github.io/users-data/reel-alkosto.mp4"
+        },
+        thumbnail: "",
+        descripcion: "Edición y montaje de un reel UGC para una creadora de contenido, a partir de un guion proporcionado por la cliente. Se trabajó el ritmo audiovisual, la secuencia de escenas y la integración de recursos visuales mediante CapCut, adaptando la pieza al formato vertical para redes sociales.",
+        objetivos: "Comunicar de forma dinámica y cercana la participación en un sorteo, reforzando la confianza en el mensaje e incentivando el interés y la interacción de la audiencia mediante un formato UGC.",
+        resultado: "Pieza audiovisual de 29 segundos, editada y optimizada para redes sociales, con un enfoque ágil y cercano orientado a captar la atención, comunicar la dinámica del sorteo y fomentar la interacción con la audiencia.",
+        industria: "Marca Personal",
+        anio: 2026,
+        duracion: "00:29"
     }
 ];
 
